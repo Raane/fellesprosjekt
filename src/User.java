@@ -26,7 +26,7 @@ public class User {
 		this.name = name;
 	}
 	
-	//Burde metoden skrive ut beskjed om at passord er endret, eller skal dette håndteres av server?
+	//Burde metoden skrive ut beskjed om at passord er endret, eller skal dette håndteres av server??
 	public void changePassword(String oldPassword, String newPassword, String newPassword2){
 		if(oldPassword.equals(this.password) && newPassword.equals(newPassword2)) this.password = newPassword;
 		//return "Passord endret";

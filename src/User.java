@@ -6,6 +6,7 @@ public class User {
 	private final String USERNAME;
 	private String password;
 	public String name;
+	
 	public ArrayList<Event> events;	//ArrayList that contains all the events this user is linked to
 	public ArrayList<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
 	

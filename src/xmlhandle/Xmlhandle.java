@@ -314,7 +314,7 @@ public class Xmlhandle {
         }
 		return userList;
 	}
-	public String extractUsername() {
+	public static String extractUserID(String msg) {
 		return null;
 		//TODO make this!
 	}
@@ -322,7 +322,7 @@ public class Xmlhandle {
 		return null;
 		//TODO make this!
 	}
-	public String getUsernameForSending() {
+	public String getUserIDForSending() {
 		return null;
 		//TODO make this!
 	}

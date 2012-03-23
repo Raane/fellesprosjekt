@@ -32,7 +32,7 @@ public class Connection {
     is = new DataInputStream(mySocket.getInputStream());
         
     stop = false;
-    System.out.println("Connection established!");
+//    System.out.println("Connection established!");
   }
 
   public void connect(InetAddress remoteAddress, int remotePort) throws IOException, SocketTimeoutException {
@@ -51,10 +51,10 @@ public class Connection {
     throws IOException, SocketTimeoutException {
 		
     ServerSocket myServerSocket = new ServerSocket(myPort);
-    System.out.println("ServerSocket is listening at: " +myServerSocket.getLocalPort() );
+//    System.out.println("ServerSocket is listening at: " +myServerSocket.getLocalPort() );
     mySocket = myServerSocket.accept();
-    System.out.println("Received connection at: " +myServerSocket.getLocalPort() );
-    System.out.println("New connection issued at port "+mySocket.getLocalPort());
+//    System.out.println("Received connection at: " +myServerSocket.getLocalPort() );
+//    System.out.println("New connection issued at port "+mySocket.getLocalPort());
     myServerSocket.close();
 
     return new Connection(mySocket, myPort);
@@ -67,7 +67,7 @@ public class Connection {
   public String receive() throws ConnectException, IOException {
     while (!stop) {
       String msg  = is.readUTF();
-      System.out.println("Received the text: "+ msg);
+//      System.out.println("Received the text: "+ msg);
       return msg;
     }
     throw new IOException("Can't receive. The connection is not established!");

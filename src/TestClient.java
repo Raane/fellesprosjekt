@@ -14,6 +14,6 @@ public class TestClient implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Listener at client side: " + e.getActionCommand());
+		System.out.println("Received: " + e.getActionCommand());
 	}
 }

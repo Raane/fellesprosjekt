@@ -40,7 +40,7 @@ public class Client {
 	            	try {
 						msg = connection.receive();
 						for (ActionListener listener : actionListeners) {
-							System.out.println("listeren triggered");
+//							System.out.println("listeren triggered");
 							listener.actionPerformed(new ActionEvent(this, 0, msg)); //This is not nice, but whatever ^^
 						}
 					} catch (ConnectException e) {

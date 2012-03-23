@@ -1,5 +1,7 @@
 package xmlhandle;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,7 +25,11 @@ import dbhandle.User;
 
 public class Xmlhandle {
 	
-	public Document stringToXML(String string) throws DocumentException {
+	private ActionListener listener;
+	private String msg;
+	private String username;
+	
+	public static Document stringToXML(String string) throws DocumentException {
 		return DocumentHelper.parseText(string);
 	}
 	
@@ -311,5 +317,27 @@ public class Xmlhandle {
         }
 		return userList;
 	}
-
+	public static int extractUserID(String xml) throws DocumentException {
+		
+		Document document = stringToXML(xml);
+		Element root = document.getRootElement();
+		
+		Element owner = root.element("owner");
+		return Integer.valueOf(owner.attributeValue("owner_ID"));	
+	}
+	
+	public void addListener(ActionListener listener) {
+		this.listener = listener;
+	}
+	private void send(String msg, String username) {
+		this.msg = msg;
+		this.username = username;
+		listener.actionPerformed(new ActionEvent(this, 0, "sendingmsg"));
+	}
+	public String getUsernameForSending() {
+		return username;
+	}
+	public String getMsgForSending() {
+		return msg;
+	}
 }

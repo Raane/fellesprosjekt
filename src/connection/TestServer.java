@@ -27,7 +27,9 @@ public class TestServer implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Received: " + e.getActionCommand());
+		if(e.getSource()==server) {
+			System.out.println("Received: " + e.getActionCommand());
+		}
 //		String msg = handler.getMsgForSending();
 //		String username = handler.getUsernameForSending();
 	}

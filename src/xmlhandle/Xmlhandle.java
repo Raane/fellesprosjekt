@@ -1,5 +1,6 @@
 package xmlhandle;
 
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,6 +23,8 @@ import dbhandle.Status;
 import dbhandle.User;
 
 public class Xmlhandle {
+	
+	private ActionListener listener;
 	
 	public Document stringToXML(String string) throws DocumentException {
 		return DocumentHelper.parseText(string);
@@ -311,5 +314,19 @@ public class Xmlhandle {
         }
 		return userList;
 	}
-
+	public String extractUsername() {
+		return null;
+		//TODO make this!
+	}
+	public String getMsgForSending() {
+		return null;
+		//TODO make this!
+	}
+	public String getUsernameForSending() {
+		return null;
+		//TODO make this!
+	}
+	public void addListener(ActionListener listener) {
+		this.listener = listener;
+	}
 }

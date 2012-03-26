@@ -1,60 +1,49 @@
 package connection;
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.EOFException;
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
-public class Server {
-	private int temp = -1;
-	private int myPort = 4444;
-	private ArrayList<ActiveUser> activeUsers = new ArrayList<ActiveUser>();
-	private ArrayList<ActionListener> actionListeners = new ArrayList<ActionListener>();
+
+
+
+
+
+/*
+ * This is just testcode, nothing of significant importance
+ */
+
+
+
+
+
+
+public class Server implements ActionListener{
+	ServerConnection serverConnection;
+	
+	public static void main(String[] args){
+		Server testServer = new Server();
+	}
 	
 	public Server() {
-		Thread newConnectionListener = new Thread() {
-	        public void run() {
-	            while (true) {
-	            	Connection connectionReceiver = new Connection(myPort);
-	           		Connection receivedConnection;
-					try {
-						receivedConnection = connectionReceiver.accept();
-						activeUsers.add(new ActiveUser("name", receivedConnection, Server.this));
-					} catch (SocketTimeoutException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-	            }
-	        }
-	    };
-	    newConnectionListener.start();
-	}
-	
-	public void broadcast(String msg) {
-//		System.out.println("number og activeUsers: " + activeUsers.size());
-		for(ActiveUser activeUser:activeUsers) {
-			activeUser.send(msg);
+		serverConnection = new ServerConnection();
+		serverConnection.addReceiveListener(this);
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
-	}
-	
-	public void send(String msg, ActiveUser destination) {
-		destination.send(msg);
-	}
-	public void addReceiveListener(ActionListener listener) {
-		actionListeners.add(listener);
+		 //Sender til alle
+		serverConnection.broadcast("Test msg from server to client");
+		//Sender til den første clienten som connectet
+		serverConnection.send("Test msg from server to the first client started", serverConnection.getActiveUsers().get(0));
 	}
 
-	public ArrayList<ActiveUser> getActiveUsers() {
-		return activeUsers;
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==serverConnection) {
+			System.out.println("Received: " + e.getActionCommand());
+		}
+//		String msg = handler.getMsgForSending();
+//		String username = handler.getUsernameForSending();
 	}
-
-	public ArrayList<ActionListener> getActionListeners() {
-		return actionListeners;
-	}
-	
 }

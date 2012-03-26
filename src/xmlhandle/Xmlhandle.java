@@ -134,7 +134,7 @@ public class Xmlhandle {
 	}	
 	
 	//Sender methods
-	public Document createLoginRequest(String username, String password) {
+	private Document createLoginRequest(String username, String password) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.LOGIN.toString());
@@ -148,13 +148,13 @@ public class Xmlhandle {
 	}
 	
 	//Needed??
-	public Document createLogoutRequest() {
+	private Document createLogoutRequest() {
 		
 		return null;
 	}
 	
 	//This will run on the client side. This can probably user the User class?
-	public Document createAddNewMeetingRequest(List<User> userList, Event event, int meetingRoomID) {
+	private Document createAddNewMeetingRequest(List<User> userList, Event event, int meetingRoomID) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.CREATE_MEETING.toString());
@@ -185,7 +185,7 @@ public class Xmlhandle {
 	}
 	
 	//TODO: Change it to only include the changes?
-	public Document createEditMeetingRequest(Event eventToEdit, int meetingID) {
+	private Document createEditMeetingRequest(Event eventToEdit, int meetingID) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_MEETING.toString());
@@ -204,7 +204,7 @@ public class Xmlhandle {
 		
 	}
 	
-	public Document createAddUserRequest(User newUser) {
+	private Document createAddUserRequest(User newUser) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.CREATE_USER.toString());
@@ -218,7 +218,7 @@ public class Xmlhandle {
 		return document;
 	}
 	
-	public Document createEditNameOfUserRequest(String newName) {
+	private Document createEditNameOfUserRequest(String newName) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_NAME_OF_USER.toString());
@@ -229,7 +229,7 @@ public class Xmlhandle {
 		return document;
 	}
 	
-	public Document createEditUserPasswordRequest(int ownerID, String oldPassword, String newPassword) {
+	private Document createEditUserPasswordRequest(int ownerID, String oldPassword, String newPassword) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_USER_PASSWORD.toString());
@@ -244,7 +244,7 @@ public class Xmlhandle {
 		return document;
 	}
 	
-	public Document createEditEventRequest(Event eventToEdit) {
+	private Document createEditEventRequest(Event eventToEdit) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_MEETING.toString());
@@ -317,7 +317,7 @@ public class Xmlhandle {
         }
 		return userList;
 	}
-	public static int extractUserID(String xml) throws DocumentException {
+	public static int extractUserID(String xml) throws DocumentException, ParseException, NumberFormatException, SQLException, DocumentException {
 		
 		Document document = stringToXML(xml);
 		Element root = document.getRootElement();

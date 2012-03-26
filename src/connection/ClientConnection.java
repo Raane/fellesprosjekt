@@ -1,6 +1,5 @@
 package connection;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -11,13 +10,11 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 public class ClientConnection {
 	private int myPort = 5555;
 	private int remotePort = 4444;
 	private String addressToServer = "localhost";
-	private ArrayList<ActionListener> actionListeners = new ArrayList<ActionListener>();
-	
+	private ArrayList<ActionListener> actionListeners = new ArrayList<ActionListener>();	
 	private Connection connection = new Connection(myPort);
 	
 	public ClientConnection() {

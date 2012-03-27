@@ -37,12 +37,6 @@ public class Server implements ActionListener{
 			System.out.println("Received at serverConnection: " + e.getActionCommand());
 			serverConnectionAction((ActiveUser) e.getSource(), e.getActionCommand());
 		}
-		
-		/*if(e.getSource().) {
-			System.out.println("Received at activeUser: " + e.getActionCommand());
-			//serverConnectionAction((ServerConnection) e.getSource(), e.getActionCommand());
-		}*/
-		
 		if(e.getSource()==xmlHandle) {
 			xmlHandleAction((Xmlhandle) e.getSource());
 		}

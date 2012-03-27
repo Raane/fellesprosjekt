@@ -3,7 +3,6 @@ package gui;
 @SuppressWarnings("serial")
 public class GUI extends javax.swing.JFrame {
 
-    /** Creates new form GUI */
     public GUI() {
         initComponents();
     }
@@ -102,11 +101,11 @@ public class GUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kalender Schmalender");
-        setName("GUIFrame"); // NOI18N
+        setName("GUIFrame");
 
         tabbedPane.setPreferredSize(new java.awt.Dimension(400, 146));
 
-        agendaLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        agendaLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         agendaLabel.setText("Agenda");
 
         agendaPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -124,7 +123,7 @@ public class GUI extends javax.swing.JFrame {
 
         agendaScrollPane.setViewportView(agendaPanel);
 
-        showHideCalendarsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        showHideCalendarsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         showHideCalendarsLabel.setText("Vis/skjul kalendere");
 
         showHideCalendarsPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -175,26 +174,26 @@ public class GUI extends javax.swing.JFrame {
 
         NewEventPanel.setPreferredSize(new java.awt.Dimension(360, 740));
 
-        newEventLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        newEventLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         newEventLabel.setText("Ny avtale");
 
-        subjectLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        subjectLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         subjectLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         subjectLabel.setText("Emne");
 
-        startLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        startLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         startLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         startLabel.setText("Start");
 
-        endLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        endLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         endLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         endLabel.setText("Slutt");
 
-        descriptionLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        descriptionLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         descriptionLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         descriptionLabel.setText("Beskrivelse");
 
-        meetingRoomLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        meetingRoomLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         meetingRoomLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         meetingRoomLabel.setText("Møterom");
 
@@ -204,13 +203,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        endDateLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10)); // NOI18N
+        endDateLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10));
         endDateLabel.setText("Dato");
 
-        endTimeLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10)); // NOI18N
+        endTimeLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10));
         endTimeLabel.setText("Klokkeslett");
 
-        startTimeLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10)); // NOI18N
+        startTimeLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10));
         startTimeLabel.setText("Klokkeslett");
 
         startDateTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -219,7 +218,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        startDateLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10)); // NOI18N
+        startDateLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10));
         startDateLabel.setText("Dato");
 
         titleLabel.addActionListener(new java.awt.event.ActionListener() {
@@ -235,7 +234,7 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        PersonsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        PersonsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         PersonsLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         PersonsLabel.setText("Personer");
 
@@ -430,10 +429,10 @@ public class GUI extends javax.swing.JFrame {
 
         AdminPanel.setPreferredSize(new java.awt.Dimension(360, 744));
 
-        personalInfoLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        personalInfoLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         personalInfoLabel.setText("Personlig informasjon");
 
-        newNameLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        newNameLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         newNameLabel.setText("Navn");
 
         newNameButton.setText("Endre");
@@ -443,16 +442,16 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        changePasswordLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        changePasswordLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         changePasswordLabel.setText("Sett nytt passord");
 
-        oldPasswordLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        oldPasswordLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         oldPasswordLabel.setText("Gammelt passord");
 
-        newPasswordLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        newPasswordLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         newPasswordLabel.setText("Nytt passord");
 
-        repeatPasswordLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        repeatPasswordLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         repeatPasswordLabel.setText("Gjenta passord");
 
         repeatPasswordTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -468,10 +467,10 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        addRemoveCalendarsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        addRemoveCalendarsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         addRemoveCalendarsLabel.setText("Legg til / fjern kalendere");
 
-        availableCalendarsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        availableCalendarsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         availableCalendarsLabel.setText("Tilgjengelige kalendere");
 
         userCalendarsPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -512,7 +511,7 @@ public class GUI extends javax.swing.JFrame {
 
         availableCalendarsScrollPane.setViewportView(availableCalendarsPanel);
 
-        jLabel27.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        jLabel27.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         jLabel27.setText("Dine kalendere");
 
         userCalendarsSearchField.setText("Søk");
@@ -626,28 +625,28 @@ public class GUI extends javax.swing.JFrame {
 
         notificationsPanel.setPreferredSize(new java.awt.Dimension(360, 744));
 
-        notificationHeader1.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
+        notificationHeader1.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         notificationHeader1.setText("Overskrift");
 
-        notificationTimeLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        notificationTimeLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         notificationTimeLabel1.setText("Klokkeslett");
 
-        notificationDateLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        notificationDateLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         notificationDateLabel1.setText("Dato");
 
-        notificationTimeTextField1.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        notificationTimeTextField1.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         notificationTimeTextField1.setText("14.00-17.00");
 
-        notificationDateTextField1.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        notificationDateTextField1.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         notificationDateTextField1.setText("20.03.2012");
 
-        notificationMeetingRoomLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        notificationMeetingRoomLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         notificationMeetingRoomLabel1.setText("Møterom");
 
-        notificationMeetingRoom1.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        notificationMeetingRoom1.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         notificationMeetingRoom1.setText("R201");
 
-        notificationDescriptionLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 13)); // NOI18N
+        notificationDescriptionLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 13));
         notificationDescriptionLabel1.setText("Beskrivelse");
 
         notificationDescriptionTextArea1.setColumns(20);
@@ -744,7 +743,7 @@ public class GUI extends javax.swing.JFrame {
 
         tabbedPane.addTab("Meldinger", notificationsScrollPane);
 
-        weekLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 24)); // NOI18N
+        weekLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 24));
         weekLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         weekLabel.setText("Uke 12 - 2012");
 
@@ -808,92 +807,58 @@ public class GUI extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void previousWeekButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousWeekButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_previousWeekButtonActionPerformed
-
-    private void nextWeekButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextWeekButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nextWeekButtonActionPerformed
-
-    private void endDateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_endDateTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_endDateTextFieldActionPerformed
-
-    private void startDateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startDateTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_startDateTextFieldActionPerformed
-
-    private void titleLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_titleLabelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_titleLabelActionPerformed
-
-    private void meetingRoomTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meetingRoomTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_meetingRoomTextFieldActionPerformed
-
-    private void personsTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personsTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_personsTextFieldActionPerformed
-
-    private void newNameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newNameButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newNameButtonActionPerformed
-
-    private void repeatPasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_repeatPasswordTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_repeatPasswordTextFieldActionPerformed
-
-    private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_changePasswordButtonActionPerformed
-
-    private void availableCalendarsSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_availableCalendarsSearchFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_availableCalendarsSearchFieldActionPerformed
-
-    private void notificationDenyButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notificationDenyButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_notificationDenyButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-
-            public void run() {
-                new GUI().setVisible(true);
-            }
-        });
     }
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+
+    private void previousWeekButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void nextWeekButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void endDateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void startDateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void titleLabelActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void meetingRoomTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void personsTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void newNameButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void repeatPasswordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void availableCalendarsSearchFieldActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+    private void notificationDenyButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
+  
+    // Variables declaration - do not modify
     private javax.swing.JPanel AdminPanel;
     private javax.swing.JPanel NewEventPanel;
     private javax.swing.JLabel PersonsLabel;
@@ -983,5 +948,5 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane userCalendarsScrollPane;
     private javax.swing.JTextField userCalendarsSearchField;
     private javax.swing.JLabel weekLabel;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration
 }

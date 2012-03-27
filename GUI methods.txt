@@ -1,0 +1,21 @@
+gui.addListener(ActionListener); void //legger til listeneren
+gui.setAgenda(ArrayList<Event>); void //velger hva som skal vises i agendaen
+gui.addCalendar(User); void //legger til en kalender i listen over kalendere som kan vises
+gui.removeCalendar(User); void
+gui.getActiveCalendars(); ArrayList<User>  //henter ut hvilke kalendere som er valgt
+
+//Disse gjelder alle for instillingertaben
+gui.getNewEvent(); Event 
+gui.getNewName(); String
+gui.getOldPassword(); String
+gui.getNewPassword(); String
+gui.getRepetedNewPasword(); String
+gui.getYourCalendarsSearch(); String
+gui.getAvailableCalendarsSearch(); String
+gui.getYourCalendars(); ArrayList<User>  //Henter de kalenderene som er velgbare
+gui.getAvaliableCalendars(); ArrayList<User> //Henter de kalenderene som er velgbare
+gui.setYourCalendars(ArrayList<User>); //setter hvilke kalendere som kan velges
+gui.setAvaliableCalendars(ArrayList<User>); //setter hvilke kalendere som kan velges
+
+gui.setMessanges(ArrayList<Event>); void
+

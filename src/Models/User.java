@@ -1,5 +1,6 @@
 package Models;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 public class User {
@@ -40,7 +41,7 @@ public class User {
 		return newEvent;
 	}
 	
-	public Event createEvent(Date start){			//The "Date start" is the date clicked in the callendar
+	public Event createEvent(Timestamp start){			//The "Date start" is the date clicked in the calendar
 		Event newEvent = new Event(this, start);
 		return newEvent;
 	}

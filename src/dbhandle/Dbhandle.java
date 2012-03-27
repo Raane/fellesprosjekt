@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Properties;
 
 import org.dom4j.Document;
@@ -60,11 +61,11 @@ public class Dbhandle {
 	
 	//Adds a new meeting to the database
 	//TODO: How do you add an entity without any values?
-	public int addMeeting() throws SQLException{
-		String update = String.format("");
+	public int addMeeting(String name) throws SQLException{
+		String update = String.format("INSERT INTO meeting (name) VALUES('%s')", name);
 		this.dbUpdate(update);
 		
-		String query = String.format("SELECT * FROM meeting ORDER BY message_ID DESC");
+		String query = String.format("SELECT * FROM meeting ORDER BY meeting_ID DESC");
 		ResultSet rs = dbQuery(query);
 		
 		if (rs.next()) {
@@ -76,8 +77,8 @@ public class Dbhandle {
 	
 	//Adds a new event to the database
 	public int addEvent(Event event) throws SQLException{
-		String update = String.format("INSERT INTO user (start,end,location,description,status) VALUES('%s','%s','%s','%s','%s')", 
-				event.getStart(), event.getEnd(), event.getLocation() ,event.getDescription(), event.getStatus());
+		String update = String.format("INSERT INTO event (start,end,location,description,status) VALUES('%s','%s','%s','%s','%s')", 
+				event.getStart(), event.getEnd(), event.getLocation() ,event.getDescription(), event.getStatus().toString());
 		this.dbUpdate(update);
 		
 		String query = String.format("SELECT * FROM event ORDER BY event_ID DESC");
@@ -148,7 +149,7 @@ public User fetchUser(int user_ID) {
 	
 	//Fetches the event identified by event_ID from the database
 	public Event fetchEvent(int event_ID) {
-		int id = 0; Date start = null; Date end = null; String location = null; String description = null; Status status = null;
+		int id = 0; Timestamp start = null; Timestamp end = null; String location = null; String description = null; Status status = null;
 		
 		String query = String.format("SELECT * FROM event WHERE event_ID='%d'", event_ID);
 		ResultSet rs = this.dbQuery(query);
@@ -156,8 +157,8 @@ public User fetchUser(int user_ID) {
 		try {
 			rs.next();
 			id = rs.getInt("event_ID");
-			start = rs.getDate("start");
-			end = rs.getDate("end");
+			start = new Timestamp(rs.getDate("start").getTime());
+			end = new Timestamp(rs.getDate("end").getTime());
 			location = rs.getString("location");
 			description = rs.getString("description");
 			status = Status.valueOf(rs.getString("status"));
@@ -176,7 +177,7 @@ public User fetchUser(int user_ID) {
 	//Fetches all the events that belongs to the given username and returns an array containing them
 	public List<Event> fetchUserEvents(String username) throws SQLException {
 		
-		int id = 0; Date start = null; Date end = null; String location = null; String description = null; Status status = null;
+		int id = 0; Timestamp start = null; Timestamp end = null; String location = null; String description = null; Status status = null;
 		
 		List<Event> eventList = new ArrayList<Event>();
 		
@@ -187,8 +188,8 @@ public User fetchUser(int user_ID) {
 		
 		while(rs.next()) {
 			id = rs.getInt("event_ID");
-			start = rs.getDate("start");
-			end = rs.getDate("end");
+			start = new Timestamp(rs.getDate("start").getTime());
+			end = new Timestamp(rs.getDate("end").getTime());
 			location = rs.getString("location");
 			description = rs.getString("description");
 			status = Status.valueOf(rs.getString("status"));
@@ -207,13 +208,15 @@ public User fetchUser(int user_ID) {
 		
 		ResultSet rs = this.dbQuery(query);
 		
-		rs.next();
-		user_ID = rs.getInt("user_ID");
-		username = rs.getString("username");
-		password = rs.getString("password");
-		name = rs.getString("name");
+		if (rs.next()) {
+			user_ID = rs.getInt("user_ID");
+			username = rs.getString("username");
+			password = rs.getString("password");
+			name = rs.getString("name");
+			return new User(user_ID, username, password, name);
+		}
 		
-		return new User(user_ID, username, password, name);
+		return null;
 	}
 	
 	//Fetches all the meetings the given user is a leader of
@@ -242,9 +245,16 @@ public User fetchUser(int user_ID) {
 	}
 	
 	//Fetches the owner of the event
-	public User fetchEventOwner(int event_ID) {
+	public int fetchEventOwnerID(int event_ID) throws SQLException {
 		
-		return null;
+		String query = String.format("SELECT * FROM user_event WHERE event_ID='%d'",event_ID);
+		ResultSet rs = this.dbQuery(query);
+		
+		if (rs.next()) {
+			return rs.getInt("user_ID");
+		} else {
+			return -1;
+		}
 	}
 	
 	//Fetches the meeting the given event is part of
@@ -264,7 +274,7 @@ public User fetchUser(int user_ID) {
 		
 		String update = String.format("UPDATE event SET start='%s',end='%s',location='%s',description='%s',status='%s' WHERE event_ID='%d'",
 				event.getStart(), event.getEnd(), event.getLocation(),event.getDescription(),event.getStatus(),event.getEvent_ID());
-		
+				
 		this.dbUpdate(update);
 	}
 	

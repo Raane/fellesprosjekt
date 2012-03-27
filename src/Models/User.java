@@ -54,6 +54,9 @@ public class User {
 	}
 	
 	public void importCalendar(User user){
-		this.importedCalendars.add(user);
+		importedCalendars.add(user);
+	}
+	public void removeCalendar(User user) {
+		importedCalendars.remove(user);
 	}
 }

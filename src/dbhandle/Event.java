@@ -1,5 +1,6 @@
 package dbhandle;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Event {
@@ -8,8 +9,8 @@ public class Event {
 	//The event_ID value -1 means that the database has not assigned the event an ID or the ID is unknown.
 	
 	private int event_ID;
-	private Date start;
-	private Date end;
+	private Timestamp start;
+	private Timestamp end;
 	private String location;
 	private String description;
 	private Status status;
@@ -19,7 +20,7 @@ public class Event {
 	private MeetingRoom meetingRoom;
 	private Meeting meeting;
 	
-	public Event(int event_ID, Date start, Date end, String location, String description, Status status ) {
+	public Event(int event_ID, Timestamp start, Timestamp end, String location, String description, Status status ) {
 		this.event_ID = event_ID;
 		this.start = start;
 		this.end = end;
@@ -28,7 +29,7 @@ public class Event {
 		this.status = status;
 	}
 	
-	public Event(Date start, Date end, String location, String description, Status status) {
+	public Event(Timestamp start, Timestamp end, String location, String description, Status status) {
 		this.start = start;
 		this.end = end;
 		this.location = location;
@@ -49,7 +50,7 @@ public class Event {
 		return start;
 	}
 
-	public void setStart(Date start) {
+	public void setStart(Timestamp start) {
 		this.start = start;
 	}
 
@@ -57,7 +58,7 @@ public class Event {
 		return end;
 	}
 
-	public void setEnd(Date end) {
+	public void setEnd(Timestamp end) {
 		this.end = end;
 	}
 

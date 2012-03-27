@@ -10,12 +10,12 @@ public class ActiveUser {
         public String name;
         private RecieveThread recieveThread;
         private Connection activeUsersConnection;
-        private Server server;
+        private ServerConnection server;
 
-        public ActiveUser(String name, Connection activeUsersConnection, Server server) {
+        public ActiveUser(String name, Connection activeUsersConnection, ServerConnection serverConnection) {
             this.name = name;
             this.activeUsersConnection = activeUsersConnection;
-            this.server = server;
+            this.server = serverConnection;
             recieveThread = new RecieveThread();
             recieveThread.start();
         }

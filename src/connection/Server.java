@@ -1,60 +1,70 @@
 package connection;
-
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.EOFException;
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
-public class Server {
-	private int temp = -1;
-	private int myPort = 4444;
-	private ArrayList<ActiveUser> activeUsers = new ArrayList<ActiveUser>();
-	private ArrayList<ActionListener> actionListeners = new ArrayList<ActionListener>();
+import org.dom4j.DocumentException;
+
+import xmlhandle.Xmlhandle;
+
+import com.sun.net.ssl.internal.www.protocol.https.Handler;
+
+public class Server implements ActionListener{
+	ServerConnection serverConnection;
 	
-	public Server() {
-		Thread newConnectionListener = new Thread() {
-	        public void run() {
-	            while (true) {
-	            	Connection connectionReceiver = new Connection(myPort);
-	           		Connection receivedConnection;
-					try {
-						receivedConnection = connectionReceiver.accept();
-						activeUsers.add(new ActiveUser("name", receivedConnection, Server.this));
-					} catch (SocketTimeoutException e) {
-						e.printStackTrace();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-	            }
-	        }
-	    };
-	    newConnectionListener.start();
+	public static void main(String[] args){
+		Server testServer = new Server();
 	}
 	
-	public void broadcast(String msg) {
-//		System.out.println("number og activeUsers: " + activeUsers.size());
-		for(ActiveUser activeUser:activeUsers) {
-			activeUser.send(msg);
+	public Server() {
+		serverConnection = new ServerConnection();
+		serverConnection.addReceiveListener(this);
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		 //Sender til alle
+		serverConnection.broadcast("Test msg from server to client");
+		//Sender til den første clienten som connectet
+		serverConnection.send("Test msg from server to the first client started", serverConnection.getActiveUsers().get(0));
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource().getClass()==ServerConnection.class) {
+			System.out.println("Received: " + e.getActionCommand());
+			serverConnectionAction((ServerConnection) e.getSource(), e.getActionCommand());
+		}
+		if(e.getSource().getClass()==Xmlhandle.class) {
+			xmlHandleAction((Xmlhandle) e.getSource());
 		}
 	}
 	
-	public void send(String msg, ActiveUser destination) {
-		destination.send(msg);
-	}
-	public void addReceiveListener(ActionListener listener) {
-		actionListeners.add(listener);
-	}
-
-	public ArrayList<ActiveUser> getActiveUsers() {
-		return activeUsers;
-	}
-
-	public ArrayList<ActionListener> getActionListeners() {
-		return actionListeners;
+	private void serverConnectionAction(ServerConnection serverConnection, String msg) {
+		
 	}
 	
+	private void xmlHandleAction(Xmlhandle xmlHandler) {
+		Xmlhandle xmlHande = new Xmlhandle();
+		String msg = xmlHande.getMsgForSending();
+		String username = xmlHande.getUsernameForSending();
+		try {
+			xmlHande.performMessageInstructions(Xmlhandle.stringToXML(msg));
+		} catch (NumberFormatException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (DocumentException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 }

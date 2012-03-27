@@ -150,6 +150,7 @@ public class Xmlhandle {
 	
 	//This will run on the client side. This can probably user the User class? -- tested and should be working
 	public Document createAddMeetingRequest(List<Integer> userList, Event event, int meetingRoomID, String meetingName, String username) {
+	//This will run on the client side. This can probably user the User class?
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.CREATE_MEETING.toString());
@@ -188,7 +189,6 @@ public class Xmlhandle {
 	
 	//TODO: Change it to only include the changes?
 	public Document createEditMeetingRequest(Event eventChanges, int meetingID, String username) {
-		
 		//Here eventChanges includes the original events ID aswell as all the changes
 		
 		Document document = DocumentHelper.createDocument();
@@ -335,8 +335,7 @@ public class Xmlhandle {
         }
 		return userList;
 	}
-	public static String extractUsername(String xml) throws DocumentException {
-		
+	public static String extractUsername(String xml) throws DocumentException {		
 		Document document = stringToXML(xml);
 		Element root = document.getRootElement();
 		

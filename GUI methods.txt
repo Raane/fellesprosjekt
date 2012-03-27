@@ -1,7 +1,7 @@
 gui.addListener(ActionListener); void //legger til listeneren
-gui.setAgenda(ArrayList<Event>); void //velger hva som skal vises i agendaen
+gui.setAgenda(ArrayList<Event>); void //velger hva som skal vises i agendaen (Laget en metode for å sortere listen med Events)
 gui.addCalendar(User); void //legger til en kalender i listen over kalendere som kan vises
-gui.removeCalendar(User); void
+gui.removeCalendar(User); void //fjerner en kalender i listen over kalendere som kan vises
 gui.getActiveCalendars(); ArrayList<User>  //henter ut hvilke kalendere som er valgt
 
 //Disse gjelder alle for instillingertaben

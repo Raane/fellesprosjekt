@@ -19,7 +19,9 @@ public class Dashboard extends JPanel {
     private javax.swing.JPanel showHideCalendarsPanel;
     private javax.swing.JScrollPane showHideCalendarsScrollPane;
     
+    //Method for seting the agenda
     public void setAgenda(ArrayList<Event> list){
+    	//Sorts the ArrayList of Events
     	Collections.sort(list, new TimeComparator());
     	
     }

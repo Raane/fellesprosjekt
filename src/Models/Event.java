@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 
-public class Event {
+public class Event{
 
 	public int eventID = -1;
 	public Timestamp startTime;
@@ -92,4 +92,5 @@ public class Event {
 	public String toString(){
 		return this.startTime.toString() + this.title;
 	}
+
 }

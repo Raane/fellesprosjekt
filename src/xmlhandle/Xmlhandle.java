@@ -35,6 +35,7 @@ public class Xmlhandle {
 		
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
+		boolean opSuccess = false;
 		
 		Element ownerElement = root.element("owner");
 		if (ownerElement != null) {
@@ -48,11 +49,10 @@ public class Xmlhandle {
 			
 			System.out.println("LOGIN");
 			
-			Element loginCandidate = root.element("login_candidate");
-			String username = loginCandidate.attributeValue("username");
+			Element loginCandidate = root.element("login_attempt");
 			String password = loginCandidate.attributeValue("password");
 						
-			actionToPerform.loginSuccess(username, password);
+			opSuccess = actionToPerform.loginSuccess(ownerUsername, password);
 			
 		} else if (action == MessageAction.LOGOUT) {
 			
@@ -81,7 +81,7 @@ public class Xmlhandle {
 			}
 			
 			//Perform the action
-			actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
+			opSuccess = actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
 			
 		} else if (action == MessageAction.EDIT_MEETING) {
 			
@@ -92,19 +92,19 @@ public class Xmlhandle {
 			Element meetingElement = root.element("meeting");
 			meetingID = Integer.valueOf(meetingElement.attributeValue("meeting_ID"));
 			
-			actionToPerform.editMeeting(eventChanges, meetingID);
+			opSuccess = actionToPerform.editMeeting(eventChanges, meetingID);
 			
 		} else if (action == MessageAction.CREATE_USER) {
 			
 			User newUser = XMLtoUser(root);
-			actionToPerform.createUser(newUser);
+			opSuccess = actionToPerform.createUser(newUser);
 			
 		} else if (action == MessageAction.EDIT_NAME_OF_USER) {
 			
 			Element changeName = root.element("change_name");
 			String newName = changeName.attributeValue("new_name");
 			
-			actionToPerform.editNameOfUser(newName);
+			opSuccess = actionToPerform.editNameOfUser(newName);
 			
 		} else if (action == MessageAction.EDIT_USER_PASSWORD) {
 			
@@ -112,19 +112,27 @@ public class Xmlhandle {
 			String oldPassword = changePassword.attributeValue("old_password");
 			String newPassword = changePassword.attributeValue("new_password");
 			
-			actionToPerform.editUserPassword(oldPassword, newPassword);
+			opSuccess = actionToPerform.editUserPassword(oldPassword, newPassword);
 			
 		} else if (action == MessageAction.EDIT_EVENT) {
 			
 			Event eventToEdit = XMLtoEvent(root);
-			actionToPerform.editEvent(eventToEdit);
+			opSuccess = actionToPerform.editEvent(eventToEdit);
 			
 		} else if (action == MessageAction.FETCH) {
 			//This method will do a lot of stuff, maybe make it into a class instead?
 			
 		} else if (action == MessageAction.DELETE) {
 			
-		}		
+		}
+		
+			Document document = DocumentHelper.createDocument();
+			Element replyRoot = document.addElement(action.toString());
+			
+			replyRoot.addElement("message_response")
+			.addAttribute("result", String.valueOf(opSuccess));
+			
+			send(document.asXML(), ownerUsername);
 				
 	}	
 	
@@ -133,9 +141,11 @@ public class Xmlhandle {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.LOGIN.toString());
+		
+		root.addElement("owner")
+		.addAttribute("owner_username",username);
 				
-		root.addElement("login_candidate")
-		.addAttribute("username", username)
+		root.addElement("login_attempt")
 		.addAttribute("password", password);
 		
 		return document;
@@ -340,7 +350,7 @@ public class Xmlhandle {
 		Element root = document.getRootElement();
 		
 		Element owner = root.element("owner");
-		return null;	
+		return owner.attributeValue("owner_username");
 	}
 	
 	public void addListener(ActionListener listener) {

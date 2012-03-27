@@ -1,6 +1,13 @@
 package gui;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 import javax.swing.JPanel;
+
+import Models.Event;
+import Models.User;
 
 @SuppressWarnings("serial")
 public class Dashboard extends JPanel {
@@ -12,6 +19,17 @@ public class Dashboard extends JPanel {
 	private javax.swing.JLabel showHideCalendarsLabel;
     private javax.swing.JPanel showHideCalendarsPanel;
     private javax.swing.JScrollPane showHideCalendarsScrollPane;
+    
+    //Method for seting the agenda
+    public void setAgenda(ArrayList<Event> list){
+    	//Sorts the ArrayList of Events
+    	Collections.sort(list, new TimeComparator());
+    	
+    }
+    
+    public ArrayList<User> getActiveCalendars(){
+    	for(int i = 0; i < showHideCalendarsPanel)
+    }
 	
     public Dashboard() {
     	

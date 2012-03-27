@@ -23,7 +23,7 @@ public class ServerConnection {
 	           		Connection receivedConnection;
 					try {
 						receivedConnection = connectionReceiver.accept();
-						activeUsers.add(new ActiveUser("name", receivedConnection, ServerConnection.this));
+						activeUsers.add(new ActiveUser(null, receivedConnection, ServerConnection.this));
 					} catch (SocketTimeoutException e) {
 						e.printStackTrace();
 					} catch (IOException e) {

@@ -7,13 +7,13 @@ import java.net.ConnectException;
 
 
 public class ActiveUser {
-        public String name;
+        public String username;
         private RecieveThread recieveThread;
         private Connection activeUsersConnection;
         private ServerConnection server;
 
-        public ActiveUser(String name, Connection activeUsersConnection, ServerConnection serverConnection) {
-            this.name = name;
+        public ActiveUser(String username, Connection activeUsersConnection, ServerConnection serverConnection) {
+            this.username = username;
             this.activeUsersConnection = activeUsersConnection;
             this.server = serverConnection;
             recieveThread = new RecieveThread();
@@ -53,4 +53,10 @@ public class ActiveUser {
             } catch (IOException e) {
             }
         }
+        public String getUsername() {
+			return username;
+		}
+        public void setUsername(String username) {
+			this.username = username;
+		}
     }

@@ -21,14 +21,12 @@ public class GUI extends javax.swing.JFrame {
         previousWeekButton = new javax.swing.JButton();
         nextWeekButton = new javax.swing.JButton();
         calendarScrollPane = new javax.swing.JScrollPane();
-        calendarPanel = new javax.swing.JPanel();
+        calendarPanel = new Calendar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kalender Schmalender");
-        setName("GUIFrame");
 
         tabbedPane.setPreferredSize(new java.awt.Dimension(400, 146));
-
         tabbedPane.addTab("Dashboard", dashboardPanel);
 
         newEventScrollPane.setBorder(null);
@@ -38,17 +36,12 @@ public class GUI extends javax.swing.JFrame {
 
         adminScrollPane.setBorder(null);
         AdminPanel.setPreferredSize(new java.awt.Dimension(360, 744));
-
         adminScrollPane.setViewportView(AdminPanel);
-
         tabbedPane.addTab("Innstillinger", adminScrollPane);
 
         notificationsScrollPane.setBorder(null);
-
         notificationsPanel.setPreferredSize(new java.awt.Dimension(360, 744));
-
         notificationsScrollPane.setViewportView(notificationsPanel);
-
         tabbedPane.addTab("Meldinger", notificationsScrollPane);
 
         weekLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 24));
@@ -56,19 +49,7 @@ public class GUI extends javax.swing.JFrame {
         weekLabel.setText("Uke 12 - 2012");
 
         previousWeekButton.setText("Uke 11");
-
         nextWeekButton.setText("Uke 13");
-
-        javax.swing.GroupLayout calendarPanelLayout = new javax.swing.GroupLayout(calendarPanel);
-        calendarPanel.setLayout(calendarPanelLayout);
-        calendarPanelLayout.setHorizontalGroup(
-            calendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 806, Short.MAX_VALUE)
-        );
-        calendarPanelLayout.setVerticalGroup(
-            calendarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 729, Short.MAX_VALUE)
-        );
 
         calendarScrollPane.setViewportView(calendarPanel);
 
@@ -103,11 +84,10 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
         pack();
     }
 
-    // Variables declaration - do not modify
+    // Variables declaration
     private javax.swing.JPanel AdminPanel;
     private javax.swing.JPanel NewEventPanel;
     private javax.swing.JScrollPane adminScrollPane;

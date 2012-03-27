@@ -35,6 +35,7 @@ public class Xmlhandle {
 		
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
+		Document fetchData = null;
 		boolean opSuccess = false;
 		
 		Element ownerElement = root.element("owner");
@@ -120,11 +121,13 @@ public class Xmlhandle {
 			opSuccess = actionToPerform.editEvent(eventToEdit);
 			
 		} else if (action == MessageAction.FETCH) {
-			//This method will do a lot of stuff, maybe make it into a class instead?
+			//This is an operation intended for when the user wants to fetch information from the database
 			
-		} else if (action == MessageAction.DELETE) {
-			
+			FetchHandle handleFetch = new FetchHandle(xml);
+			fetchData = handleFetch.performFetch();
 		}
+		
+			if (fetchData == null) {
 		
 			Document document = DocumentHelper.createDocument();
 			Element replyRoot = document.addElement(action.toString());
@@ -132,7 +135,12 @@ public class Xmlhandle {
 			replyRoot.addElement("message_response")
 			.addAttribute("result", String.valueOf(opSuccess));
 			
-			send(document.asXML(), ownerUsername);
+			serverSend(document.asXML(), ownerUsername);
+			
+			} else {
+				serverSend(fetchData.asXML(), ownerUsername);
+			}
+			
 				
 	}	
 	
@@ -159,15 +167,15 @@ public class Xmlhandle {
 	}
 	
 	//This will run on the client side. This can probably user the User class? -- tested and should be working
-	public Document createAddMeetingRequest(List<Integer> userList, Event event, int meetingRoomID, String meetingName, String username) {
+	public Document createAddMeetingRequest(List<Integer> userList, Event event, int meetingRoomID, String meetingName, String requestedBy) {
 	//This will run on the client side. This can probably user the User class?
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.CREATE_MEETING.toString());
 		
-		//Adds the user_ID and the username of the owner
+		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",username);
+		.addAttribute("owner_username",requestedBy);
 		
 		//The users to be added
 		for (int userID : userList) {
@@ -198,15 +206,15 @@ public class Xmlhandle {
 	}
 	
 	//TODO: Change it to only include the changes?
-	public Document createEditMeetingRequest(Event eventChanges, int meetingID, String username) {
+	public Document createEditMeetingRequest(Event eventChanges, int meetingID, String requestedBy) {
 		//Here eventChanges includes the original events ID aswell as all the changes
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_MEETING.toString());
 		
-		//Adds the user_ID and the username of the owner
+		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username", username);
+		.addAttribute("owner_username", requestedBy);
 		
 		root.addElement("event")
 		.addAttribute("event_ID", String.valueOf(eventChanges.getEvent_ID()))
@@ -223,14 +231,14 @@ public class Xmlhandle {
 		
 	}
 	
-	public Document createAddUserRequest(User newUser, String username) {
+	public Document createAddUserRequest(User newUser, String requestedBy) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.CREATE_USER.toString());
 		
-		//Adds the user_ID and the username of the owner
+		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",username);
+		.addAttribute("owner_username",requestedBy);
 		
 		root.addElement("user")
 		.addAttribute("username", newUser.getUsername())
@@ -240,14 +248,14 @@ public class Xmlhandle {
 		return document;
 	}
 	
-	public Document createEditNameOfUserRequest(String newName, String username) {
+	public Document createEditNameOfUserRequest(String newName, String requestedBy) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_NAME_OF_USER.toString());
 		
-		//Adds the user_ID and the username of the owner
+		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",username);
+		.addAttribute("owner_username",requestedBy);
 		
 		root.addElement("change_name")
 		.addAttribute("new_name", newName);
@@ -255,13 +263,13 @@ public class Xmlhandle {
 		return document;
 	}
 	
-	public Document createEditUserPasswordRequest(String oldPassword, String newPassword, String username) {
+	public Document createEditUserPasswordRequest(String oldPassword, String newPassword, String requestedBy) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_USER_PASSWORD.toString());
 		
 		root.addElement("owner")
-		.addAttribute("owner_username", username);
+		.addAttribute("owner_username", requestedBy);
 		
 		root.addElement("change_password")
 		.addAttribute("old_password", oldPassword)
@@ -270,14 +278,14 @@ public class Xmlhandle {
 		return document;
 	}
 	
-	public Document createEditEventRequest(Event eventChanges, String username) {
+	public Document createEditEventRequest(Event eventChanges, String requestedBy) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_EVENT.toString());
 		
 		//Adds the user_ID and the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",username);
+		.addAttribute("owner_username",requestedBy);
 		
 		root.addElement("event")
 		.addAttribute("event_ID", String.valueOf(eventChanges.getEvent_ID()))
@@ -290,7 +298,27 @@ public class Xmlhandle {
 		return document;
 	}
 	
-	//Any other methods needed?
+	//Fetch requests
+	
+	public Document fetchUser(String username, String requestedBy) {
+		
+		return null;
+	}
+	
+	public Document fetchMeeting(int meetingID, String requestedBy) {
+		
+		return null;
+	}
+	
+	public Document fetchEvent(int eventID, String requestedBy) {
+		
+		return null;
+	}
+	
+	public Document fetchAllUsers() {
+		
+		return null;
+	}
 	
 	//Helper methods
 	private Timestamp StringToDate(String string) throws ParseException {
@@ -356,11 +384,17 @@ public class Xmlhandle {
 	public void addListener(ActionListener listener) {
 		this.listener = listener;
 	}
-	private void send(String msg, String username) {
+	private void serverSend(String msg, String username) {
 		this.msg = msg;
 		this.username = username;
 		listener.actionPerformed(new ActionEvent(this, 0, "sendingmsg"));
 	}
+	
+	private void clientSend(String msg) {
+		this.msg = msg;
+		listener.actionPerformed(new ActionEvent(this, 0, "sendingmsg"));
+	}
+	
 	public String getUsernameForSending() {
 		return username;
 	}

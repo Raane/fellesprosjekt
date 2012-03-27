@@ -25,6 +25,18 @@ public class Event{
 		this.startTime = start;
 	}
 	
+	//Constructor for when a user is summoned to a meeting
+	Event(int eventID, User owner, String title, Timestamp start, Timestamp end, String location, String agenda){
+		this.eventID = eventID;
+		this.owner = owner;
+		this.title = title;
+		this.startTime = start;
+		this.endTime = end;
+		this.location = location;
+		this.agenda = agenda;
+		owner.events.add(this);
+	}
+	
 	//Getters and setters
 	
 	public Timestamp getStartTime(){
@@ -91,6 +103,10 @@ public class Event{
 		
 	public String toString(){
 		return this.startTime.toString() + this.title;
+	}
+	
+	public User getOwner(){
+		return this.owner;
 	}
 
 }

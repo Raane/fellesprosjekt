@@ -7,6 +7,7 @@ import java.util.Collections;
 import javax.swing.JPanel;
 
 import Models.Event;
+import Models.User;
 
 @SuppressWarnings("serial")
 public class Dashboard extends JPanel {
@@ -24,6 +25,10 @@ public class Dashboard extends JPanel {
     	//Sorts the ArrayList of Events
     	Collections.sort(list, new TimeComparator());
     	
+    }
+    
+    public ArrayList<User> getActiveCalendars(){
+    	for(int i = 0; i < showHideCalendarsPanel)
     }
 	
     public Dashboard() {

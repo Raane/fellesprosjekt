@@ -22,8 +22,12 @@ public class Xmlaction {
 	public Xmlaction(String ownerUsername) {
 		
 		this.ownerUsername = ownerUsername;
-		this.ownerID = new Dbhandle().fetchUser(ownerUsername).getUserID();
 		
+		if (ownerUsername != null) {
+		this.ownerID = new Dbhandle().fetchUser(ownerUsername).getUserID();
+		} else {
+			ownerUsername = "";
+		}
 	}
 	
 	//Tested and should be working
@@ -82,14 +86,14 @@ public class Xmlaction {
 	}
 	
 	//Tested and should be working
-	public void createUser(User newUser) throws SQLException {
+	public boolean createUser(User newUser) throws SQLException {
 		//Expected input: The information of the new user
 		
 		Dbhandle handle = new Dbhandle();
 		handle.addUser(newUser);
 		
 		//Success message?
-		
+		return true;
 	}
 	
 	//Tested and should be working
@@ -116,10 +120,12 @@ public class Xmlaction {
 	}
 	
 	//Tested and should be working
-	public void editNameOfUser(String newName) throws SQLException {
+	public boolean editNameOfUser(String newName) throws SQLException {
 	
 		Dbhandle handle = new Dbhandle();
 		handle.updateNameOfUser(ownerID, newName);
+		
+		return true;
 		
 	}
 	

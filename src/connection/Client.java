@@ -81,6 +81,7 @@ public class Client implements ActionListener{
 	}
 	public void meetingAcceptAction(Meeting meeting) {
 		//trykker godta på et møte
+		
 	}
 	public void meetingDeclineAction(Meeting meeting) {
 		//trykker avslå på et møte

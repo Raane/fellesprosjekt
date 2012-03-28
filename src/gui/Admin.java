@@ -5,7 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
+
+import Models.User;
 
 @SuppressWarnings("serial")
 public class Admin extends JPanel{
@@ -14,6 +18,59 @@ public class Admin extends JPanel{
 //	private String testnavn = "Test";
 //	private String testpass = "Password";
 //	private JFrame f = new JFrame();
+	
+	
+	/*
+	 * 
+	 * Ligger allerede metoder for dette i User-klassen, men du mente kanskje at de heller burde være her Rune?
+	 * 
+	//Gets a list of the calendars (users) that the clicking user has already imported.
+	public ArrayList<User> getYourCalendars(User user){
+		return user.importedCalendars;
+	}
+	
+	//Adds the calendar (user) of "owner" in the list of imported calendars (users) for the user "viewer".
+	public void addCalendar(User viewer, User owner){
+		if(viewer.importedCalendars.contains(owner));
+		else viewer.importedCalendars.add(owner);
+	}
+	
+	//Removes the calendar (user) of "owner" from the list of imported calendars (users) for the user "viewer".
+	public void removeCalendar(User viewer, User owner){
+		if(!viewer.importedCalendars.contains(owner));
+		else viewer.importedCalendars.remove(owner);
+	}
+	*/
+	
+	//Method for getting the text typed in the text-field for changing names.
+	public String getNewName(){
+		return newNameTextField.getText();
+	}
+	
+	//Method for getting the text typed in the text-field for the old password.
+	public String getOldPassword(){
+		return oldPasswordTextField.getText();
+	}
+	
+	//Method for getting the text typed in the text-field for the new password.
+	public String getNewPassword(){
+		return newPasswordTextField.getText();
+	}
+	
+	//Method for getting the text typed in the text-field for repetition of new password.
+	public String getRepeatedNewPasword(){
+		return repeatPasswordTextField.getText();
+	}
+	
+	//Method for getting the text in the text-field for searching for calendars the user has already imported.
+	public String getYourCalendarsSearch(){
+		return userCalendarsSearchField.getText();
+	}
+	
+	//Method for getting the text in the text-field for searching for calendars the user has the option to import.
+	public String getAvailableCalendarsSearch(){
+		return availableCalendarsSearchField.getText();
+	}
 	
 	public Admin() {
 		

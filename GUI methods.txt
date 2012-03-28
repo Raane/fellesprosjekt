@@ -1,18 +1,18 @@
 gui.addListener(ActionListener); void //legger til listeneren
-gui.setAgenda(ArrayList<Event>); void //velger hva som skal vises i agendaen
-gui.addCalendar(User); void //legger til en kalender i listen over kalendere som kan vises
-gui.removeCalendar(User); void
-gui.getActiveCalendars(); ArrayList<User>  //henter ut hvilke kalendere som er valgt
+gui.setAgenda(ArrayList<Event>); void //velger hva som skal vises i agendaen			(Laget en metode for � sortere listen med Events)
+gui.addCalendar(User); void //legger til en kalender i listen over kalendere som kan vises (Gjort)
+gui.removeCalendar(User); void //fjerner en kalender i listen over kalendere som kan vises (Gjort)
+gui.getActiveCalendars(); ArrayList<User>  //henter ut hvilke kalendere som er valgt	(Begynt)
 
 //Disse gjelder alle for instillingertaben
 gui.getNewEvent(); Event 
-gui.getNewName(); String
-gui.getOldPassword(); String
-gui.getNewPassword(); String
-gui.getRepetedNewPasword(); String
-gui.getYourCalendarsSearch(); String
-gui.getAvailableCalendarsSearch(); String
-gui.getYourCalendars(); ArrayList<User>  //Henter de kalenderene som er velgbare
+gui.getNewName(); String	(Gjort)
+gui.getOldPassword(); String	(Gjort)
+gui.getNewPassword(); String	(Gjort)
+gui.getRepetedNewPasword(); String	(Gjort)
+gui.getYourCalendarsSearch(); String	(Gjort)
+gui.getAvailableCalendarsSearch(); String	(Gjort)
+gui.getYourCalendars(); ArrayList<User>  //Henter de kalenderene som er velgbare		(Gjort)
 gui.getAvaliableCalendars(); ArrayList<User> //Henter de kalenderene som er velgbare
 gui.setYourCalendars(ArrayList<User>); //setter hvilke kalendere som kan velges
 gui.setAvaliableCalendars(ArrayList<User>); //setter hvilke kalendere som kan velges

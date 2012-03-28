@@ -34,7 +34,7 @@ public class Event{
 		this.endTime = end;
 		this.location = location;
 		this.agenda = agenda;
-		owner.events.add(this);
+		owner.getEvents().add(this);
 	}
 	
 	//Getters and setters

@@ -64,19 +64,19 @@ public class Admin extends JPanel{
 	
 	//Gets a list of the calendars (users) that the clicking user has already imported.
 	public ArrayList<User> getYourCalendars(User user){
-		return user.importedCalendars;
+		return user.getImportedCalendars();
 	}
 	
 	//Adds the calendar (user) of "owner" in the list of imported calendars (users) for the user "viewer".
 	public void addCalendar(User viewer, User owner){
-		if(viewer.importedCalendars.contains(owner));
-		else viewer.importedCalendars.add(owner);
+		if(viewer.getImportedCalendars().contains(owner));
+		else viewer.getImportedCalendars().add(owner);
 	}
 	
 	//Removes the calendar (user) of "owner" from the list of imported calendars (users) for the user "viewer".
 	public void removeCalendar(User viewer, User owner){
-		if(!viewer.importedCalendars.contains(owner));
-		else viewer.importedCalendars.remove(owner);
+		if(!viewer.getImportedCalendars().contains(owner));
+		else viewer.getImportedCalendars().remove(owner);
 	}
 	
 	//Method for getting the text typed in the text-field for changing names.

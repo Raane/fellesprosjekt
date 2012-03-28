@@ -7,6 +7,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import org.dom4j.DocumentException;
+
+import Models.Meeting;
 import Models.User;
 import xmlhandle.Xmlhandle;
 
@@ -17,6 +19,7 @@ public class Client implements ActionListener{
 	public ArrayList<dbhandle.User> allUsers;
 	public ArrayList<User> myUsers;
 	public ArrayList<Meetingroom> meetingrooms;
+	private int currentWeek;
 	
 	public static void main(String[] args) {
 		Client client = new Client();
@@ -42,8 +45,60 @@ public class Client implements ActionListener{
 	public void changeNameButtonAction() {
 		
 	}
+	public void changePasswordButtonAction() {
+		
+	}
+	public void yourCalendarsSearchAction() {
+		
+	}
+	public void yourCalendarsAction() {
+		
+	}
+	public void availableCalendarsSearchAction() {
+		
+	}
+	public void avaliableCalendarsAction() {
+		
+	}
+	public void meetingAcceptAction(Meeting meeting) {
+		
+	}
+	public void meetingDeclineAction(Meeting meeting) {
+		
+	}
+	public void nextWeekButtonAction() {
+		
+	}
+	public void lastWeekButtonAction() {
+		
+	}
+	private void updateFields() {
+		updateCalendar();
+		updateDashboard();
+		updateNewEvent();
+		updateMessages();
+	}
 	
-	
+	private void updateCalendar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void updateDashboard() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void updateNewEvent() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void updateMessages() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {	
 		System.out.println(e.getSource().getClass());

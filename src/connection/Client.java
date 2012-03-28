@@ -23,6 +23,8 @@ public class Client implements ActionListener{
 		clientConnection.send("Test msg from client to server");
 	}
 	
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {	
 		if((e.getSource()).getClass()==ClientConnection.class) {
@@ -50,13 +52,5 @@ public class Client implements ActionListener{
 	
 	private void xmlHandleAction(Xmlhandle xmlHandle) {
 		clientConnection.send(xmlHandle.getMsgForSending());
-		/*String msg = xmlHandle.getMsgForSending();
-		String username = xmlHandle.getUsernameForSending();
-		ArrayList<ActiveUser> userlist = serverConnection.getActiveUsers();
-		for(ActiveUser user:userlist) {
-			if(user.getUsername()==username){
-				user.send(msg);
-			}
-		}*/
 	}
 }

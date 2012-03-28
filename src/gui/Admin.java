@@ -3,11 +3,15 @@ package gui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.GroupLayout;
 
 import Models.User;
 
@@ -97,7 +101,7 @@ public class Admin extends JPanel{
         
         //Password button
         changePasswordButton = new javax.swing.JButton();
-//        changePasswordButton.addActionListener(this);
+        changePasswordButton.addActionListener(new changePasswordAction());
         
         addRemoveCalendarsLabel = new javax.swing.JLabel();
         addRemoveCalendarsSeparator = new javax.swing.JSeparator();
@@ -109,7 +113,9 @@ public class Admin extends JPanel{
         availableCalendarsPanel = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
         userCalendarsLabel = new javax.swing.JLabel();
+        
         userCalendarsSearchField = new javax.swing.JTextField();
+        userCalendarsSearchField.addMouseListener(mouseUserSearchClick());
         availableCalendarsSearchField = new javax.swing.JTextField();
 		
         personalInfoLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
@@ -144,14 +150,14 @@ public class Admin extends JPanel{
 
         jLabel28.setText("jLabel28");
 
-        javax.swing.GroupLayout userCalendarsPanelLayout = new javax.swing.GroupLayout(userCalendarsPanel);
+        GroupLayout userCalendarsPanelLayout = new GroupLayout(userCalendarsPanel);
         userCalendarsPanel.setLayout(userCalendarsPanelLayout);
         userCalendarsPanelLayout.setHorizontalGroup(
-            userCalendarsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+            userCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel28, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
         );
         userCalendarsPanelLayout.setVerticalGroup(
-            userCalendarsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            userCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(userCalendarsPanelLayout.createSequentialGroup()
                 .addComponent(jLabel28)
                 .addContainerGap(212, Short.MAX_VALUE))
@@ -163,14 +169,14 @@ public class Admin extends JPanel{
 
         jLabel29.setText("jLabel29");
 
-        javax.swing.GroupLayout availableCalendarsPanelLayout = new javax.swing.GroupLayout(availableCalendarsPanel);
+        GroupLayout availableCalendarsPanelLayout = new GroupLayout(availableCalendarsPanel);
         availableCalendarsPanel.setLayout(availableCalendarsPanelLayout);
         availableCalendarsPanelLayout.setHorizontalGroup(
-            availableCalendarsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+            availableCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel29, GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
         );
         availableCalendarsPanelLayout.setVerticalGroup(
-            availableCalendarsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            availableCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(availableCalendarsPanelLayout.createSequentialGroup()
                 .addComponent(jLabel29)
                 .addContainerGap(212, Short.MAX_VALUE))
@@ -186,110 +192,125 @@ public class Admin extends JPanel{
         availableCalendarsSearchField.setText("Søk");
 
 
-        javax.swing.GroupLayout AdminPanelLayout = new javax.swing.GroupLayout(this);
+        GroupLayout AdminPanelLayout = new GroupLayout(this);
         this.setLayout(AdminPanelLayout);
         AdminPanelLayout.setHorizontalGroup(
-            AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(personalInfoSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(personalInfoSeparator, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                     .addComponent(personalInfoLabel)
                     .addGroup(AdminPanelLayout.createSequentialGroup()
                         .addComponent(newNameLabel)
                         .addGap(18, 18, 18)
-                        .addComponent(newNameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
+                        .addComponent(newNameTextField, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
                     .addComponent(changePasswordLabel)
-                    .addComponent(changePasswordSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                    .addComponent(changePasswordSeparator, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                     .addComponent(changePasswordButton)
                     .addComponent(addRemoveCalendarsLabel)
-                    .addComponent(addRemoveCalendarsSeparator, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                    .addComponent(addRemoveCalendarsSeparator, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
                     .addGroup(AdminPanelLayout.createSequentialGroup()
-                        .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(newPasswordLabel)
                             .addComponent(repeatPasswordLabel)
                             .addComponent(oldPasswordLabel))
                         .addGap(9, 9, 9)
-                        .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(oldPasswordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                            .addComponent(newPasswordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                            .addComponent(repeatPasswordTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
+                        .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(oldPasswordTextField, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                            .addComponent(newPasswordTextField, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                            .addComponent(repeatPasswordTextField, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
                     .addComponent(newNameButton)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
+                    .addGroup(GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
                         .addComponent(userCalendarsLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                         .addComponent(availableCalendarsLabel)
                         .addGap(23, 23, 23))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
-                        .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(userCalendarsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(userCalendarsSearchField, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                    .addGroup(GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
+                        .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                            .addComponent(userCalendarsScrollPane, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                            .addComponent(userCalendarsSearchField, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(availableCalendarsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(availableCalendarsSearchField, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))))
+                        .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(availableCalendarsScrollPane, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(availableCalendarsSearchField, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         AdminPanelLayout.setVerticalGroup(
-            AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(personalInfoLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(personalInfoSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(personalInfoSeparator, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(newNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(newNameTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(newNameLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(newNameButton)
                 .addGap(16, 16, 16)
                 .addComponent(changePasswordLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(changePasswordSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(changePasswordSeparator, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(oldPasswordLabel)
-                    .addComponent(oldPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(oldPasswordTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(newPasswordLabel)
-                    .addComponent(newPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(newPasswordTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(repeatPasswordLabel)
-                    .addComponent(repeatPasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(repeatPasswordTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(changePasswordButton)
                 .addGap(18, 18, 18)
                 .addComponent(addRemoveCalendarsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addRemoveCalendarsSeparator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addRemoveCalendarsSeparator, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addComponent(availableCalendarsLabel)
                     .addComponent(userCalendarsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userCalendarsSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(availableCalendarsSearchField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(userCalendarsSearchField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(availableCalendarsSearchField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
-                .addGroup(AdminPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(userCalendarsScrollPane, 0, 0, Short.MAX_VALUE)
-                    .addComponent(availableCalendarsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
+                    .addComponent(availableCalendarsScrollPane, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
+	}
+
+	private MouseAdapter mouseUserSearchClick() {
+		return new MouseAdapter(){
+        	public void mouseClicked(MouseEvent e){
+        		if(userCalendarsSearchField.getText().equals("Søk")){
+        			userCalendarsSearchField.setText("");
+        		}
+        	}
+        };
 	}
 	
 
 	class newNameAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String newName = newNameTextField.getText();
-			//TODO resten
+			System.out.println("name");
 			System.out.println(newName);
 			
 		}
-		
+	}
+	
+	class changePasswordAction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			
+		}
 	}
 	
 	

@@ -36,78 +36,56 @@ public class Admin extends JPanel{
     private JSeparator personalInfoSeparator;
     private JButton newNameButton;
     private JLabel newNameLabel;
-    private JTextField newNameTextField;
+    private static JTextField newNameTextField;
     
     private JLabel changePasswordLabel;
     private JSeparator changePasswordSeparator;
     private JLabel newPasswordLabel;
-    private JPasswordField newPasswordTextField;
+    private static JPasswordField newPasswordTextField;
     private JLabel oldPasswordLabel;
-    private JPasswordField oldPasswordTextField;
+    private static JPasswordField oldPasswordTextField;
     private JLabel repeatPasswordLabel;
-    private JPasswordField repeatPasswordTextField;
+    private static JPasswordField repeatPasswordTextField;
     private JButton changePasswordButton;
     
-    private JLabel addRemoveCalendarsLabel;
+    public static JTextField getNewNameTextField() {
+		return newNameTextField;
+	}
+
+	public static JPasswordField getNewPasswordTextField() {
+		return newPasswordTextField;
+	}
+
+	public static JPasswordField getOldPasswordTextField() {
+		return oldPasswordTextField;
+	}
+
+	public static JPasswordField getRepeatPasswordTextField() {
+		return repeatPasswordTextField;
+	}
+
+	private JLabel addRemoveCalendarsLabel;
     private JSeparator addRemoveCalendarsSeparator;
     private JPanel userCalendarsPanel;
     private JLabel userCalendarsLabel;
     private JScrollPane userCalendarsScrollPane;
-    private JTextField userCalendarsSearchField;
-    private JLabel jLabel28;
+    private static JTextField userCalendarsSearchField;
+    
+    public static JTextField getUserCalendarsSearchField() {
+		return userCalendarsSearchField;
+	}
+
+	private JLabel jLabel28;
     private JLabel availableCalendarsLabel;
     private JPanel availableCalendarsPanel;
     private JScrollPane availableCalendarsScrollPane;
-    private JTextField availableCalendarsSearchField;
-    private JLabel jLabel29;
+    private static JTextField availableCalendarsSearchField;
+    
+    public static JTextField getAvailableCalendarsSearchField() {
+		return availableCalendarsSearchField;
+	}
 
-	
-	//Gets a list of the calendars (users) that the clicking user has already imported.
-	public ArrayList<User> getYourCalendars(User user){
-		return user.getImportedCalendars();
-	}
-	
-	//Adds the calendar (user) of "owner" in the list of imported calendars (users) for the user "viewer".
-	public void addCalendar(User viewer, User owner){
-		if(viewer.getImportedCalendars().contains(owner));
-		else viewer.getImportedCalendars().add(owner);
-	}
-	
-	//Removes the calendar (user) of "owner" from the list of imported calendars (users) for the user "viewer".
-	public void removeCalendar(User viewer, User owner){
-		if(!viewer.getImportedCalendars().contains(owner));
-		else viewer.getImportedCalendars().remove(owner);
-	}
-	
-	//Method for getting the text typed in the text-field for changing names.
-	public String getNewName(){
-		return newNameTextField.getText();
-	}
-	
-	//Method for getting the text typed in the text-field for the old password.
-	public String getOldPassword(){
-		return oldPasswordTextField.getText();
-	}
-	
-	//Method for getting the text typed in the text-field for the new password.
-	public String getNewPassword(){
-		return newPasswordTextField.getText();
-	}
-	
-	//Method for getting the text typed in the text-field for repetition of new password.
-	public String getRepeatedNewPasword(){
-		return repeatPasswordTextField.getText();
-	}
-	
-	//Method for getting the text in the text-field for searching for calendars the user has already imported.
-	public String getYourCalendarsSearch(){
-		return userCalendarsSearchField.getText();
-	}
-	
-	//Method for getting the text in the text-field for searching for calendars the user has the option to import.
-	public String getAvailableCalendarsSearch(){
-		return availableCalendarsSearchField.getText();
-	}
+	private JLabel jLabel29;
 	
 	public Admin() {
 				

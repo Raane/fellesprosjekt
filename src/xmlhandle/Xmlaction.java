@@ -23,6 +23,7 @@ public class Xmlaction {
 	
 	private String ownerUsername;
 	private int ownerID;
+	private List<User> broadcastTo;
 	
 	public Xmlaction(String ownerUsername) {
 		
@@ -63,7 +64,7 @@ public class Xmlaction {
 		}
 		
 		//Login success! Send the information the user needs
-		root.addElement("login_reponse")
+		root.addElement("login_response")
 		.addAttribute("reponse", "Success");
 		
 		//List of owners personal events
@@ -81,6 +82,8 @@ public class Xmlaction {
 		List<User> allUsers = handle.fetchAllUsers();
 		
 		//Anything else?
+		
+		////// RESPONSE //////
 		
 		//Create the document
 		
@@ -134,14 +137,8 @@ public class Xmlaction {
 		return document;
 	}
 	
-	//Needed? Probably best handled with a FIN 
-	public boolean logoutSuccess() {
-		
-		return false;
-	}
-	
 	//Tested and should be working
-	public boolean createMeeting(List<Integer> userIDList, Event newEvent, int meetingRoomID, String meetingName) throws SQLException {
+	public Document createMeeting(List<Integer> userIDList, Event newEvent, int meetingRoomID, String meetingName) throws SQLException {
 		//Expected input: A single event that can be added multiple times for each user
 		//A user list with all the invited users
 		//Potentially a meeting room.
@@ -172,21 +169,67 @@ public class Xmlaction {
 		//Figure out the meeting leader 
 		handle.addMeetingLeader(meeting_ID, ownerID);
 		
-		//Success message?
-		//DatabaseUpdatedNotification
-		return true;
+		////// RESPONSE //////
 		
+		
+		//Get added users -- Needed? 
+		List<User> userList = new ArrayList<User>();
+		for (int userID : userIDList) {
+			User user = handle.fetchUser(userID);
+			userList.add(user);
+		}
+		
+		//Note, will also probably need to notify the followers of a user
+		setBroadcastTo(userList);
+		
+		//Fetches the leader of the meeting
+		User meetingLeader = handle.fetchMeetingLeader(meeting_ID);
+		
+		//Fetches the event of the meeting leader
+		Event meetingLeaderEvent = handle.fetchUserEventInMeeting(ownerID, meeting_ID);
+		
+		//Init response message
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement(MessageAction.CREATE_MEETING.toString());
+				
+		//Adds the username of the owner
+		root.addElement("owner")
+		.addAttribute("owner_username",ownerUsername);
+		
+		root.addElement("meeting")
+		.addAttribute("meeting_ID", String.valueOf(meeting_ID))
+		.addAttribute("name", meetingName);
+		
+		//Adds the participating users ID
+		for (int userID : userIDList) {
+			root.addElement("participant")
+			.addAttribute("user_ID", String.valueOf(userID));
+		}
+		
+		//Adds the meetingLeader
+		root.addElement("meeting_leader")
+		.addAttribute("user_ID", String.valueOf(meetingLeader.getUserID()));
+		
+		//Adds the meating leaders event
+		root.element("leader_event")
+		.addAttribute("event_ID", String.valueOf(meetingLeaderEvent.getEvent_ID()))
+		.addAttribute("start", meetingLeaderEvent.getStart().toString())
+		.addAttribute("end", String.valueOf(meetingLeaderEvent.getEnd().toString()))
+		.addAttribute("location", meetingLeaderEvent.getLocation())
+		.addAttribute("description", meetingLeaderEvent.getDescription())
+		.addAttribute("status", meetingLeaderEvent.getStatus().toString());
+		
+		return document;
 	}
 	
 	//Tested and should be working
-	public boolean createUser(User newUser) throws SQLException {
+	public void createUser(User newUser) throws SQLException {
 		//Expected input: The information of the new user
 		
+		//Will probably not be used
 		Dbhandle handle = new Dbhandle();
 		handle.addUser(newUser);
 		
-		//Success message?
-		return true;
 	}
 	
 	//Tested and should be working
@@ -195,16 +238,25 @@ public class Xmlaction {
 		//Can only be done by the meeting leader.
 		//Note: This must only be used to change the meeting leader's event, not anyone else's.
 		//This is done so that any user will see that something has changed before accepting it.
+		
+		//TODO
+		
+		//Init response message
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement(MessageAction.EDIT_MEETING.toString());
+			
+		//Adds the username of the owner
+		root.addElement("owner")
+		.addAttribute("owner_username",ownerUsername);
+		
 		Dbhandle handle = new Dbhandle();
 		User user = handle.fetchMeetingLeader(meetingID);
 				
 		if (!(user.getUserID() == ownerID)) {
 			System.out.println("Not allowed to edit");
-			return false;
+			root.addElement("password_change")
+			.addAttribute("result", "Failure");
 		}		
-		
-		//TODO: Currently, if a user is deemed the meeting leader, he will be able to edit
-		//all of the events in the meeting
 		
 		handle.updateEvent(eventChanges);
 				
@@ -213,47 +265,98 @@ public class Xmlaction {
 	}
 	
 	//Tested and should be working
-	public boolean editNameOfUser(String newName) throws SQLException {
+	public Document editNameOfUser(String newName) throws SQLException {
 	
 		Dbhandle handle = new Dbhandle();
 		handle.updateNameOfUser(ownerID, newName);
 		
-		return true;
+		//Init response message
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement(MessageAction.EDIT_NAME_OF_USER.toString());
+				
+		//Adds the username of the owner
+		root.addElement("owner")
+		.addAttribute("owner_username",ownerUsername);
+		
+		root.addElement("name_change")
+		.addAttribute("new_name", newName);
+		
+		return document;
 		
 	}
 	
 	//Tested and should be working
-	public boolean editUserPassword(String oldPassword, String newPassword) {
+	public Document editUserPassword(String oldPassword, String newPassword) {
 		
 		Dbhandle handle = new Dbhandle();
 		User user = handle.fetchUser(ownerID);
+		
+		
+		//Init response message
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement(MessageAction.EDIT_USER_PASSWORD.toString());
+		
+		//Adds the username of the owner
+		root.addElement("owner")
+		.addAttribute("owner_username",ownerUsername);
 	
 		if (!oldPassword.equals(user.getPassword())) {
 			System.out.println("Incorrect password");
-			return false;
+			root.addElement("password_change")
+			.addAttribute("result", "Failure");
+			return document;
 		}
 		
 		handle.updateUserPassword(ownerID, newPassword);
+
+		//Dont really need to return the password?
+		root.addElement("password_change")
+		.addAttribute("result", "Success")
+		.addAttribute("new_password", newPassword);
 		
-		return true;
+		return document;
 		
 	}
 	
-	public boolean editEvent(Event event) throws SQLException {
+	public Document editEvent(Event event) throws SQLException {
 		//Test to see if the user is the owner of the event
+		//TODO
+		//Init response message
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement(MessageAction.EDIT_EVENT.toString());
+			
+		//Adds the username of the owner
+		root.addElement("owner")
+		.addAttribute("owner_username",ownerUsername);
 		
 		Dbhandle handle = new Dbhandle();
 		int userID = handle.fetchEventOwnerID(event.getEvent_ID());
 		
 		if (userID != ownerID) {
 			System.out.println("User not permitted to edit event. Reason: Not event owner");
-			return false;
+			root.addElement("edit_event")
+			.addAttribute("result", "Failure");
+			return document;
 		}
 		
 		handle.updateEvent(event);
 		
-		return true;
+		root.addElement("edit_event")
+		.addAttribute("result", "Success");
 		
+		//This needs to determine a bunch of stuff
+		//What users to notify etc
+		
+		return document;
+		
+	}
+
+	public List<User> getBroadcastTo() {
+		return broadcastTo;
+	}
+
+	public void setBroadcastTo(List<User> broadcastTo) {
+		this.broadcastTo = broadcastTo;
 	}
 	
 }

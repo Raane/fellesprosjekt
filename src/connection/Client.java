@@ -105,11 +105,11 @@ public class Client implements ActionListener{
 	public void avaliableCalendarsAction(User user) {
 		//når det trykkes på en kalender i availiblecalendars
 	}
-	public void meetingAcceptAction(Meeting meeting) {
+	public void meetingAcceptAction(Event event) {
 		//trykker godta på et møte
 		
 	}
-	public void meetingDeclineAction(Meeting meeting) {
+	public void meetingDeclineAction(Event event) {
 		//trykker avslå på et møte
 	}
 	public void calendarEventAction(Event event) {

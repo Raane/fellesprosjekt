@@ -39,7 +39,6 @@ public class Xmlhandle {
 		
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
-		Document fetchData = null;
 		
 		Element ownerElement = root.element("owner");
 		if (ownerElement != null) {
@@ -55,8 +54,9 @@ public class Xmlhandle {
 			Element loginCandidate = root.element("login_attempt");
 			String password = loginCandidate.attributeValue("password");
 			
+			Document document = actionToPerform.login(ownerUsername, password);
 			
-									
+			serverSend(document.asXML(), ownerUsername);
 			
 		}  else if (action == MessageAction.CREATE_MEETING) {
 			
@@ -73,7 +73,7 @@ public class Xmlhandle {
 			meetingName = meetingElement.attributeValue("meeting_name");
 
 			
-			//Does the meeting have a booked room? -- Hope this returns null if it doesn't find the argument
+			//Does the meeting have a booked room? -- Returns null if not found
 			Element meetingRoomElement = root.element("meeting_room");
 			
 			if(!(meetingRoomElement == null)) {
@@ -81,9 +81,13 @@ public class Xmlhandle {
 			}
 			
 			//Perform the action
-			actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
+			Document document = actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
+			
+			//Send the message to the appropriate users!
+			changeNotificationBroadcast(actionToPerform.getBroadcastTo(), document.asXML());
 			
 		} else if (action == MessageAction.EDIT_MEETING) {
+			//TODO
 			
 			Event eventChanges; int meetingID;
 			
@@ -95,7 +99,7 @@ public class Xmlhandle {
 			actionToPerform.editMeeting(eventChanges, meetingID);
 			
 		} else if (action == MessageAction.CREATE_USER) {
-			
+			//Probably not gonna be used in the "final" product
 			User newUser = XMLtoUser(root);
 			actionToPerform.createUser(newUser);
 			
@@ -104,7 +108,9 @@ public class Xmlhandle {
 			Element changeName = root.element("change_name");
 			String newName = changeName.attributeValue("new_name");
 			
-			actionToPerform.editNameOfUser(newName);
+			Document document = actionToPerform.editNameOfUser(newName);
+			
+			serverBroadcast(document.asXML());
 			
 		} else if (action == MessageAction.EDIT_USER_PASSWORD) {
 			
@@ -112,7 +118,9 @@ public class Xmlhandle {
 			String oldPassword = changePassword.attributeValue("old_password");
 			String newPassword = changePassword.attributeValue("new_password");
 			
-			actionToPerform.editUserPassword(oldPassword, newPassword);
+			Document document = actionToPerform.editUserPassword(oldPassword, newPassword);
+			
+			serverSend(document.asXML(), ownerUsername);
 			
 		} else if (action == MessageAction.EDIT_EVENT) {
 			
@@ -120,14 +128,9 @@ public class Xmlhandle {
 			actionToPerform.editEvent(eventToEdit);
 			
 		} else if (action == MessageAction.FETCH) {
-			//This is an operation intended for when the user wants to fetch information from the database
+			//What needs to be in here?
 			
-			FetchHandle handleFetch = new FetchHandle(xml);
-			fetchData = handleFetch.performFetch();
-		}
-		
-		//Determine appropriate response message and send method here
-			
+		}			
 				
 	}	
 	
@@ -146,6 +149,7 @@ public class Xmlhandle {
 		MessageAction action = MessageAction.valueOf(root.getName());
 		
 		if (action == MessageAction.LOGIN) {
+		
 			
 		} else if (action == MessageAction.CREATE_MEETING) {
 			
@@ -178,7 +182,6 @@ public class Xmlhandle {
 	
 	//This will run on the client side. This can probably user the User class? -- tested and should be working
 	public void createAddMeetingRequest(List<Integer> userList, Event event, int meetingRoomID, String meetingName, String requestedBy) {
-	//This will run on the client side. This can probably user the User class?
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.CREATE_MEETING.toString());
@@ -352,8 +355,6 @@ public class Xmlhandle {
 		return userIDList;
 	}
 	
-	//Not used
-	
 	private List<User> XMLtoUserList(Element root) {
 		List<User> userList = new ArrayList<User>();
 		for ( Iterator i = root.elementIterator( "user" ); i.hasNext(); ) {
@@ -396,6 +397,14 @@ public class Xmlhandle {
 	private void clientSend(String msg) {
 		this.msg = msg;
 		listener.actionPerformed(new ActionEvent(this, 0, "sendingmsg"));
+	}
+	
+	private void changeNotificationBroadcast(List<User> broadcastTo, String msg) {
+		
+		for (User user : broadcastTo) {
+			serverSend(msg, user.getUsername());
+		}
+		
 	}
 	
 	public String getUsernameForSending() {

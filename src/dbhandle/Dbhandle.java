@@ -38,6 +38,7 @@ public class Dbhandle {
 	public void addMeetingLeader(int meeting_ID, int user_ID) {
 		String update = String.format("INSERT INTO meeting_leader VALUES ('%d','%d')", meeting_ID, user_ID);
 		this.dbUpdate(update);
+		
 	}
 	
 	//Adds a new meeting event to the database
@@ -256,6 +257,29 @@ public User fetchUser(int user_ID) {
 		}
 		
 		return null;
+	}
+	
+	public Event fetchUserEventInMeeting(int user_ID, int meeting_ID) throws SQLException {
+		int id = 0; Timestamp start = null; Timestamp end = null; String location = null; String description = null; Status status = null;
+		
+		String query = String.format("SELECT * FROM ((user_event JOIN event ON user_event.event_ID = event.event_ID)" +
+				" JOIN meeting_event ON event.event_ID = meeting_event.event_ID) WHERE user_ID = '%d' AND meeting_ID = '%d' ", user_ID, meeting_ID);
+		
+		ResultSet rs = this.dbQuery(query);
+		
+		if (rs.next()) {
+			id = rs.getInt("event_ID");
+			start = new Timestamp(rs.getDate("start").getTime());
+			end = new Timestamp(rs.getDate("end").getTime());
+			location = rs.getString("location");
+			description = rs.getString("description");
+			status = Status.valueOf(rs.getString("status"));
+			Event event = new Event(id,start,end,location,description,status);
+			return event;
+		}
+		
+		return null;
+		
 	}
 	
 	//Fetches all the meetings the given user is a leader of

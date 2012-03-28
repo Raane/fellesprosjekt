@@ -65,7 +65,7 @@ public class Server implements ActionListener{
 		String username = xmlHandle.getUsernameForSending();
 		ArrayList<ActiveUser> userlist = serverConnection.getActiveUsers();
 		for(ActiveUser user:userlist) {
-			if(user.getUsername()==username){
+			if(user.getUsername()==username || username==null){
 				user.send(msg);
 			}
 		}

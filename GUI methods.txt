@@ -24,3 +24,4 @@ gui.setAvaliableCalendars(ArrayList<User>); //setter hvilke kalendere som kan ve
 gui.setMessanges(ArrayList<Event>); void
 
 gui.setCalendarTitle(String); void
+gui.setCalendarEntries(ArrayList<ArrayList<Event>>); void

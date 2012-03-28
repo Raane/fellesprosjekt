@@ -5,9 +5,14 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import org.dom4j.DocumentException;
 
+import sun.util.resources.CalendarData_no;
+
+import Models.Event;
 import Models.Meeting;
 import Models.User;
 import xmlhandle.Xmlhandle;
@@ -18,16 +23,18 @@ public class Client implements ActionListener{
 	public User user;
 	public ArrayList<dbhandle.User> allUsers;
 	public ArrayList<User> myUsers;
-	public ArrayList<Meetingroom> meetingrooms;
+//	public ArrayList<Meetingroom> meetingrooms;
 	private int currentWeek;
 	
 	public static void main(String[] args) {
+		System.out.println(getWeekNumber());
 		Client client = new Client();
 	}
 	
 	public Client() {
 		clientConnection = new ClientConnection();
 		clientConnection.addReceiveListener(this);
+		
 	}
 	
 	public void showHideCalendarsAction() {
@@ -80,8 +87,23 @@ public class Client implements ActionListener{
 	}
 	
 	private void updateCalendar() {
-		// TODO Auto-generated method stub
+//		ArrayList<ArrayList<Event>> calendarEntries = getCalendarEntries();
+		gui.setCalendarEntries(getCalendarEntries(getWeekNumber()));
+	}
+
+	private static int getWeekNumber() {
+		Calendar calendar = new GregorianCalendar();
+		System.out.println(calendar.);
+		return calendar.get(Calendar.WEEK_OF_YEAR);
+	}
+
+	private ArrayList<ArrayList<Event>> getCalendarEntries(int weekNumber) {
+		ArrayList<ArrayList<Event>> calendarEntries = getCalendarEntries();
+		user.getEvents();
 		
+		
+		
+		return null;
 	}
 
 	private void updateDashboard() {
@@ -95,8 +117,9 @@ public class Client implements ActionListener{
 	}
 
 	private void updateMessages() {
-		// TODO Auto-generated method stub
-		
+		for(Event event:user.getEvents()){
+			
+		}
 	}
 
 	@Override

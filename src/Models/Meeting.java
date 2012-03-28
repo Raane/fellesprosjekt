@@ -5,19 +5,19 @@ import java.util.*;
 
 public class Meeting {
 
-	public int meetingID;
-	public String title;
+	private int meetingID;
+	private String title;
 	public Timestamp startTime;
-	public Timestamp endTime;
-	public ArrayList<Event> participants;
-	public User meetingLeader;
-	public String location;
-	public String agenda;
+	private Timestamp endTime;
+	private ArrayList<Event> participants;
+	private User owner;
+	private String location;
+	private String agenda;
 	
 	public Meeting(Event event){
 		this.meetingID = -1;
 		this.title = event.getTitle();
-		this.meetingLeader = event.getOwner();
+		this.owner = event.getOwner();
 		this.startTime = event.getStartTime();
 		this.endTime = event.getEndTime();
 		this.location = event.getLocation();

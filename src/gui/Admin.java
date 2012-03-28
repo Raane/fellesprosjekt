@@ -1,24 +1,47 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Admin extends JPanel {
+public class Admin extends JPanel{
+	
+	//testgreier for Håkon
+//	private String testnavn = "Test";
+//	private String testpass = "Password";
+//	private JFrame f = new JFrame();
+	
 	public Admin() {
+		
+//		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		f.setVisible(true);
+		
 		personalInfoLabel = new javax.swing.JLabel();
         personalInfoSeparator = new javax.swing.JSeparator();
         newNameLabel = new javax.swing.JLabel();
         newNameTextField = new javax.swing.JTextField();
+        
+        //Change name button
         newNameButton = new javax.swing.JButton();
+        newNameButton.addActionListener(new newNameAction());
+        
         changePasswordLabel = new javax.swing.JLabel();
         changePasswordSeparator = new javax.swing.JSeparator();
         oldPasswordLabel = new javax.swing.JLabel();
         newPasswordLabel = new javax.swing.JLabel();
-        oldPasswordTextField = new javax.swing.JTextField();
-        newPasswordTextField = new javax.swing.JTextField();
+        oldPasswordTextField = new javax.swing.JPasswordField();
+        newPasswordTextField = new javax.swing.JPasswordField();
         repeatPasswordLabel = new javax.swing.JLabel();
-        repeatPasswordTextField = new javax.swing.JTextField();
+        repeatPasswordTextField = new javax.swing.JPasswordField();
+        
+        //Password button
         changePasswordButton = new javax.swing.JButton();
+//        changePasswordButton.addActionListener(this);
+        
         addRemoveCalendarsLabel = new javax.swing.JLabel();
         addRemoveCalendarsSeparator = new javax.swing.JSeparator();
         availableCalendarsLabel = new javax.swing.JLabel();
@@ -201,6 +224,19 @@ public class Admin extends JPanel {
         );
 	}
 	
+
+	class newNameAction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			String newName = newNameTextField.getText();
+			//TODO resten
+			System.out.println(newName);
+			
+		}
+		
+	}
+	
+	
+	
 	private javax.swing.JLabel personalInfoLabel;
     private javax.swing.JSeparator personalInfoSeparator;
     private javax.swing.JButton newNameButton;
@@ -210,11 +246,11 @@ public class Admin extends JPanel {
     private javax.swing.JLabel changePasswordLabel;
     private javax.swing.JSeparator changePasswordSeparator;
     private javax.swing.JLabel newPasswordLabel;
-    private javax.swing.JTextField newPasswordTextField;
+    private javax.swing.JPasswordField newPasswordTextField;
     private javax.swing.JLabel oldPasswordLabel;
-    private javax.swing.JTextField oldPasswordTextField;
+    private javax.swing.JPasswordField oldPasswordTextField;
     private javax.swing.JLabel repeatPasswordLabel;
-    private javax.swing.JTextField repeatPasswordTextField;
+    private javax.swing.JPasswordField repeatPasswordTextField;
     private javax.swing.JButton changePasswordButton;
     
     private javax.swing.JLabel addRemoveCalendarsLabel;

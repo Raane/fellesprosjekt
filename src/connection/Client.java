@@ -27,6 +27,23 @@ public class Client implements ActionListener{
 		clientConnection.addReceiveListener(this);
 	}
 	
+	public void showHideCalendarsAction() {
+		
+	}
+	public void meetingroomSearchAction() {
+		
+	}
+	public void personsSearchAction() {
+		
+	}
+	public void addEventButtonActoin() {
+		
+	}
+	public void changeNameButtonAction() {
+		
+	}
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {	
 		System.out.println(e.getSource().getClass());
@@ -41,7 +58,7 @@ public class Client implements ActionListener{
 	
 	private void clientConnectionAction(String msg) {
 		try {
-			xmlHandle.performMessageData(Xmlhandle.stringToXML(msg), this);
+			xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {

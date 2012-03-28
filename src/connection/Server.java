@@ -30,6 +30,8 @@ public class Server implements ActionListener{
 		//Sender til den første clienten som connectet
 		serverConnection.send("Test msg from server to the first client started", serverConnection.getActiveUsers().get(0));*/
 	}
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {	
@@ -41,6 +43,8 @@ public class Server implements ActionListener{
 			xmlHandleAction((Xmlhandle) e.getSource());
 		}
 	}
+	
+	
 	
 	private void serverConnectionAction(ActiveUser activeUser, String msg) {
 		if(activeUser.getUsername()==null) {

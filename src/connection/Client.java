@@ -1,11 +1,15 @@
 package connection;
 
+import gui.GUI;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.dom4j.DocumentException;
@@ -18,23 +22,48 @@ import xmlhandle.Xmlhandle;
 public class Client implements ActionListener{
 	ClientConnection clientConnection;
 	Xmlhandle xmlHandle = new Xmlhandle();
+	private GUI gui;
 	public User user;
 	public ArrayList<dbhandle.User> allUsers;
 	public ArrayList<User> myUsers;
 //	public ArrayList<Meetingroom> meetingrooms;
-	private int currentWeek;
+	private int shownWeek;
+	private int shownYear;
+	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
+	private Timestamp endOfWeek = new Timestamp(new Date().getTime()+(8-getDayOfWeek())*(24*60*60*1000));
+	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
+	
 	
 	public static void main(String[] args) {
-		System.out.println(getWeekNumber());
+		System.out.println(getDayOfWeek());
 		Client client = new Client();
 	}
 	
 	public Client() {
-		clientConnection = new ClientConnection();
-		clientConnection.addReceiveListener(this);
+//		clientConnection = new ClientConnection();
+//		clientConnection.addReceiveListener(this);
 		
+		initializeTimeThings();  // Initializes the time things (variables)
+		addCalendars(); //loads the users imported calendars into the GUI
+		updateFields();
 	}
 	
+
+	private void initializeTimeThings() {
+		shownWeek = getWeekNumber();
+		shownYear = getYearNumber();
+
+		startOfWeek.setHours(23);
+		startOfWeek.setMinutes(59);
+		startOfWeek.setSeconds(59);
+		startOfWeek.setNanos(999999999);
+		endOfWeek.setHours(0);
+		endOfWeek.setMinutes(0);
+		endOfWeek.setSeconds(0);
+		endOfWeek.setNanos(0);
+
+	}
+
 	public void showHideCalendarsAction() {
 		//hver gang en kalender trykkes på i dashboard
 	}
@@ -81,35 +110,54 @@ public class Client implements ActionListener{
 		//trykker på forrige uke button
 	}
 	private void updateFields() {
-		updateCalendar();
+		updateCalendar(shownWeek, shownYear);
 		updateDashboard();
 		updateNewEvent();
+		updateSettings();
 		updateMessages();
 	}
 	
-	private void updateCalendar() {
-//		ArrayList<ArrayList<Event>> calendarEntries = getCalendarEntries();
+
+	private void updateCalendar(int shownWeek, int shownYear) {
 		gui.setCalendarEntries(getCalendarEntries(getWeekNumber()));
 	}
 
-	private static int getWeekNumber() {
-		Calendar calendar = new GregorianCalendar();
-		System.out.println(calendar.);
-		return calendar.get(Calendar.WEEK_OF_YEAR);
-	}
+	//ONE LINERS HELL YEA !!!
+	private static int getDayOfWeek() {return ((new GregorianCalendar().get(Calendar.DAY_OF_WEEK))-1)%7;}
+	private static int getWeekNumber() {return new GregorianCalendar().get(Calendar.WEEK_OF_YEAR);}
+	private static int getYearNumber() {return 	new GregorianCalendar().get(Calendar.YEAR);} 
 
-	private ArrayList<ArrayList<Event>> getCalendarEntries(int weekNumber) {
-		ArrayList<ArrayList<Event>> calendarEntries = getCalendarEntries();
+	private ArrayList<ArrayList<Event>> getCalendarEntries(int weekNumber) {		
+		ArrayList<ArrayList<Event>> calendarEntries = new ArrayList<ArrayList<Event>>();
+		for(User otheruser:user.getImportedCalendars()) {
+			ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
+			for(Event event:otheruser.getEvents()) {
+				if(event.startTime.after(startOfWeek) && event.startTime.before(endOfWeek)) {
+					otherUsersCalendar.add(event);
+				}
+			}
+			calendarEntries.add(otherUsersCalendar);
+		}
 		user.getEvents();
-		
-		
-		
-		return null;
+		return calendarEntries;
 	}
 
 	private void updateDashboard() {
-		// TODO Auto-generated method stub
-		
+		updateAgenda();
+	}
+
+	private void updateAgenda() {
+		ArrayList<Event> agenda = new ArrayList<Event>();
+		for(Event event:user.getEvents()) {
+			if(event.getStartTime().after(getNow())){
+				agenda.add(event);
+			}
+		}
+		gui.setAgenda(agenda);
+	}
+
+	private Timestamp getNow() {
+		return new Timestamp(new Date().getTime());
 	}
 
 	private void updateNewEvent() {
@@ -117,12 +165,28 @@ public class Client implements ActionListener{
 		
 	}
 
+	private void updateSettings() {
+		// TODO Auto-generated method stub
+		gui.setYourCalendars(user.getImportedCalendars()); //setter hvilke kalendere som kan velges
+		gui.setAvaliableCalendars(); //setter hvilke kalendere som kan velges
+	}
+	
 	private void updateMessages() {
+		ArrayList<Event> messages = new ArrayList<Event>();
 		for(Event event:user.getEvents()){
-			
+			if(event.getStartTime().after(getNow())) {
+				messages.add(event);
+			}
 		}
+		gui.setMessanges(messages);
 	}
 
+	private void addCalendars() {
+		for(User calendar:user.getImportedCalendars()) {
+			gui.addCalendar(user);
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {	
 		System.out.println(e.getSource().getClass());
@@ -138,12 +202,6 @@ public class Client implements ActionListener{
 	private void clientConnectionAction(String msg) {
 		try {
 			xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
@@ -151,5 +209,8 @@ public class Client implements ActionListener{
 	
 	private void xmlHandleAction(Xmlhandle xmlHandle) {
 		clientConnection.send(xmlHandle.getMsgForSending());
+	}
+	public User getUser() {
+		return user;
 	}
 }

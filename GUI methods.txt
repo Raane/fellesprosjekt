@@ -5,7 +5,8 @@ gui.removeCalendar(User); void //fjerner en kalender i listen over kalendere som
 gui.getActiveCalendars(); ArrayList<User>  //henter ut hvilke kalendere som er valgt	(Begynt)
 
 //Disse gjelder alle for instillingertaben
-gui.getNewEvent(); Event 
+gui.setNewEvent(Meeting); void
+gui.getNewEvent(); Meeting 
 gui.getMeetingroomSearch(); String
 gui.setAvailableMeetingrooms(ArrayList<Meetingroom>); void
 gui.getPersonSearch(); String
@@ -19,7 +20,7 @@ gui.getAvailableCalendarsSearch(); String	(Gjort)
 gui.getYourCalendars(); ArrayList<User>  //Henter de kalenderene som er velgbare		(Gjort)
 gui.getAvaliableCalendars(); ArrayList<User> //Henter de kalenderene som er velgbare
 gui.setYourCalendars(ArrayList<User>); //setter hvilke kalendere som kan velges
-gui.setAvaliableCalendars(ArrayList<User>); //setter hvilke kalendere som kan velges
+gui.setAvaliableCalendars(ArrayList<dbHandle.User>); //setter hvilke kalendere som kan velges
 
 gui.setMessanges(ArrayList<Event>); void
 

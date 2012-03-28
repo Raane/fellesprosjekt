@@ -1,5 +1,7 @@
 package gui;
 
+//This class is made so that it is possible to sort a list of Events by their Timestamp.
+//It makes rules for how to compare to Events to eachother.
 import java.sql.Timestamp;
 import java.util.Comparator;
 

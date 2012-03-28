@@ -6,15 +6,15 @@ import java.util.*;
 
 public class Event{
 
-	public int eventID = -1;
-	public Timestamp startTime;
-	public Timestamp endTime;
-	//public ArrayList<User> participants;
-	public String title;
-	public String agenda;
-	public String location;
-	public User owner;
-	public Status status;
+	private int eventID = -1;
+	private Timestamp startTime;
+	private Timestamp endTime;
+	//private ArrayList<User> participants;
+	private String title;
+	private String agenda;
+	private String location;
+	private User owner;
+	private Status status;
 	
 	Event(User owner){					//Constructor activated when "Ny avtale"-tab is clicked
 		this.owner = owner;

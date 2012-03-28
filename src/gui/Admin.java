@@ -13,10 +13,14 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 
+import connection.Client;
+
 import Models.User;
 
 @SuppressWarnings("serial")
 public class Admin extends JPanel{
+	
+	private Client client;
 	
 	//testgreier for Håkon
 //	private String testnavn = "Test";
@@ -294,9 +298,7 @@ public class Admin extends JPanel{
 
 	class newNameAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			String newName = newNameTextField.getText();
-			System.out.println("name");
-			System.out.println(newName);
+			client.changeNameButtonAction();
 			
 		}
 	}
@@ -307,7 +309,9 @@ public class Admin extends JPanel{
 		}
 	}
 	
-	
+	public void addListener(Client client){
+		this.client = client;
+	}
 	
 	private javax.swing.JLabel personalInfoLabel;
     private javax.swing.JSeparator personalInfoSeparator;

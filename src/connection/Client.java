@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import org.dom4j.DocumentException;
 
+import Models.Event;
 import Models.Meeting;
 import Models.User;
 import xmlhandle.Xmlhandle;
@@ -31,46 +32,49 @@ public class Client implements ActionListener{
 	}
 	
 	public void showHideCalendarsAction() {
-		
+		//hver gang en kalender trykkes på i dashboard
 	}
 	public void meetingroomSearchAction() {
-		
+		//hver gang noe skrives i møteromtextfield
 	}
 	public void personsSearchAction() {
-		
+		//hver gang noe skrives i personertextfield
 	}
 	public void addEventButtonActoin() {
-		
+		//når det trykkes på ny avtale knappen
 	}
 	public void changeNameButtonAction() {
-		
+		//når det trykkes på endre navn knapp
 	}
 	public void changePasswordButtonAction() {
-		
+		//når det trykkes på endre passord knapp
 	}
 	public void yourCalendarsSearchAction() {
-		
+		//når det trykkes på en knapp i usersearchtextfield
 	}
-	public void yourCalendarsAction() {
-		
+	public void yourCalendarsAction(User user) {
+		//når det trykkes på en kalender i usercalendars
 	}
 	public void availableCalendarsSearchAction() {
-		
+		//når det trykkes på en knapp i availiblesearchtextfield
 	}
-	public void avaliableCalendarsAction() {
-		
+	public void avaliableCalendarsAction(User user) {
+		//når det trykkes på en kalender i availiblecalendars
 	}
 	public void meetingAcceptAction(Meeting meeting) {
-		
+		//trykker godta på et møte
 	}
 	public void meetingDeclineAction(Meeting meeting) {
-		
+		//trykker avslå på et møte
+	}
+	public void calendarEventAction(Event event) {
+		//når det trykkes på en event i kalenderen
 	}
 	public void nextWeekButtonAction() {
-		
+		//trykker på neste uke button
 	}
 	public void lastWeekButtonAction() {
-		
+		//trykker på forrige uke button
 	}
 	private void updateFields() {
 		updateCalendar();

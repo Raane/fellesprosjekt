@@ -43,6 +43,7 @@ public class Client implements ActionListener{
 	
 	public void showHideCalendarsAction() {
 		//hver gang en kalender trykkes på i dashboard
+		//done
 	}
 	public void meetingroomSearchAction() {
 		//hver gang noe skrives i møteromtextfield
@@ -89,9 +90,11 @@ public class Client implements ActionListener{
 	}
 	public void nextWeekButtonAction() {
 		//trykker på neste uke button
+		//done
 	}
 	public void lastWeekButtonAction() {
 		//trykker på forrige uke button
+		//done
 	}
 	private void updateFields() {
 		updateCalendar();

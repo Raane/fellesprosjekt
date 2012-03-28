@@ -1,6 +1,9 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
+
+import connection.Client;
 
 import Models.Event;
 import Models.User;
@@ -27,7 +32,8 @@ public class Dashboard extends JPanel {
 //    public ArrayList<User> getActiveCalendars(){
 //    	for(int i = 0; i < showHideCalendarsPanel)
 //    }
-	
+	private Client client;
+    
     public Dashboard() {
     	
     	agendaLabel = new JLabel();
@@ -106,6 +112,8 @@ public class Dashboard extends JPanel {
     	
     	for (int i = 0; i < events.size(); i++){
     		JLabel temp = new JLabel();
+    		temp.addMouseListener(mouseTempListener());
+    		
     		temp.setText(events.get(i));
         	if (i % 2 == 0) {
         		temp.setBackground(white);
@@ -133,7 +141,15 @@ public class Dashboard extends JPanel {
         layout.setVerticalGroup(showHideCalendarsVerticalGroup);
     }
     
-    private JLabel agendaLabel;
+    private MouseListener mouseTempListener() {
+    	return new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				client.showHideCalendarsAction();
+			}
+		};
+	}
+
+	private JLabel agendaLabel;
     private JPanel agendaPanel;
     private JScrollPane agendaScrollPane;
 	

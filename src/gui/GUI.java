@@ -1,5 +1,8 @@
 package gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,9 +14,13 @@ import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import connection.Client;
+
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
 
+	private Client client;
+	
     public GUI() {
         initComponents();
     }
@@ -29,8 +36,13 @@ public class GUI extends JFrame {
         notificationsScrollPane = new JScrollPane();
         notificationsPanel = new Notifications();
         weekLabel = new JLabel();
+        
         previousWeekButton = new JButton();
+        previousWeekButton.addActionListener(new previousWeekAction());
+        
         nextWeekButton = new JButton();
+        nextWeekButton.addActionListener(new nextWeekAction());
+        
         calendarScrollPane = new JScrollPane();
         calendarPanel = new Calendar();
 
@@ -59,8 +71,8 @@ public class GUI extends JFrame {
         weekLabel.setHorizontalAlignment(SwingConstants.CENTER);
         weekLabel.setText("Uke 12 - 2012");
 
-        previousWeekButton.setText("Uke 11");
-        nextWeekButton.setText("Uke 13");
+        previousWeekButton.setText("Forrige uke");
+        nextWeekButton.setText("Neste uke");
 
         calendarScrollPane.setViewportView(calendarPanel);
 
@@ -98,6 +110,24 @@ public class GUI extends JFrame {
         pack();
     }
 
+    class previousWeekAction implements ActionListener{
+
+		public void actionPerformed(ActionEvent e) {
+			client.lastWeekButtonAction();
+		}
+    }
+    
+    class nextWeekAction implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			client.nextWeekButtonAction();
+		}
+    	
+    }
+    
+    public void addListener(Client client){
+		this.client = client;
+	}
+    
     // Variables declaration
     private JPanel AdminPanel;
     private JPanel NewEventPanel;

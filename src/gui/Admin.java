@@ -9,11 +9,6 @@ import Models.User;
 @SuppressWarnings("serial")
 public class Admin extends JPanel {
 	
-	
-	/*
-	 * 
-	 * Ligger allerede metoder for dette i User-klassen, men du mente kanskje at de heller burde være her Rune?
-	 * 
 	//Gets a list of the calendars (users) that the clicking user has already imported.
 	public ArrayList<User> getYourCalendars(User user){
 		return user.importedCalendars;
@@ -30,7 +25,6 @@ public class Admin extends JPanel {
 		if(!viewer.importedCalendars.contains(owner));
 		else viewer.importedCalendars.remove(owner);
 	}
-	*/
 	
 	//Method for getting the text typed in the text-field for changing names.
 	public String getNewName(){

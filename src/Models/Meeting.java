@@ -33,4 +33,6 @@ public class Meeting {
 	public void addNewParticipant(Event event){
 		participants.add(event);
 	}
+	
+
 }

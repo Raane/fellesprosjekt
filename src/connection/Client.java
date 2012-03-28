@@ -1,6 +1,7 @@
 package connection;
 
 import gui.GUI;
+import gui.GuiController;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +23,7 @@ import xmlhandle.Xmlhandle;
 public class Client implements ActionListener{
 	ClientConnection clientConnection;
 	Xmlhandle xmlHandle = new Xmlhandle();
-	private GUI gui;
+	private GuiController guicontroller;
 	public User user;
 	public ArrayList<dbhandle.User> allUsers;
 	public ArrayList<User> myUsers;
@@ -47,8 +48,8 @@ public class Client implements ActionListener{
 		addCalendars(); //loads the users imported calendars into the GUI
 		updateFields();
 
-//		gui = new GUI();
-//		gui.addListener(this);
+//		guicontroller = new GUI();
+//		guicontroller.addListener(this);
 	}
 	
 
@@ -133,7 +134,7 @@ public class Client implements ActionListener{
 	
 
 	private void updateCalendar(int shownWeek, int shownYear) {
-		gui.setCalendarEntries(getCalendarEntries(getWeekNumber()));
+		guicontroller.setCalendarEntries(getCalendarEntries(getWeekNumber()));
 	}
 
 	//ONE LINERS HELL YEA !!!
@@ -146,7 +147,7 @@ public class Client implements ActionListener{
 		for(User otheruser:user.getImportedCalendars()) {
 			ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
 			for(Event event:otheruser.getEvents()) {
-				if(event.startTime.after(startOfWeek) && event.startTime.before(endOfWeek)) {
+				if(event.getStartTime().after(startOfWeek) && event.getStartTime().before(endOfWeek)) {
 					otherUsersCalendar.add(event);
 				}
 			}
@@ -167,7 +168,7 @@ public class Client implements ActionListener{
 				agenda.add(event);
 			}
 		}
-		gui.setAgenda(agenda);
+		guicontroller.setAgenda(agenda);
 	}
 
 	private Timestamp getNow() {
@@ -181,8 +182,8 @@ public class Client implements ActionListener{
 
 	private void updateSettings() {
 		// TODO Auto-generated method stub
-		gui.setYourCalendars(user.getImportedCalendars()); //setter hvilke kalendere som kan velges
-		gui.setAvaliableCalendars(); //setter hvilke kalendere som kan velges
+		guicontroller.setYourCalendars(user.getImportedCalendars()); //setter hvilke kalendere som kan velges
+		guicontroller.setAvailableCalendars(allUsers); //setter hvilke kalendere som kan velges
 	}
 	
 	private void updateMessages() {
@@ -192,12 +193,12 @@ public class Client implements ActionListener{
 				messages.add(event);
 			}
 		}
-		gui.setMessanges(messages);
+		guicontroller.setMessages(messages);
 	}
 
 	private void addCalendars() {
 		for(User calendar:user.getImportedCalendars()) {
-			gui.addCalendar(user);
+			guicontroller.addCalendar(user);
 		}
 	}
 	

@@ -1,24 +1,36 @@
 package gui;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class Notifications extends JPanel {
+	
+	public void newNotification(JLabel header, JLabel time, JLabel date, JLabel room, JTextArea description){
+		JLabel newHeader = header;
+		JLabel newTime = time;
+		JLabel newDate = date;
+		JLabel newRoom = room;
+		JTextArea newDescription = description;
+		
+		
+		
+	}
+	
 	public Notifications() {
-		notificationPanel1 = new javax.swing.JPanel();
-        notificationHeader1 = new javax.swing.JLabel();
-        notificationSeparator1 = new javax.swing.JSeparator();
-        notificationTimeLabel1 = new javax.swing.JLabel();
-        notificationDateLabel1 = new javax.swing.JLabel();
-        notificationTimeTextField1 = new javax.swing.JLabel();
-        notificationDateTextField1 = new javax.swing.JLabel();
-        notificationMeetingRoomLabel1 = new javax.swing.JLabel();
-        notificationMeetingRoom1 = new javax.swing.JLabel();
-        notificationDescriptionLabel1 = new javax.swing.JLabel();
-        notificationDescriptionScrollPane1 = new javax.swing.JScrollPane();
-        notificationDescriptionTextArea1 = new javax.swing.JTextArea();
-        notificationAcceptButton1 = new javax.swing.JButton();
-        notificationDenyButton1 = new javax.swing.JButton();
+		notificationPanel1 = new JPanel();
+        notificationHeader1 = new JLabel();
+        notificationSeparator1 = new JSeparator();
+        notificationTimeLabel1 = new JLabel();
+        notificationDateLabel1 = new JLabel();
+        notificationTimeTextField1 = new JLabel();
+        notificationDateTextField1 = new JLabel();
+        notificationMeetingRoomLabel1 = new JLabel();
+        notificationMeetingRoom1 = new JLabel();
+        notificationDescriptionLabel1 = new JLabel();
+        notificationDescriptionScrollPane1 = new JScrollPane();
+        notificationDescriptionTextArea1 = new JTextArea();
+        notificationAcceptButton1 = new JButton();
+        notificationDenyButton1 = new JButton();
 		
         
         notificationHeader1.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
@@ -55,94 +67,117 @@ public class Notifications extends JPanel {
 
         notificationDenyButton1.setText("Forkast");
 
-        javax.swing.GroupLayout notificationPanel1Layout = new javax.swing.GroupLayout(notificationPanel1);
+        GroupLayout notificationPanel1Layout = new GroupLayout(notificationPanel1);
         notificationPanel1.setLayout(notificationPanel1Layout);
         notificationPanel1Layout.setHorizontalGroup(
-            notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(notificationPanel1Layout.createSequentialGroup()
-                .addGroup(notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(notificationHeader1)
-                    .addComponent(notificationSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(notificationSeparator1, GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
                     .addGroup(notificationPanel1Layout.createSequentialGroup()
-                        .addGroup(notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(notificationTimeLabel1)
                             .addComponent(notificationDateLabel1)
                             .addComponent(notificationMeetingRoomLabel1))
                         .addGap(18, 18, 18)
-                        .addGroup(notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(notificationMeetingRoom1)
                             .addComponent(notificationDateTextField1)
                             .addComponent(notificationTimeTextField1)))
                     .addGroup(notificationPanel1Layout.createSequentialGroup()
                         .addComponent(notificationDescriptionLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addGroup(notificationPanel1Layout.createSequentialGroup()
                                 .addComponent(notificationAcceptButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(notificationDenyButton1))
-                            .addComponent(notificationDescriptionScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(notificationDescriptionScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         notificationPanel1Layout.setVerticalGroup(
-            notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(notificationPanel1Layout.createSequentialGroup()
                 .addComponent(notificationHeader1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(notificationSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 8, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(notificationSeparator1, GroupLayout.PREFERRED_SIZE, 8, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(notificationTimeLabel1)
                     .addComponent(notificationTimeTextField1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(notificationDateLabel1)
                     .addComponent(notificationDateTextField1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(notificationMeetingRoomLabel1)
                     .addComponent(notificationMeetingRoom1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(notificationDescriptionLabel1)
-                    .addComponent(notificationDescriptionScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(notificationPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(notificationDescriptionScrollPane1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(notificationPanel1Layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(notificationAcceptButton1)
                     .addComponent(notificationDenyButton1))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout notificationsPanelLayout = new javax.swing.GroupLayout(this);
+        GroupLayout notificationsPanelLayout = new GroupLayout(this);
         this.setLayout(notificationsPanelLayout);
         notificationsPanelLayout.setHorizontalGroup(
-            notificationsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            notificationsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(notificationsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(notificationPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(notificationPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         notificationsPanelLayout.setVerticalGroup(
-            notificationsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            notificationsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(notificationsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(notificationPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(notificationPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(438, Short.MAX_VALUE))
         );
 	}
 	
-	private javax.swing.JButton notificationAcceptButton1;
-    private javax.swing.JLabel notificationDateLabel1;
-    private javax.swing.JLabel notificationDateTextField1;
-    private javax.swing.JButton notificationDenyButton1;
-    private javax.swing.JLabel notificationDescriptionLabel1;
-    private javax.swing.JScrollPane notificationDescriptionScrollPane1;
-    private javax.swing.JTextArea notificationDescriptionTextArea1;
-    private javax.swing.JLabel notificationHeader1;
-    private javax.swing.JLabel notificationMeetingRoom1;
-    private javax.swing.JLabel notificationMeetingRoomLabel1;
-    private javax.swing.JPanel notificationPanel1;
-    private javax.swing.JSeparator notificationSeparator1;
-    private javax.swing.JLabel notificationTimeLabel1;
-    private javax.swing.JLabel notificationTimeTextField1;
+//	public void addNotification(JLabel header, JLabel time, JLabel date, JLabel room, JTextArea description){
+//		JPanel panel = new JPanel();
+//		
+//	}
+	
+	/*
+	 * notificationPanel1 = new JPanel();
+        notificationHeader1 = new JLabel();
+        notificationSeparator1 = new JSeparator();
+        notificationTimeLabel1 = new JLabel();
+        notificationDateLabel1 = new JLabel();
+        notificationTimeTextField1 = new JLabel();
+        notificationDateTextField1 = new JLabel();
+        notificationMeetingRoomLabel1 = new JLabel();
+        notificationMeetingRoom1 = new JLabel();
+        notificationDescriptionLabel1 = new JLabel();
+        notificationDescriptionScrollPane1 = new JScrollPane();
+        notificationDescriptionTextArea1 = new JTextArea();
+        notificationAcceptButton1 = new JButton();
+        notificationDenyButton1 = new JButton();
+		
+	 */
+	
+	private JButton notificationAcceptButton1;
+    private JLabel notificationDateLabel1;
+    private JLabel notificationDateTextField1;
+    private JButton notificationDenyButton1;
+    private JLabel notificationDescriptionLabel1;
+    private JScrollPane notificationDescriptionScrollPane1;
+    private JTextArea notificationDescriptionTextArea1;
+    private JLabel notificationHeader1;
+    private JLabel notificationMeetingRoom1;
+    private JLabel notificationMeetingRoomLabel1;
+    private JPanel notificationPanel1;
+    private JSeparator notificationSeparator1;
+    private JLabel notificationTimeLabel1;
+    private JLabel notificationTimeTextField1;
 }

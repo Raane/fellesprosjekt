@@ -113,7 +113,7 @@ public class Dashboard extends JPanel {
     public void updateShowHideCalendars(ArrayList<String> events, GroupLayout layout){
     	ArrayList<JLabel> labels = new ArrayList<JLabel>();
         Color white = new Color(255, 255, 255);
-        Color grey = new Color(245, 245, 245);
+        Color grey = new Color(255, 255, 255);
     	
     	for (int i = 0; i < events.size(); i++){
     		JLabel temp = new JLabel();
@@ -122,6 +122,7 @@ public class Dashboard extends JPanel {
     		temp.setText(events.get(i));
         	if (i % 2 == 0) {
         		temp.setBackground(white);
+      
         	} else {
         		temp.setBackground(grey);
         	}
@@ -154,7 +155,15 @@ public class Dashboard extends JPanel {
 				} else{
 					temp.setIcon(tick);
 				}
-//				client.showHideCalendarsAction();
+				client.showHideCalendarsAction();
+			}
+			
+			public void mouseEntered(MouseEvent e){
+				temp.setBackground(new Color(230,230,230));
+			}
+			
+			public void mouseExited(MouseEvent e){
+				temp.setBackground(Color.white);
 			}
 		};
 	}

@@ -46,10 +46,12 @@ public class User {
 		return newEvent;
 	}
 	
+	//Returns this users events
 	public ArrayList<Event> getEvents(){
 		return events;
 	}
 	
+	//Returns this users imported calendars
 	public ArrayList<User> getImportedCalendars(){
 		return this.importedCalendars;
 	}

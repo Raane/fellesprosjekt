@@ -153,8 +153,10 @@ public class Dashboard extends JPanel {
 			public void mouseClicked(MouseEvent e){
 				if(temp.getIcon().equals(tick)){
 					temp.setIcon(delete);
+					drawCalendar();
 				} else{
 					temp.setIcon(tick);
+					drawCalendar();
 				}
 				client.showHideCalendarsAction();
 			}
@@ -168,6 +170,12 @@ public class Dashboard extends JPanel {
 			}
 		};
 	}
+    
+    private void drawCalendar(){
+    	User user = Client.getUser();
+    	user.getEvents();
+    	
+    }
 
 	private JLabel agendaLabel;
     private JPanel agendaPanel;

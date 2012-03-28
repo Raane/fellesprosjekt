@@ -1,15 +1,23 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
+
+import connection.Client;
 
 import Models.Event;
 import Models.User;
@@ -27,7 +35,11 @@ public class Dashboard extends JPanel {
 //    public ArrayList<User> getActiveCalendars(){
 //    	for(int i = 0; i < showHideCalendarsPanel)
 //    }
-	
+	private Client client;
+
+	ImageIcon tick = new ImageIcon(getClass().getResource("/gui/icons/tick_16.png"));
+	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
+    
     public Dashboard() {
     	
     	agendaLabel = new JLabel();
@@ -102,20 +114,23 @@ public class Dashboard extends JPanel {
     public void updateShowHideCalendars(ArrayList<String> events, GroupLayout layout){
     	ArrayList<JLabel> labels = new ArrayList<JLabel>();
         Color white = new Color(255, 255, 255);
-        Color grey = new Color(245, 245, 245);
+        Color grey = new Color(255, 255, 255);
     	
     	for (int i = 0; i < events.size(); i++){
     		JLabel temp = new JLabel();
+    		temp.addMouseListener(mouseTempListener(temp));
+    		
     		temp.setText(events.get(i));
         	if (i % 2 == 0) {
         		temp.setBackground(white);
+      
         	} else {
         		temp.setBackground(grey);
         	}
         	temp.setOpaque(true);
-        	temp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/tick_16.png")));
+        	temp.setIcon(tick);
         	temp.setIconTextGap(10);
-        	temp.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 10, 3, 10));
+        	temp.setBorder(BorderFactory.createEmptyBorder(3, 10, 3, 10));
         	labels.add(temp);
         }
     	
@@ -133,7 +148,36 @@ public class Dashboard extends JPanel {
         layout.setVerticalGroup(showHideCalendarsVerticalGroup);
     }
     
-    private JLabel agendaLabel;
+    private MouseListener mouseTempListener(final JLabel temp) {
+    	return new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				if(temp.getIcon().equals(tick)){
+					temp.setIcon(delete);
+					drawCalendar();
+				} else{
+					temp.setIcon(tick);
+					drawCalendar();
+				}
+				client.showHideCalendarsAction();
+			}
+			
+			public void mouseEntered(MouseEvent e){
+				temp.setBackground(new Color(230,230,230));
+			}
+			
+			public void mouseExited(MouseEvent e){
+				temp.setBackground(Color.white);
+			}
+		};
+	}
+    
+    private void drawCalendar(){
+    	User user = Client.getUser();
+    	user.getEvents();
+    	
+    }
+
+	private JLabel agendaLabel;
     private JPanel agendaPanel;
     private JScrollPane agendaScrollPane;
 	

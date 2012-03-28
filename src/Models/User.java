@@ -8,13 +8,13 @@ public class User {
 	private final int USER_ID;
 	private final String USERNAME;
 	private String password;
-	public String name;
+	private String name;
 	
-	public ArrayList<Event> events;	//ArrayList that contains all the events this user is linked to
-	public ArrayList<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
+	private ArrayList<Event> events;	//ArrayList that contains all the events this user is linked to
+	private ArrayList<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
 	
 	
-	User(int id, String username, String password){
+	public User(int id, String username, String password){
 		this.USER_ID = id;
 		this.USERNAME = username;
 		this.password = password;
@@ -46,10 +46,12 @@ public class User {
 		return newEvent;
 	}
 	
+	//Returns this users events
 	public ArrayList<Event> getEvents(){
 		return events;
 	}
 	
+	//Returns this users imported calendars
 	public ArrayList<User> getImportedCalendars(){
 		return this.importedCalendars;
 	}

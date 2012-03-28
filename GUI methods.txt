@@ -22,7 +22,7 @@ gui.getAvaliableCalendars(); ArrayList<User> //Henter de kalenderene som er velg
 gui.setYourCalendars(ArrayList<User>); //setter hvilke kalendere som kan velges
 gui.setAvaliableCalendars(ArrayList<dbHandle.User>); //setter hvilke kalendere som kan velges
 
-gui.setMessanges(ArrayList<Event>); void
+gui.setMessages(ArrayList<Event>); void
 
 gui.setCalendarTitle(String); void
 gui.setCalendarEntries(ArrayList<ArrayList<Event>>); void

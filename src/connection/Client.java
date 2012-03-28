@@ -46,6 +46,9 @@ public class Client implements ActionListener{
 		initializeTimeThings();  // Initializes the time things (variables)
 		addCalendars(); //loads the users imported calendars into the GUI
 		updateFields();
+
+//		gui = new GUI();
+//		gui.addListener(this);
 	}
 	
 
@@ -66,36 +69,45 @@ public class Client implements ActionListener{
 
 	public void showHideCalendarsAction() {
 		//hver gang en kalender trykkes på i dashboard
+		//done
 	}
 	public void meetingroomSearchAction() {
 		//hver gang noe skrives i møteromtextfield
+		//done
 	}
 	public void personsSearchAction() {
 		//hver gang noe skrives i personertextfield
+		//done
 	}
-	public void addEventButtonActoin() {
+	public void addEventButtonAction() {
 		//når det trykkes på ny avtale knappen
+		//done
 	}
 	public void changeNameButtonAction() {
 		//når det trykkes på endre navn knapp
+		//done
 	}
 	public void changePasswordButtonAction() {
 		//når det trykkes på endre passord knapp
+		//done
 	}
 	public void yourCalendarsSearchAction() {
 		//når det trykkes på en knapp i usersearchtextfield
+		//done
 	}
 	public void yourCalendarsAction(User user) {
 		//når det trykkes på en kalender i usercalendars
 	}
 	public void availableCalendarsSearchAction() {
 		//når det trykkes på en knapp i availiblesearchtextfield
+		//done
 	}
 	public void avaliableCalendarsAction(User user) {
 		//når det trykkes på en kalender i availiblecalendars
 	}
 	public void meetingAcceptAction(Meeting meeting) {
 		//trykker godta på et møte
+		
 	}
 	public void meetingDeclineAction(Meeting meeting) {
 		//trykker avslå på et møte
@@ -105,9 +117,11 @@ public class Client implements ActionListener{
 	}
 	public void nextWeekButtonAction() {
 		//trykker på neste uke button
+		//done
 	}
 	public void lastWeekButtonAction() {
 		//trykker på forrige uke button
+		//done
 	}
 	private void updateFields() {
 		updateCalendar(shownWeek, shownYear);

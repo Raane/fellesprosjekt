@@ -2,6 +2,7 @@ package xmlhandle;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.dom4j.Document;
@@ -54,11 +55,83 @@ public class Xmlaction {
 		if (!dbUser.getPassword().equals(password)) {
 			//Login failed response message
 			
+			root.addElement("login_response")
+			.addAttribute("reponse", "Failed");
 			
+			return document;
 
 		}
 		
-		return null;
+		//Login success! Send the information the user needs
+		root.addElement("login_reponse")
+		.addAttribute("reponse", "Success");
+		
+		//List of owners personal events
+		List<Event> eventList = handle.fetchUserEvents(ownerUsername);
+		
+		//Get List of users the person follows
+		List<User> followedUsers = handle.fetchUsersFollowed(ownerID);
+		
+		//Get their events
+		for (User user : followedUsers) {
+			user.setPersonalEvents(handle.fetchUserEvents(user.getUsername()));
+		}
+		
+		//List of all users in the database system
+		List<User> allUsers = handle.fetchAllUsers();
+		
+		//Anything else?
+		
+		//Create the document
+		
+		//Add all the personal events
+		for (Event event : eventList) {
+			Meeting meeting = handle.fetchMeetingOfEvent(event.getEvent_ID());
+			root.element("personal_event")
+			.addAttribute("meetingID", String.valueOf(meeting.getMeeting_ID()))
+			.addAttribute("meetingName", String.valueOf(meeting.getName()))
+			.addAttribute("event_ID", String.valueOf(event.getEvent_ID()))
+			.addAttribute("start", event.getStart().toString())
+			.addAttribute("end", String.valueOf(event.getEnd().toString()))
+			.addAttribute("location", event.getLocation())
+			.addAttribute("description", event.getDescription())
+			.addAttribute("status", event.getStatus().toString());
+		}
+		
+			//Adds the followed users and their events
+			for (User user : followedUsers) {
+			root.element("followed_user")
+			.addAttribute("user_ID", String.valueOf(user.getUserID()))
+			.addAttribute("username", user.getUsername())
+			.addAttribute("name", user.getName());
+			
+			
+			for (Event event : user.getPersonalEvents()) {
+				Meeting meeting = handle.fetchMeetingOfEvent(event.getEvent_ID());
+				root.element("followed_user_event")
+				.addAttribute("event_owner", user.getUsername())
+				.addAttribute("meetingID", String.valueOf(meeting.getMeeting_ID()))
+				.addAttribute("meetingName", String.valueOf(meeting.getName()))
+				.addAttribute("event_ID", String.valueOf(event.getEvent_ID()))
+				.addAttribute("start", event.getStart().toString())
+				.addAttribute("end", String.valueOf(event.getEnd().toString()))
+				.addAttribute("location", event.getLocation())
+				.addAttribute("description", event.getDescription())
+				.addAttribute("status", event.getStatus().toString());
+				
+			}
+			
+		}
+			
+		for (User user : allUsers) {
+			root.element("database_user")
+			.addAttribute("user_ID", String.valueOf(user.getUserID()))
+			.addAttribute("username", user.getUsername())
+			.addAttribute("name", user.getName());
+		}
+		
+		
+		return document;
 	}
 	
 	//Needed? Probably best handled with a FIN 

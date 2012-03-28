@@ -20,7 +20,7 @@ public class Server implements ActionListener{
 	public Server() {
 		serverConnection = new ServerConnection();
 		serverConnection.addReceiveListener(this);
-		try {
+		/*try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -28,8 +28,10 @@ public class Server implements ActionListener{
 		 //Sender til alle
 		serverConnection.broadcast("Test msg from server to client");
 		//Sender til den første clienten som connectet
-		serverConnection.send("Test msg from server to the first client started", serverConnection.getActiveUsers().get(0));
+		serverConnection.send("Test msg from server to the first client started", serverConnection.getActiveUsers().get(0));*/
 	}
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {	
@@ -42,9 +44,11 @@ public class Server implements ActionListener{
 		}
 	}
 	
+	
+	
 	private void serverConnectionAction(ActiveUser activeUser, String msg) {
 		if(activeUser.getUsername()==null) {
-//			activeUser.setUsername(Xmlhandle.extractUsername(msg));
+			activeUser.setUsername(Xmlhandle.extractUsername(msg));
 		}
 //		if(serverConnection.)
 		try {
@@ -65,7 +69,7 @@ public class Server implements ActionListener{
 		String username = xmlHandle.getUsernameForSending();
 		ArrayList<ActiveUser> userlist = serverConnection.getActiveUsers();
 		for(ActiveUser user:userlist) {
-			if(user.getUsername()==username){
+			if(user.getUsername()==username || username==null){
 				user.send(msg);
 			}
 		}

@@ -15,6 +15,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
+import connection.Client;
+
 import dbhandle.Event;
 import dbhandle.MessageAction;
 import dbhandle.Status;
@@ -38,7 +40,6 @@ public class Xmlhandle {
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
 		Document fetchData = null;
-		boolean opSuccess = false;
 		
 		Element ownerElement = root.element("owner");
 		if (ownerElement != null) {
@@ -53,8 +54,7 @@ public class Xmlhandle {
 			
 			Element loginCandidate = root.element("login_attempt");
 			String password = loginCandidate.attributeValue("password");
-						
-			opSuccess = actionToPerform.loginSuccess(ownerUsername, password);
+									
 			
 		}  else if (action == MessageAction.CREATE_MEETING) {
 			
@@ -79,7 +79,7 @@ public class Xmlhandle {
 			}
 			
 			//Perform the action
-			opSuccess = actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
+			actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
 			
 		} else if (action == MessageAction.EDIT_MEETING) {
 			
@@ -90,19 +90,19 @@ public class Xmlhandle {
 			Element meetingElement = root.element("meeting");
 			meetingID = Integer.valueOf(meetingElement.attributeValue("meeting_ID"));
 			
-			opSuccess = actionToPerform.editMeeting(eventChanges, meetingID);
+			actionToPerform.editMeeting(eventChanges, meetingID);
 			
 		} else if (action == MessageAction.CREATE_USER) {
 			
 			User newUser = XMLtoUser(root);
-			opSuccess = actionToPerform.createUser(newUser);
+			actionToPerform.createUser(newUser);
 			
 		} else if (action == MessageAction.EDIT_NAME_OF_USER) {
 			
 			Element changeName = root.element("change_name");
 			String newName = changeName.attributeValue("new_name");
 			
-			opSuccess = actionToPerform.editNameOfUser(newName);
+			actionToPerform.editNameOfUser(newName);
 			
 		} else if (action == MessageAction.EDIT_USER_PASSWORD) {
 			
@@ -110,12 +110,12 @@ public class Xmlhandle {
 			String oldPassword = changePassword.attributeValue("old_password");
 			String newPassword = changePassword.attributeValue("new_password");
 			
-			opSuccess = actionToPerform.editUserPassword(oldPassword, newPassword);
+			actionToPerform.editUserPassword(oldPassword, newPassword);
 			
 		} else if (action == MessageAction.EDIT_EVENT) {
 			
 			Event eventToEdit = XMLtoEvent(root);
-			opSuccess = actionToPerform.editEvent(eventToEdit);
+			actionToPerform.editEvent(eventToEdit);
 			
 		} else if (action == MessageAction.FETCH) {
 			//This is an operation intended for when the user wants to fetch information from the database
@@ -124,25 +124,42 @@ public class Xmlhandle {
 			fetchData = handleFetch.performFetch();
 		}
 		
-			if (fetchData == null) {
-		
-			Document document = DocumentHelper.createDocument();
-			Element replyRoot = document.addElement(action.toString());
-			
-			replyRoot.addElement("message_response")
-			.addAttribute("result", String.valueOf(opSuccess));
-			
-			serverSend(document.asXML(), ownerUsername);
-			
-			} else {
-				serverSend(fetchData.asXML(), ownerUsername);
-			}
+		//Determine appropriate response message and send method here
 			
 				
 	}	
 	
+	//This will be run from the client to interpret incoming messages
+	public void interpretMessageData(Document xml, Client client) {
+		//This can be 
+		
+		Element root = xml.getRootElement();
+		String ownerUsername = null;
+		
+		Element ownerElement = root.element("owner");
+		if (ownerElement != null) {
+		ownerUsername = ownerElement.attributeValue("owner_username");
+		} 
+		
+		MessageAction action = MessageAction.valueOf(root.getName());
+		
+		if (action == MessageAction.LOGIN) {
+			
+		} else if (action == MessageAction.CREATE_MEETING) {
+			
+		} else if (action == MessageAction.CREATE_USER) {
+			
+		} else if (action == MessageAction.EDIT_NAME_OF_USER) {
+			
+		} else if (action == MessageAction.EDIT_USER_PASSWORD) {
+			
+		} else if (action == MessageAction.EDIT_EVENT) {
+			
+		}
+	}
+	
 	//Sender methods
-	public Document createLoginRequest(String username, String password) {
+	public void createLoginRequest(String username, String password) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.LOGIN.toString());
@@ -153,18 +170,12 @@ public class Xmlhandle {
 		root.addElement("login_attempt")
 		.addAttribute("password", password);
 		
-		return document;
+		clientSend(document.asXML());
 		
-	}
-	
-	//Needed??
-	public Document createLogoutRequest() {
-		
-		return null;
 	}
 	
 	//This will run on the client side. This can probably user the User class? -- tested and should be working
-	public Document createAddMeetingRequest(List<Integer> userList, Event event, int meetingRoomID, String meetingName, String requestedBy) {
+	public void createAddMeetingRequest(List<Integer> userList, Event event, int meetingRoomID, String meetingName, String requestedBy) {
 	//This will run on the client side. This can probably user the User class?
 		
 		Document document = DocumentHelper.createDocument();
@@ -198,12 +209,12 @@ public class Xmlhandle {
 			.addAttribute("meeting_room_ID",String.valueOf(meetingRoomID));
 		}
 		
-		return document;
+		clientSend(document.asXML());
 		
 	}
 	
 	//TODO: Change it to only include the changes?
-	public Document createEditMeetingRequest(Event eventChanges, int meetingID, String requestedBy) {
+	public void createEditMeetingRequest(Event eventChanges, int meetingID, String requestedBy) {
 		//Here eventChanges includes the original events ID aswell as all the changes
 		
 		Document document = DocumentHelper.createDocument();
@@ -224,11 +235,11 @@ public class Xmlhandle {
 		root.addElement("meeting")
 		.addAttribute("meeting_ID", String.valueOf(meetingID));
 		
-		return document;
+		clientSend(document.asXML());
 		
 	}
 	
-	public Document createAddUserRequest(User newUser, String requestedBy) {
+	public void createAddUserRequest(User newUser, String requestedBy) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.CREATE_USER.toString());
@@ -242,10 +253,10 @@ public class Xmlhandle {
 		.addAttribute("password", newUser.getPassword())
 		.addAttribute("name", newUser.getName());
 
-		return document;
+		clientSend(document.asXML());
 	}
 	
-	public Document createEditNameOfUserRequest(String newName, String requestedBy) {
+	public void createEditNameOfUserRequest(String newName, String requestedBy) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_NAME_OF_USER.toString());
@@ -257,10 +268,10 @@ public class Xmlhandle {
 		root.addElement("change_name")
 		.addAttribute("new_name", newName);
 		
-		return document;
+		clientSend(document.asXML());
 	}
 	
-	public Document createEditUserPasswordRequest(String oldPassword, String newPassword, String requestedBy) {
+	public void createEditUserPasswordRequest(String oldPassword, String newPassword, String requestedBy) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_USER_PASSWORD.toString());
@@ -272,10 +283,10 @@ public class Xmlhandle {
 		.addAttribute("old_password", oldPassword)
 		.addAttribute("new_password", newPassword);
 		
-		return document;
+		clientSend(document.asXML());
 	}
 	
-	public Document createEditEventRequest(Event eventChanges, String requestedBy) {
+	public void createEditEventRequest(Event eventChanges, String requestedBy) {
 		
 		Document document = DocumentHelper.createDocument();
 		Element root = document.addElement(MessageAction.EDIT_EVENT.toString());
@@ -292,27 +303,11 @@ public class Xmlhandle {
 		.addAttribute("description",eventChanges.getDescription())
 		.addAttribute("status",eventChanges.getStatus().toString());
 		
-		return document;
+		clientSend(document.asXML());
 	}
 	
 	//Fetch requests
-	
 	public Document fetchUser(String username, String requestedBy) {
-		
-		return null;
-	}
-	
-	public Document fetchMeeting(int meetingID, String requestedBy) {
-		
-		return null;
-	}
-	
-	public Document fetchEvent(int eventID, String requestedBy) {
-		
-		return null;
-	}
-	
-	public Document fetchAllUsers() {
 		
 		return null;
 	}
@@ -384,6 +379,11 @@ public class Xmlhandle {
 	private void serverSend(String msg, String username) {
 		this.msg = msg;
 		this.username = username;
+		listener.actionPerformed(new ActionEvent(this, 0, "sendingmsg"));
+	}
+	private void serverBroadcast(String msg) {
+		this.msg = msg;
+		this.username = null;
 		listener.actionPerformed(new ActionEvent(this, 0, "sendingmsg"));
 	}
 	

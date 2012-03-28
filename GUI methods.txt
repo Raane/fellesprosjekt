@@ -1,4 +1,4 @@
-gui.addListener(ActionListener); void //legger til listeneren
+gui.addListener(Client); void //legger til listeneren
 gui.setAgenda(ArrayList<Event>); void //velger hva som skal vises i agendaen			(Laget en metode for � sortere listen med Events)
 gui.addCalendar(User); void //legger til en kalender i listen over kalendere som kan vises (Gjort)
 gui.removeCalendar(User); void //fjerner en kalender i listen over kalendere som kan vises (Gjort)
@@ -6,6 +6,10 @@ gui.getActiveCalendars(); ArrayList<User>  //henter ut hvilke kalendere som er v
 
 //Disse gjelder alle for instillingertaben
 gui.getNewEvent(); Event 
+gui.getMeetingroomSearch(); String
+gui.setAvailableMeetingrooms(ArrayList<Meetingroom>); void
+gui.getPersonSearch(); String
+gui.setAvailablePersonSearch(); void
 gui.getNewName(); String	(Gjort)
 gui.getOldPassword(); String	(Gjort)
 gui.getNewPassword(); String	(Gjort)
@@ -19,3 +23,4 @@ gui.setAvaliableCalendars(ArrayList<User>); //setter hvilke kalendere som kan ve
 
 gui.setMessanges(ArrayList<Event>); void
 
+gui.setCalendarTitle(String); void

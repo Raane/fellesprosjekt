@@ -4,6 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+
 import dbhandle.Dbhandle;
 import dbhandle.Event;
 import dbhandle.Meeting;
@@ -31,14 +35,30 @@ public class Xmlaction {
 	}
 	
 	//Tested and should be working
-	public boolean loginSuccess(String username, String password) throws SQLException {
+	public Document login(String username, String password) throws SQLException {
+		
+		//Init response message
+		Document document = DocumentHelper.createDocument();
+		Element root = document.addElement(MessageAction.LOGIN.toString());
+		
+		//Adds the username of the owner
+		root.addElement("owner")
+		.addAttribute("owner_username",ownerUsername);
+			
 		
 		//Verify with database and create a connection with user.
 		Dbhandle handle = new Dbhandle();
 		User dbUser = handle.fetchUser(username);
 		
 		//Check if the passwords match
-		return dbUser.getPassword().equals(password);
+		if (!dbUser.getPassword().equals(password)) {
+			//Login failed response message
+			
+			
+
+		}
+		
+		return null;
 	}
 	
 	//Needed? Probably best handled with a FIN 

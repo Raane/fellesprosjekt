@@ -46,8 +46,8 @@ public class User {
 		return newEvent;
 	}
 	
-	public ArrayList<Event> getEvents(User user){
-		return user.events;
+	public ArrayList<Event> getEvents(){
+		return events;
 	}
 	
 	public ArrayList<User> getImportedCalendars(){

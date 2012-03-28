@@ -48,7 +48,7 @@ public class Server implements ActionListener{
 	
 	private void serverConnectionAction(ActiveUser activeUser, String msg) {
 		if(activeUser.getUsername()==null) {
-			activeUser.setUsername(Xmlhandle.extractUsername(msg));
+//			activeUser.setUsername(Xmlhandle.extractUsername(msg));
 		}
 //		if(serverConnection.)
 		try {

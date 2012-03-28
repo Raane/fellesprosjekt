@@ -1,7 +1,18 @@
 package gui;
 
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.LayoutStyle;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
+
 @SuppressWarnings("serial")
-public class GUI extends javax.swing.JFrame {
+public class GUI extends JFrame {
 
     public GUI() {
         initComponents();
@@ -9,21 +20,21 @@ public class GUI extends javax.swing.JFrame {
 
     private void initComponents() {
 
-        tabbedPane = new javax.swing.JTabbedPane();
+        tabbedPane = new JTabbedPane();
         dashboardPanel = new Dashboard();
-        newEventScrollPane = new javax.swing.JScrollPane();
+        newEventScrollPane = new JScrollPane();
         NewEventPanel = new NewEvent();
-        adminScrollPane = new javax.swing.JScrollPane();
+        adminScrollPane = new JScrollPane();
         AdminPanel = new Admin();
-        notificationsScrollPane = new javax.swing.JScrollPane();
+        notificationsScrollPane = new JScrollPane();
         notificationsPanel = new Notifications();
-        weekLabel = new javax.swing.JLabel();
-        previousWeekButton = new javax.swing.JButton();
-        nextWeekButton = new javax.swing.JButton();
-        calendarScrollPane = new javax.swing.JScrollPane();
+        weekLabel = new JLabel();
+        previousWeekButton = new JButton();
+        nextWeekButton = new JButton();
+        calendarScrollPane = new JScrollPane();
         calendarPanel = new Calendar();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Kalender Schmalender");
 
         tabbedPane.setPreferredSize(new java.awt.Dimension(400, 146));
@@ -45,7 +56,7 @@ public class GUI extends javax.swing.JFrame {
         tabbedPane.addTab("Meldinger", notificationsScrollPane);
 
         weekLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 24));
-        weekLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        weekLabel.setHorizontalAlignment(SwingConstants.CENTER);
         weekLabel.setText("Uke 12 - 2012");
 
         previousWeekButton.setText("Uke 11");
@@ -53,53 +64,53 @@ public class GUI extends javax.swing.JFrame {
 
         calendarScrollPane.setViewportView(calendarPanel);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(tabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(calendarScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
-                    .addComponent(weekLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+                .addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 400, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(calendarScrollPane, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+                    .addComponent(weekLabel, GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(previousWeekButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
                         .addComponent(nextWeekButton)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(weekLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(calendarScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(weekLabel, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(calendarScrollPane, GroupLayout.PREFERRED_SIZE, 575, GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                             .addComponent(previousWeekButton)
                             .addComponent(nextWeekButton)))
-                    .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE))
+                    .addComponent(tabbedPane, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pack();
     }
 
     // Variables declaration
-    private javax.swing.JPanel AdminPanel;
-    private javax.swing.JPanel NewEventPanel;
-    private javax.swing.JScrollPane adminScrollPane;
-    private javax.swing.JPanel calendarPanel;
-    private javax.swing.JScrollPane calendarScrollPane;
-    private javax.swing.JPanel dashboardPanel;
-    private javax.swing.JScrollPane newEventScrollPane;
-    private javax.swing.JButton nextWeekButton;
-    private javax.swing.JPanel notificationsPanel;
-    private javax.swing.JScrollPane notificationsScrollPane;
-    private javax.swing.JButton previousWeekButton;
-    private javax.swing.JTabbedPane tabbedPane;
-    private javax.swing.JLabel weekLabel;
+    private JPanel AdminPanel;
+    private JPanel NewEventPanel;
+    private JScrollPane adminScrollPane;
+    private JPanel calendarPanel;
+    private JScrollPane calendarScrollPane;
+    private JPanel dashboardPanel;
+    private JScrollPane newEventScrollPane;
+    private JButton nextWeekButton;
+    private JPanel notificationsPanel;
+    private JScrollPane notificationsScrollPane;
+    private JButton previousWeekButton;
+    private JTabbedPane tabbedPane;
+    private JLabel weekLabel;
     // End of variables declaration
 }

@@ -40,7 +40,6 @@ public class Xmlhandle {
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
 		Document fetchData = null;
-		boolean opSuccess = false;
 		
 		Element ownerElement = root.element("owner");
 		if (ownerElement != null) {
@@ -55,8 +54,7 @@ public class Xmlhandle {
 			
 			Element loginCandidate = root.element("login_attempt");
 			String password = loginCandidate.attributeValue("password");
-						
-			opSuccess = actionToPerform.loginSuccess(ownerUsername, password);
+									
 			
 		}  else if (action == MessageAction.CREATE_MEETING) {
 			
@@ -81,7 +79,7 @@ public class Xmlhandle {
 			}
 			
 			//Perform the action
-			opSuccess = actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
+			actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
 			
 		} else if (action == MessageAction.EDIT_MEETING) {
 			
@@ -92,19 +90,19 @@ public class Xmlhandle {
 			Element meetingElement = root.element("meeting");
 			meetingID = Integer.valueOf(meetingElement.attributeValue("meeting_ID"));
 			
-			opSuccess = actionToPerform.editMeeting(eventChanges, meetingID);
+			actionToPerform.editMeeting(eventChanges, meetingID);
 			
 		} else if (action == MessageAction.CREATE_USER) {
 			
 			User newUser = XMLtoUser(root);
-			opSuccess = actionToPerform.createUser(newUser);
+			actionToPerform.createUser(newUser);
 			
 		} else if (action == MessageAction.EDIT_NAME_OF_USER) {
 			
 			Element changeName = root.element("change_name");
 			String newName = changeName.attributeValue("new_name");
 			
-			opSuccess = actionToPerform.editNameOfUser(newName);
+			actionToPerform.editNameOfUser(newName);
 			
 		} else if (action == MessageAction.EDIT_USER_PASSWORD) {
 			
@@ -112,12 +110,12 @@ public class Xmlhandle {
 			String oldPassword = changePassword.attributeValue("old_password");
 			String newPassword = changePassword.attributeValue("new_password");
 			
-			opSuccess = actionToPerform.editUserPassword(oldPassword, newPassword);
+			actionToPerform.editUserPassword(oldPassword, newPassword);
 			
 		} else if (action == MessageAction.EDIT_EVENT) {
 			
 			Event eventToEdit = XMLtoEvent(root);
-			opSuccess = actionToPerform.editEvent(eventToEdit);
+			actionToPerform.editEvent(eventToEdit);
 			
 		} else if (action == MessageAction.FETCH) {
 			//This is an operation intended for when the user wants to fetch information from the database
@@ -126,25 +124,14 @@ public class Xmlhandle {
 			fetchData = handleFetch.performFetch();
 		}
 		
-			if (fetchData == null) {
-		
-			Document document = DocumentHelper.createDocument();
-			Element replyRoot = document.addElement(action.toString());
-			
-			replyRoot.addElement("message_response")
-			.addAttribute("result", String.valueOf(opSuccess));
-			
-			serverSend(document.asXML(), ownerUsername);
-			
-			} else {
-				serverSend(fetchData.asXML(), ownerUsername);
-			}
+		//Determine appropriate response message and send method here
 			
 				
 	}	
 	
 	//This will be run from the client to interpret incoming messages
 	public void interpretMessageData(Document xml, Client client) {
+		//This can be 
 		
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
@@ -156,7 +143,19 @@ public class Xmlhandle {
 		
 		MessageAction action = MessageAction.valueOf(root.getName());
 		
-		
+		if (action == MessageAction.LOGIN) {
+			
+		} else if (action == MessageAction.CREATE_MEETING) {
+			
+		} else if (action == MessageAction.CREATE_USER) {
+			
+		} else if (action == MessageAction.EDIT_NAME_OF_USER) {
+			
+		} else if (action == MessageAction.EDIT_USER_PASSWORD) {
+			
+		} else if (action == MessageAction.EDIT_EVENT) {
+			
+		}
 	}
 	
 	//Sender methods
@@ -380,6 +379,11 @@ public class Xmlhandle {
 	private void serverSend(String msg, String username) {
 		this.msg = msg;
 		this.username = username;
+		listener.actionPerformed(new ActionEvent(this, 0, "sendingmsg"));
+	}
+	private void serverBroadcast(String msg) {
+		this.msg = msg;
+		this.username = null;
 		listener.actionPerformed(new ActionEvent(this, 0, "sendingmsg"));
 	}
 	

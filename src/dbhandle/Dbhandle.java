@@ -146,6 +146,45 @@ public User fetchUser(int user_ID) {
 			return null;
 		}	
 	}
+
+	public List<User> fetchUsersFollowed(int user_ID) throws SQLException {
+		
+		String username = null; String password = null; String name = null;
+		
+		String query = String.format("SELECT * FROM (other_user_event JOIN user ON user.user_ID = other_user_event.other_user_ID) WHERE user_ID='%d'",user_ID);
+		ResultSet rs = this.dbQuery(query);
+		List<User> userList = new ArrayList<User>();
+		
+		while(rs.next()) {
+			user_ID = rs.getInt("user_ID");
+			username = rs.getString("username");
+			name = rs.getString("name");
+			User user = new User(user_ID,username, password, name);
+			userList.add(user);
+		}
+		
+		return userList;
+		
+	}
+	
+	public List<User> fetchAllUsers() throws SQLException {
+	
+		int user_ID = -1; String username = null; String password = null; String name = null;
+		
+		String query = String.format("SELECT * FROM user");
+		ResultSet rs = this.dbQuery(query);
+		List<User> userList = new ArrayList<User>();
+		
+		while(rs.next()) {
+			user_ID = rs.getInt("user_ID");
+			username = rs.getString("username");
+			name = rs.getString("name");
+			User user = new User(user_ID,username, password, name);
+			userList.add(user);
+		}
+		
+		return userList;
+	}
 	
 	//Fetches the event identified by event_ID from the database
 	public Event fetchEvent(int event_ID) {
@@ -258,9 +297,21 @@ public User fetchUser(int user_ID) {
 	}
 	
 	//Fetches the meeting the given event is part of
-	public Meeting fetchMeetingOfEvent (int event_ID) {
+	public Meeting fetchMeetingOfEvent (int event_ID) throws SQLException {
 		
-		return null;
+		String query = String.format("SELECT * FROM (meeting_event JOIN meeting ON meeting.meeting_ID = meeting_event.meeting_ID) " +
+				"WHERE event_ID='%d'",event_ID);
+		ResultSet rs = this.dbQuery(query);
+		
+		if (rs.next()) {
+			int id = rs.getInt("meeting_ID");
+			String name = rs.getString("name");
+			Meeting meeting = new Meeting(id,name);
+			return meeting;
+		} else {
+			return null;
+		}
+		
 	}
 	
 	//Fetches the meeting room the event is using. If its not using a meeting room, the method will return null.

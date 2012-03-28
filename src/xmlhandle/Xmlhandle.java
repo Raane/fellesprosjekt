@@ -54,6 +54,8 @@ public class Xmlhandle {
 			
 			Element loginCandidate = root.element("login_attempt");
 			String password = loginCandidate.attributeValue("password");
+			
+			
 									
 			
 		}  else if (action == MessageAction.CREATE_MEETING) {
@@ -376,11 +378,15 @@ public class Xmlhandle {
 	public void addListener(ActionListener listener) {
 		this.listener = listener;
 	}
+	
+	//Use this in another method to send to all related users
 	private void serverSend(String msg, String username) {
 		this.msg = msg;
 		this.username = username;
 		listener.actionPerformed(new ActionEvent(this, 0, "sendingmsg"));
 	}
+	
+	//Might not be used
 	private void serverBroadcast(String msg) {
 		this.msg = msg;
 		this.username = null;

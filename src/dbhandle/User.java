@@ -1,5 +1,6 @@
 package dbhandle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class User {
@@ -12,7 +13,7 @@ public class User {
 		private String name;
 		
 		//external relation
-		private List<Meeting> meetingLeader;
+		private List<Event> personalEvents;
 		
 		//Constructor for an existing user that has already been assigned a userID by the database
 		public User (int userID, String username, String password, String name) {
@@ -21,6 +22,8 @@ public class User {
 			this.username = username;
 			this.password = password;
 			this.name = name;
+			
+			this.setPersonalEvents(new ArrayList<Event>());
 			
 			//TODO: Do something to find the meetings the user is a leader for
 		}
@@ -32,6 +35,8 @@ public class User {
 			this.password = password;
 			this.name = name;
 			this.userID = -1;
+			
+			this.setPersonalEvents(new ArrayList<Event>());
 			
 			//TODO: Do something to find the meetings the user is a leader for
 
@@ -68,18 +73,17 @@ public class User {
 		public void setName(String name) {
 			this.name = name;
 		}
-
-		public List<Meeting> getMeetingLeader() {
-			return meetingLeader;
-		}
-
-		public void setMeetingLeader(List<Meeting> meetingLeader) {
-			this.meetingLeader = meetingLeader;
-		}
-		
 		
 		@Override
 		public String toString() {
 			return "Userid: " + userID + " Name: " + name + " Username: " + username + " Password: " + password;
+		}
+
+		public List<Event> getPersonalEvents() {
+			return personalEvents;
+		}
+
+		public void setPersonalEvents(List<Event> personalEvents) {
+			this.personalEvents = personalEvents;
 		}
 }

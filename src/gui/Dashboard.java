@@ -9,6 +9,8 @@ import java.util.Collections;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -33,6 +35,9 @@ public class Dashboard extends JPanel {
 //    	for(int i = 0; i < showHideCalendarsPanel)
 //    }
 	private Client client;
+
+	ImageIcon tick = new ImageIcon(getClass().getResource("/gui/icons/tick_16.png"));
+	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
     
     public Dashboard() {
     	
@@ -112,7 +117,7 @@ public class Dashboard extends JPanel {
     	
     	for (int i = 0; i < events.size(); i++){
     		JLabel temp = new JLabel();
-    		temp.addMouseListener(mouseTempListener());
+    		temp.addMouseListener(mouseTempListener(temp));
     		
     		temp.setText(events.get(i));
         	if (i % 2 == 0) {
@@ -121,9 +126,9 @@ public class Dashboard extends JPanel {
         		temp.setBackground(grey);
         	}
         	temp.setOpaque(true);
-        	temp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/icons/tick_16.png")));
+        	temp.setIcon(tick);
         	temp.setIconTextGap(10);
-        	temp.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 10, 3, 10));
+        	temp.setBorder(BorderFactory.createEmptyBorder(3, 10, 3, 10));
         	labels.add(temp);
         }
     	
@@ -141,10 +146,15 @@ public class Dashboard extends JPanel {
         layout.setVerticalGroup(showHideCalendarsVerticalGroup);
     }
     
-    private MouseListener mouseTempListener() {
+    private MouseListener mouseTempListener(final JLabel temp) {
     	return new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
-				client.showHideCalendarsAction();
+				if(temp.getIcon().equals(tick)){
+					temp.setIcon(delete);
+				} else{
+					temp.setIcon(tick);
+				}
+//				client.showHideCalendarsAction();
 			}
 		};
 	}

@@ -33,6 +33,8 @@ public class Xmlhandle {
 	//Receiver methods
 	public void performMessageInstructions(Document xml) throws NumberFormatException, ParseException, SQLException{
 		
+		//Implement appropriate responses
+		
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
 		Document fetchData = null;
@@ -47,19 +49,14 @@ public class Xmlhandle {
 		MessageAction action = MessageAction.valueOf(root.getName());
 		
 		if (action == MessageAction.LOGIN) {
-			
-			System.out.println("LOGIN");
+			//Respond by sending back all the information the logged in user would need
 			
 			Element loginCandidate = root.element("login_attempt");
 			String password = loginCandidate.attributeValue("password");
 						
 			opSuccess = actionToPerform.loginSuccess(ownerUsername, password);
 			
-		} else if (action == MessageAction.LOGOUT) {
-			
-			//NotNessesarilyNeededException
-			
-		} else if (action == MessageAction.CREATE_MEETING) {
+		}  else if (action == MessageAction.CREATE_MEETING) {
 			
 			List<Integer> userIDList; Event newEvent; int meetingRoomID = -1; String meetingName;
 			

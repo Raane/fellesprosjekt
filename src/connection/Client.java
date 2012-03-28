@@ -1,5 +1,7 @@
 package connection;
 
+import gui.GUI;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -16,6 +18,7 @@ import xmlhandle.Xmlhandle;
 public class Client implements ActionListener{
 	ClientConnection clientConnection;
 	Xmlhandle xmlHandle = new Xmlhandle();
+	private GUI gui;
 	public User user;
 	public ArrayList<dbhandle.User> allUsers;
 	public ArrayList<User> myUsers;
@@ -29,6 +32,8 @@ public class Client implements ActionListener{
 	public Client() {
 		clientConnection = new ClientConnection();
 		clientConnection.addReceiveListener(this);
+		gui = new GUI();
+		gui.addListener(this);
 	}
 	
 	public void showHideCalendarsAction() {
@@ -36,27 +41,34 @@ public class Client implements ActionListener{
 	}
 	public void meetingroomSearchAction() {
 		//hver gang noe skrives i møteromtextfield
+		//done
 	}
 	public void personsSearchAction() {
 		//hver gang noe skrives i personertextfield
+		//done
 	}
-	public void addEventButtonActoin() {
+	public void addEventButtonAction() {
 		//når det trykkes på ny avtale knappen
+		//done
 	}
 	public void changeNameButtonAction() {
 		//når det trykkes på endre navn knapp
+		//done
 	}
 	public void changePasswordButtonAction() {
 		//når det trykkes på endre passord knapp
+		//done
 	}
 	public void yourCalendarsSearchAction() {
 		//når det trykkes på en knapp i usersearchtextfield
+		//done
 	}
 	public void yourCalendarsAction(User user) {
 		//når det trykkes på en kalender i usercalendars
 	}
 	public void availableCalendarsSearchAction() {
 		//når det trykkes på en knapp i availiblesearchtextfield
+		//done
 	}
 	public void avaliableCalendarsAction(User user) {
 		//når det trykkes på en kalender i availiblecalendars

@@ -224,7 +224,7 @@ public class Xmlhandle {
         //TODO Group them up in meetings
         
         client.setUser(loginUser);
-        client.setMyUsers((ArrayList<Models.User>) followedUserList);
+        client.getUser().setImportedCalendars(((ArrayList<Models.User>) followedUserList));
         client.setAllUsers((ArrayList<Models.User>)allUsers);
 		
 			

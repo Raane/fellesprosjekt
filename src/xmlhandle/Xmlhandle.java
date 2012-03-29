@@ -197,14 +197,25 @@ public class Xmlhandle {
             		Models.Event event = new Models.Event(eventID, followedUser, title, start, end, location, description);
             		event.setStatus(status);
             		followedUserEventList.add(event);
-            		
+            		followedUser.setEvents(followedUserEventList);
                 }
             }
         }
 		
-		
-		
-		
+		//Adds all the users in the database
+		List<User> allUsers = new ArrayList<User>();
+        for ( Iterator i = root.elementIterator( "database_user" ); i.hasNext(); ) {
+            Element userElement = (Element) i.next();
+            int userID = Integer.valueOf(userElement.attributeValue("user_ID"));
+            String username = userElement.attributeValue("username");
+            String name = userElement.attributeValue("name");
+            User user = new User(username, null, name);
+            allUsers.add(user);
+        }
+        
+        client.setUser(loginUser);
+        client.setMyUsers(followedUserList);
+        client.setAllUsers(allUsers);
 		
 			
 		} else if (action == MessageAction.CREATE_MEETING) {

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.dom4j.DocumentException;
 
@@ -25,10 +26,10 @@ public class Client implements ActionListener{
 	ClientConnection clientConnection;
 	Xmlhandle xmlHandle = new Xmlhandle();
 	private GuiController guicontroller;
-	public User user;
-	public ArrayList<dbhandle.User> allUsers;
-	public ArrayList<User> myUsers;
-	public ArrayList<Meetingroom> meetingrooms;
+	private User user;
+	private List<dbhandle.User> allUsers;
+	private List<User> myUsers;
+	private List<Meetingroom> meetingrooms;
 	private int shownWeek;
 	private int shownYear;
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
@@ -36,6 +37,8 @@ public class Client implements ActionListener{
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
 	
 	
+	
+
 	public static void main(String[] args) {
 //		System.out.println(getDayOfWeek());
 		Client client = new Client();
@@ -120,11 +123,11 @@ public class Client implements ActionListener{
 		//når det trykkes på en kalender i availiblecalendars
 	}
 	public void meetingAcceptAction(Event event) {
-		//trykker godta på et møte
-		
+		System.out.println(event.getTitle());
 	}
 	public void meetingDeclineAction(Event event) {
 		//trykker avslå på et møte
+		//ActionListener finnes, den bare virker ikke
 	}
 	public void calendarEventAction(Event event) {
 		//når det trykkes på en event i kalenderen
@@ -260,5 +263,33 @@ public class Client implements ActionListener{
 	}
 	public User getUser() {
 		return user;
+	}
+	
+	public List<dbhandle.User> getAllUsers() {
+		return allUsers;
+	}
+
+	public void setAllUsers(List<dbhandle.User> allUsers) {
+		this.allUsers = allUsers;
+	}
+
+	public List<User> getMyUsers() {
+		return myUsers;
+	}
+
+	public void setMyUsers(List<User> myUsers) {
+		this.myUsers = myUsers;
+	}
+
+	public List<Meetingroom> getMeetingrooms() {
+		return meetingrooms;
+	}
+
+	public void setMeetingrooms(List<Meetingroom> meetingrooms) {
+		this.meetingrooms = meetingrooms;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

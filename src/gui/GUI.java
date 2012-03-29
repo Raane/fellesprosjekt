@@ -137,15 +137,15 @@ public class GUI extends JFrame {
 	}
     
     // Variables declaration
-    private JPanel AdminPanel;
-    private JPanel NewEventPanel;
+    private Admin AdminPanel;
+    private NewEvent NewEventPanel;
     private JScrollPane adminScrollPane;
-    private JPanel calendarPanel;
+    private Calendar calendarPanel;
     private JScrollPane calendarScrollPane;
     private Dashboard dashboardPanel;
     private JScrollPane newEventScrollPane;
     private JButton nextWeekButton;
-    private JPanel notificationsPanel;
+    private Notifications notificationsPanel;
     private JScrollPane notificationsScrollPane;
     private JButton previousWeekButton;
     private JTabbedPane tabbedPane;

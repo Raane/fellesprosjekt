@@ -13,6 +13,8 @@ import Models.User;
 public class GuiController {
 	
 	private GUI gui;
+	private Notifications notifications;
+	private Dashboard dashboard;
 	
 	public GuiController() {
 		gui = new GUI();
@@ -105,11 +107,13 @@ public class GuiController {
 	}
 	
 	public void setAvailablePersons(ArrayList<User> validPersons) {
-		//TODO make it
+		dashboard.updateShowHideCalendars(validPersons);
 	}
 
 	public void setMessages(ArrayList<Event> messages) {
-		//TODO these events should end up in the notifications
+		for (int i = 0; i < messages.size(); i++) {
+			notifications.newNotification(messages.get(i));
+		}
 	}
 	public void setCalendarTitle(String title) {
 		gui.setWeekLabel(title);
@@ -128,7 +132,6 @@ public class GuiController {
 	public void setAvailableCalendars(ArrayList<User> allUsers) {
 		//TODO these should be shown in  the list of "Tilgjengelige kalendere"
 	}
-	
 	public void clearNewEvent() {
 		gui.getNewEventPanel().clear();
 	}

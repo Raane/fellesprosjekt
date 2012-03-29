@@ -144,6 +144,12 @@ public class Client implements ActionListener{
 			System.out.println(user.getEvents().size());
 			xmlHandle.createAddMeetingRequest(listParticipants, event, meetingroomid, title, user.getUSERNAME());
 			clearNewEvent();
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			updateCalendar(shownWeek, shownYear);
 			System.out.println(user.getEvents().size());
 		}

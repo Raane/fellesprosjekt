@@ -88,7 +88,7 @@ public class GUI extends JFrame {
                     .addComponent(weekLabel, GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(previousWeekButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 600, Short.MAX_VALUE)
                         .addComponent(nextWeekButton)))
                 .addContainerGap())
         );

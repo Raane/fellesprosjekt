@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -12,30 +14,36 @@ import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JTextArea;
 
+import connection.Client;
+
+import Models.Event;
+import Models.User;
+
 @SuppressWarnings("serial")
 public class Calendar extends JPanel {
 	
-	private void changeHourPanel(JPanel panel, String text) {
+	private void changeHourPanel(JPanel panel, ArrayList<Event> events) {
 		panel.setBackground(new java.awt.Color(135, 10, 210));
-//		FlowLayout layout = new FlowLayout(FlowLayout.LEADING);
-//		panel.setLayout(layout);
-		JTextArea event = new JTextArea("texas dasd asd sadsa dasdasdadasdsadt");
-		event.setEditable(false);
-		event.setLineWrap(true);
-		event.setBackground(new java.awt.Color(255, 255, 255));
-		
-		
-
-		
 		GroupLayout layout = new GroupLayout(panel);
 		panel.setLayout(layout);
 		
-		ParallelGroup horizontal = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
-    	SequentialGroup vertical = layout.createSequentialGroup();
-    	for (int j = 0; j < 1; j++){
-    		int width = 50;
+		ParallelGroup vertical = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
+    	SequentialGroup horizontal = layout.createSequentialGroup();
+    	
+    	int width = 99/events.size();
+    	int height = 60;
+    	for (int i = 0; i < events.size(); i++){
+    		String eventTitle = events.get(i).getTitle();
+    		JTextArea event = new JTextArea(eventTitle);
+    		event.setEditable(false);
+    		event.setLineWrap(true);
+    		if (i % 2 == 0) {
+    			event.setBackground(Color.red);
+    		} else {
+    			event.setBackground(Color.yellow);
+    		}
+    		vertical.addComponent(event, height, height, height);
     		horizontal.addComponent(event, width, width, width);
-    		vertical.addComponent(event, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE);
     	}
     	layout.setHorizontalGroup(horizontal);
     	layout.setVerticalGroup(vertical);
@@ -52,17 +60,33 @@ public class Calendar extends JPanel {
         	layouts.add(new GroupLayout(days.get(i)));
         	for (int j = 0; j < 24; j++){
         		JPanel temp = new JPanel();
-        		if (j % 2 == 0) {
-        			temp.setBackground(Color.white);
-        		} else {
-        			temp.setBackground(new Color(240, 240, 240));
+        		if (i == 0){
+        		}
+        		else {
+	        		if (j % 2 == 0) {
+	        			temp.setBackground(Color.white);
+	        		} else {
+	        			temp.setBackground(new Color(240, 240, 240));
+	        		}
         		}
         		temp.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.black));
         		hours.get(i).add(temp);
         	}
         }
         
-        changeHourPanel(hours.get(1).get(1), "a");
+        
+        //TESTDATA
+        ArrayList<Event> assballs = new ArrayList<Event>();
+        for (int i = 0; i < 3; i++){
+        	User user = new User();
+        	Event temp = new Event(user);
+        	temp.setStartTime(Timestamp.valueOf("1989-04-02 16:55:00"));
+        	System.out.println(temp.getStartTime().getDate());
+        }
+ 
+        changeHourPanel(hours.get(1).get(5), assballs);
+        //SLUTT TESTDATA
+        
         
         for (int i = 0; i < hours.get(0).size(); i++){
         	hours.get(0).get(i).add(new JLabel(i + ":00"));
@@ -92,7 +116,6 @@ public class Calendar extends JPanel {
         
         calendarPanelLayout.setHorizontalGroup(calendarHorizontal);
         calendarPanelLayout.setVerticalGroup(calendarVertical);
-        
         
 	}
 	

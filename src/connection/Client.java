@@ -36,13 +36,15 @@ public class Client implements ActionListener{
 	
 	
 	public static void main(String[] args) {
-		System.out.println(getDayOfWeek());
+//		System.out.println(getDayOfWeek());
 		Client client = new Client();
 	}
 	
 	public Client() {
-//		clientConnection = new ClientConnection();
-//		clientConnection.addReceiveListener(this);
+		clientConnection = new ClientConnection();
+		clientConnection.addReceiveListener(this);
+		xmlHandle.addListener(this);
+		xmlHandle.createLoginRequest("Morten", "morten");
 		
 		initializeTimeThings();  // Initializes the time things (variables)
 		addCalendars(); //loads the users imported calendars into the GUI
@@ -69,8 +71,7 @@ public class Client implements ActionListener{
 	}
 
 	public void showHideCalendarsAction() {
-		//hver gang en kalender trykkes på i dashboard
-		//done
+		guicontroller.getActiveCalendars();
 	}
 	public void meetingroomSearchAction() {
 		//hver gang noe skrives i møteromtextfield
@@ -144,14 +145,17 @@ public class Client implements ActionListener{
 
 	private ArrayList<ArrayList<Event>> getCalendarEntries(int weekNumber) {		
 		ArrayList<ArrayList<Event>> calendarEntries = new ArrayList<ArrayList<Event>>();
+		ArrayList<User> activeCalendars = guicontroller.getActiveCalendars();
 		for(User otheruser:user.getImportedCalendars()) {
-			ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
-			for(Event event:otheruser.getEvents()) {
-				if(event.getStartTime().after(startOfWeek) && event.getStartTime().before(endOfWeek)) {
-					otherUsersCalendar.add(event);
+			if(activeCalendars.contains(otheruser)){  //Checks if the calendar is active				
+				ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
+				for(Event event:otheruser.getEvents()) {
+					if(event.getStartTime().after(startOfWeek) && event.getStartTime().before(endOfWeek)) { //Checks if the event is in the right week
+						otherUsersCalendar.add(event);  //Adds the event
+					}
 				}
+				calendarEntries.add(otherUsersCalendar); //Adds the list with the users events that week
 			}
-			calendarEntries.add(otherUsersCalendar);
 		}
 		user.getEvents();
 		return calendarEntries;
@@ -199,7 +203,7 @@ public class Client implements ActionListener{
 
 	private void addCalendars() {
 		for(User calendar:user.getImportedCalendars()) {
-			guicontroller.addCalendar(user);
+//			guicontroller.addCalendar(user);
 		}
 	}
 	

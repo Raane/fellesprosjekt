@@ -25,7 +25,6 @@ public class User {
 		this.USERNAME = username;
 		this.events = new ArrayList<Event>();
 		this.importedCalendars = new ArrayList<User>();
-		this.name = "Rick Roll";
 	}
 	
 	public String getName(){

@@ -25,8 +25,11 @@ public class GuiController {
 	
 	//Adds the calendar (user) "newCalendar" to the list of calendars to be drawn.
 	public void addCalendar(User newCalendar){
-		if(gui.getDashboardPanel().getCalendarList().contains(newCalendar));
-		else gui.getDashboardPanel().getCalendarList().add(newCalendar);
+		if(!gui.getDashboardPanel().getCalendarList().contains(newCalendar)){		
+			gui.getDashboardPanel().getCalendarList().add(newCalendar);
+			gui.getDashboardPanel().updateShowHideCalendars(gui.getDashboardPanel().getCalendarList());
+		}
+		
 	}
 	
 	//Removes the calendar (user) of "owner" from the list of imported calendars (users) for the user "viewer".
@@ -120,7 +123,7 @@ public class GuiController {
 	public void setYourCalendars(ArrayList<User> users) {
 		//TODO these should be shown in the list of "Dine kalendere"
 	}
-	public void setAvailableCalendars(ArrayList<dbhandle.User> users) {
+	public void setAvailableCalendars(ArrayList<User> allUsers) {
 		//TODO these should be shown in  the list of "Tilgjengelige kalendere"
 	}
 }

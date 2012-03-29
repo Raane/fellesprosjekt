@@ -2,17 +2,20 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
+import Models.Event;
+import Models.User;
 
 import connection.Client;
 
@@ -23,6 +26,17 @@ public class GUI extends JFrame {
 	
     public GUI() {
         initComponents();
+        
+//      //TESTDATA
+//        User user = new User(1, "Morten");
+//        
+//    	Event event = new Event(user);
+//    	event.setTitle("Testevent");
+//    	event.setStartTime(Timestamp.valueOf("2012-03-28 06:00:00"));
+//    	event.setEndTime(Timestamp.valueOf("2012-03-28 07:00:00"));
+//        
+//    	setCalendarEvent(event);
+//        //SLUTT TESTDATA
     }
 
     private void initComponents() {
@@ -110,7 +124,27 @@ public class GUI extends JFrame {
         pack();
     }
 
-    class previousWeekAction implements ActionListener{
+    public NewEvent getNewEventPanel() {
+		return NewEventPanel;
+	}
+
+	public void setNewEventPanel(NewEvent newEventPanel) {
+		NewEventPanel = newEventPanel;
+	}
+
+	public Dashboard getDashboardPanel() {
+		return dashboardPanel;
+	}
+
+	public void setDashboardPanel(Dashboard dashboardPanel) {
+		this.dashboardPanel = dashboardPanel;
+	}
+
+	public void setCalendarEvent(Event event){
+		calendarPanel.setCalendarEvent(event);
+	}
+	
+	class previousWeekAction implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
 			client.lastWeekButtonAction();
@@ -126,21 +160,27 @@ public class GUI extends JFrame {
     
     public void addListener(Client client){
 		this.client = client;
+		dashboardPanel.addListener(client);
+		AdminPanel.addListener(client);
+		calendarPanel.addListener(client);
+		NewEventPanel.addListener(client);
+		notificationsPanel.addListener(client);
 	}
     
     // Variables declaration
-    private JPanel AdminPanel;
-    private JPanel NewEventPanel;
+    private Admin AdminPanel;
+    private NewEvent NewEventPanel;
     private JScrollPane adminScrollPane;
-    private JPanel calendarPanel;
+    private Calendar calendarPanel;
     private JScrollPane calendarScrollPane;
-    private JPanel dashboardPanel;
+    private Dashboard dashboardPanel;
     private JScrollPane newEventScrollPane;
     private JButton nextWeekButton;
-    private JPanel notificationsPanel;
+    private Notifications notificationsPanel;
     private JScrollPane notificationsScrollPane;
     private JButton previousWeekButton;
     private JTabbedPane tabbedPane;
     private JLabel weekLabel;
     // End of variables declaration
+
 }

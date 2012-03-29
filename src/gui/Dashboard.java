@@ -38,9 +38,39 @@ public class Dashboard extends JPanel {
 	private Client client;
 
 	ImageIcon tick = new ImageIcon(getClass().getResource("/gui/icons/tick_16.png"));
+	
+	public ImageIcon getTick() {
+		return tick;
+	}
+
+	public ImageIcon getDelete() {
+		return delete;
+	}
+
 	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
     
-    public Dashboard() {
+	
+	//Viktig at objektet på plass 0 i calendarList er samme objekt som på plass 0 i lables
+	private ArrayList<User> calendarList = new ArrayList<User>();
+	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
+	
+    public ArrayList<JLabel> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(ArrayList<JLabel> labels) {
+		this.labels = labels;
+	}
+
+	public ArrayList<User> getCalendarList() {
+		return calendarList;
+	}
+
+	public void setCalendarList(ArrayList<User> calendarList) {
+		this.calendarList = calendarList;
+	}
+
+	public Dashboard() {
     	
     	agendaLabel = new JLabel();
         agendaScrollPane = new JScrollPane();
@@ -74,11 +104,10 @@ public class Dashboard extends JPanel {
         GroupLayout showHideCalendarsPanelLayout = new GroupLayout(showHideCalendarsPanel);
         showHideCalendarsPanel.setLayout(showHideCalendarsPanelLayout);
         
-        ArrayList<String> testData = new ArrayList<String>();
         for (int i = 0; i < 5; i++){
-        	testData.add("Rickroll: " + i);
+        	calendarList.add(new User(0, "test"));
         }
-        updateShowHideCalendars(testData, showHideCalendarsPanelLayout);
+        updateShowHideCalendars(calendarList, showHideCalendarsPanelLayout);
         
         showHideCalendarsScrollPane.setViewportView(showHideCalendarsPanel);
 
@@ -111,8 +140,7 @@ public class Dashboard extends JPanel {
         );
     }
     
-    public void updateShowHideCalendars(ArrayList<String> events, GroupLayout layout){
-    	ArrayList<JLabel> labels = new ArrayList<JLabel>();
+    public void updateShowHideCalendars(ArrayList<User> events, GroupLayout layout){
         Color white = new Color(255, 255, 255);
         Color grey = new Color(255, 255, 255);
     	
@@ -120,7 +148,7 @@ public class Dashboard extends JPanel {
     		JLabel temp = new JLabel();
     		temp.addMouseListener(mouseTempListener(temp));
     		
-    		temp.setText(events.get(i));
+    		temp.setText(events.get(i).getName());
         	if (i % 2 == 0) {
         		temp.setBackground(white);
       
@@ -172,7 +200,7 @@ public class Dashboard extends JPanel {
 	}
     
     private void drawCalendar(){
-    	User user = Client.getUser();
+    	User user = client.getUser();
     	user.getEvents();
     	
     }
@@ -184,4 +212,9 @@ public class Dashboard extends JPanel {
 	private JLabel showHideCalendarsLabel;
     private JPanel showHideCalendarsPanel;
     private JScrollPane showHideCalendarsScrollPane;
+
+	public void addListener(Client client) {
+		this.client = client;
+		
+	}
 }

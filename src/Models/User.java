@@ -7,19 +7,18 @@ public class User {
 	
 	private final int USER_ID;
 	private final String USERNAME;
-	private String password;
 	private String name;
 	
-	private ArrayList<Event> events;	//ArrayList that contains all the events this user is linked to
-	private ArrayList<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
+	private List<Event> events;	//ArrayList that contains all the events this user is linked to
+	private List<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
 	
 	
-	public User(int id, String username, String password){
+	public User(int id, String username){
 		this.USER_ID = id;
 		this.USERNAME = username;
-		this.password = password;
 		this.events = new ArrayList<Event>();
 		this.importedCalendars = new ArrayList<User>();
+		this.name = "Rick Roll";
 	}
 	
 	public String getName(){
@@ -28,12 +27,6 @@ public class User {
 	
 	public void setName(String name){
 		this.name = name;
-	}
-	
-	//Burde metoden skrive ut beskjed om at passord er endret, eller skal dette håndteres av server??
-	public void changePassword(String oldPassword, String newPassword, String newPassword2){
-		if(oldPassword.equals(this.password) && newPassword.equals(newPassword2)) this.password = newPassword;
-		//return "Passord endret";
 	}
 	
 	public Event createEvent(){
@@ -47,13 +40,21 @@ public class User {
 	}
 	
 	//Returns this users events
-	public ArrayList<Event> getEvents(){
+	public List<Event> getEvents(){
 		return events;
 	}
 	
+	public void setEvents(List<Event> events){
+		this.events = events;
+	}
+	
 	//Returns this users imported calendars
-	public ArrayList<User> getImportedCalendars(){
+	public List<User> getImportedCalendars(){
 		return this.importedCalendars;
+	}
+	
+	public void setImportedCalendars(List<User> calendars){
+		this.importedCalendars = calendars;
 	}
 	
 	public void importCalendar(User user){

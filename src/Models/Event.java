@@ -14,19 +14,19 @@ public class Event{
 	private String agenda;
 	private String location;
 	private User owner;
-	private Status status;
+	private dbhandle.Status status;
 	
-	Event(User owner){					//Constructor activated when "Ny avtale"-tab is clicked
+	public Event(User owner){					//Constructor activated when "Ny avtale"-tab is clicked
 		this.owner = owner;
 	}
 	
-	Event(User owner, Timestamp start){		//Constructor for mouse-click in calendar. Date start is the clicked Date-object in calendar
+	public Event(User owner, Timestamp start){		//Constructor for mouse-click in calendar. Date start is the clicked Date-object in calendar
 		this.owner = owner;
 		this.startTime = start;
 	}
 	
 	//Constructor for when a user is summoned to a meeting
-	Event(int eventID, User owner, String title, Timestamp start, Timestamp end, String location, String agenda){
+	public Event(int eventID, User owner, String title, Timestamp start, Timestamp end, String location, String agenda){
 		this.eventID = eventID;
 		this.owner = owner;
 		this.title = title;
@@ -93,11 +93,11 @@ public class Event{
 		this.location = location;
 	}
 	
-	public Status getStatus(){
+	public dbhandle.Status getStatus(){
 		return this.status;
 	}
 	
-	public void setStatus(Status status){
+	public void setStatus(dbhandle.Status status){
 		this.status = status;
 	}
 		

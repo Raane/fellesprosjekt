@@ -127,7 +127,7 @@ public class Client implements ActionListener{
 	private void updateFields() {
 		updateCalendar(shownWeek, shownYear);
 		updateDashboard();
-		updateNewEvent();
+		createNewEvent();
 		updateSettings();
 		updateMessages();
 	}
@@ -175,9 +175,10 @@ public class Client implements ActionListener{
 		return new Timestamp(new Date().getTime());
 	}
 
-	private void updateNewEvent() {
+	private void createNewEvent() {
 		// TODO Auto-generated method stub
-		
+//		Event event = new Event
+//		guicontroller.setNewEvent(new Meeting(new Event))
 	}
 
 	private void updateSettings() {

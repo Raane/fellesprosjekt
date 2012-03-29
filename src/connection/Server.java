@@ -1,6 +1,8 @@
 package connection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,6 +20,15 @@ public class Server implements ActionListener{
 	}
 	
 	public Server() {
+		InetAddress addr;
+		try {
+			addr = InetAddress.getLocalHost();
+			addr.getHostAddress();
+			System.out.println(addr.getHostAddress());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		serverConnection = new ServerConnection();
 		serverConnection.addReceiveListener(this);
 		/*try {

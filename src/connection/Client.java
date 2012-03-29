@@ -38,10 +38,8 @@ public class Client implements ActionListener{
 	private Timestamp endOfWeek = new Timestamp(new Date().getTime()+(8-getDayOfWeek())*(24*60*60*1000));
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
 	private String testUsername = "Henning";
-	private String testPassword = "henning";
+	private String testPassword = "Hummer";
 	
-	
-
 	public static void main(String[] args) {
 //		System.out.println(getDayOfWeek());
 		Client client = new Client();
@@ -110,7 +108,7 @@ public class Client implements ActionListener{
 	public void personsSearchAction() {
 		String search = guicontroller.getPersonSearch();
 		ArrayList<User> validPersons = new ArrayList<User>();
-		for(dbhandle.User loopingUser:allUsers) {
+		for(User loopingUser:allUsers) {
 			boolean valid = true;
 			for(int i=0;i<loopingUser.getName().length() && i<search.length();i++) {
 				if(!(search.charAt(i)==loopingUser.getName().charAt(i))) valid = false;
@@ -128,8 +126,13 @@ public class Client implements ActionListener{
 		xmlHandle.createEditNameOfUserRequest(newName, user.getUSERNAME());
 	}
 	public void changePasswordButtonAction() {
-		//når det trykkes på endre passord knapp
-		//done
+		String oldPassword = guicontroller.getOldPassword();
+		String newPassword = guicontroller.getNewPassword();
+		String newRepeatedPassword = guicontroller.getRepeatedNewPasword();
+		System.out.println("old"+ oldPassword +"new"+ newPassword +"newrep"+ newRepeatedPassword);
+		if(newPassword.equals(newRepeatedPassword)) {			
+			xmlHandle.createEditUserPasswordRequest(oldPassword, newPassword, user.getUSERNAME());
+		}
 	}
 	public void yourCalendarsSearchAction() {
 		//når det trykkes på en knapp i usersearchtextfield

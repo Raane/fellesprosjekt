@@ -120,7 +120,7 @@ public class GuiController {
 	public void setYourCalendars(ArrayList<User> users) {
 		//TODO these should be shown in the list of "Dine kalendere"
 	}
-	public void setAvailableCalendars(ArrayList<dbhandle.User> users) {
+	public void setAvailableCalendars(ArrayList<User> allUsers) {
 		//TODO these should be shown in  the list of "Tilgjengelige kalendere"
 	}
 }

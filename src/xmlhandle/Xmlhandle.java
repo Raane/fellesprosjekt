@@ -136,20 +136,40 @@ public class Xmlhandle {
 	}	
 	
 	//This will be run from the client to interpret incoming messages
-	public void interpretMessageData(Document xml, Client client) {
+	public void interpretMessageData(Document xml, Client client) throws ParseException {
 		//This can be 
 		
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
+		int ownerID;
 		
 		Element ownerElement = root.element("owner");
-		if (ownerElement != null) {
 		ownerUsername = ownerElement.attributeValue("owner_username");
-		} 
+		ownerID = Integer.valueOf(ownerElement.attributeValue("owner_ID"));
 		
 		MessageAction action = MessageAction.valueOf(root.getName());
 		
 		if (action == MessageAction.LOGIN) {
+			
+		//Create the logged in user's object
+		Models.User loginUser = new Models.User(ownerID, ownerUsername);
+		
+		//Iterates through all the personal events
+		List<Models.Event> eventList = new ArrayList<Models.Event>();
+		for ( Iterator i = root.elementIterator( "personal_event" ); i.hasNext(); ) {
+            Element eventElement = (Element) i.next();
+    		int userID = Integer.valueOf(eventElement.attributeValue("event_ID"));
+    		Timestamp start = StringToDate(eventElement.attributeValue("start"));
+    		Timestamp end = StringToDate(eventElement.attributeValue("end"));
+    		String location = eventElement.attributeValue("location");
+    		String description = eventElement.attributeValue("description");
+    		Status status = Status.valueOf(eventElement.attributeValue("status"));
+    		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
+    		String title = eventElement.attributeValue("name");
+    		Models.Event event = new Models.Event(userID, loginUser, title, start, end, location, description);
+    		eventList.add(event);
+        }
+		
 		
 			
 		} else if (action == MessageAction.CREATE_MEETING) {

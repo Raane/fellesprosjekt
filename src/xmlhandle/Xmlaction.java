@@ -45,7 +45,8 @@ public class Xmlaction {
 		
 		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",ownerUsername);
+		.addAttribute("owner_username",ownerUsername)
+		.addAttribute("owner_ID", String.valueOf(ownerID));
 			
 		
 		//Verify with database and create a connection with user.

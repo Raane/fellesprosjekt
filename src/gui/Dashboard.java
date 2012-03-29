@@ -99,15 +99,20 @@ public class Dashboard extends JPanel {
         showHideCalendarsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         showHideCalendarsLabel.setText("Vis/skjul kalendere");
 
-        showHideCalendarsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        showHideCalendarsPanel.setBackground(Color.white);
         
-        GroupLayout showHideCalendarsPanelLayout = new GroupLayout(showHideCalendarsPanel);
-        showHideCalendarsPanel.setLayout(showHideCalendarsPanelLayout);
+
+        
         
         for (int i = 0; i < 5; i++){
         	calendarList.add(new User(0, "test"));
         }
-        updateShowHideCalendars(calendarList, showHideCalendarsPanelLayout);
+        updateShowHideCalendars(calendarList);
+        
+        
+        
+        
+        
         
         showHideCalendarsScrollPane.setViewportView(showHideCalendarsPanel);
 
@@ -140,8 +145,11 @@ public class Dashboard extends JPanel {
         );
     }
     
-    public void updateShowHideCalendars(ArrayList<User> events, GroupLayout layout){
-        Color white = new Color(255, 255, 255);
+    public void updateShowHideCalendars(ArrayList<User> events){
+    	GroupLayout layout = new GroupLayout(showHideCalendarsPanel);
+    	showHideCalendarsPanel.setLayout(layout);
+    	
+    	Color white = new Color(255, 255, 255);
         Color grey = new Color(255, 255, 255);
     	
     	for (int i = 0; i < events.size(); i++){

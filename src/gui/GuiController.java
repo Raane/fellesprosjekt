@@ -13,10 +13,11 @@ import Models.User;
 public class GuiController {
 	
 	 private GUI gui = new GUI();
-	//Gets a list of the calendars (users) that the clicking user has already imported.
+	 //Gets a list of the calendars (users) that the clicking user has already imported.
 	
 	public void addListener(Client client) {
 		//TODO not made yet, remember to redistribute it to subclasses
+		gui.addListener(client);
 	};
 	
 	//Adds the calendar (user) "newCalendar" to the list of calendars to be drawn.

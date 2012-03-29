@@ -12,8 +12,12 @@ import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
 import javax.swing.JTextArea;
 
+import connection.Client;
+
 @SuppressWarnings("serial")
 public class Calendar extends JPanel {
+	
+	private Client client;
 	
 	private void changeHourPanel(JPanel panel, String text) {
 		panel.setBackground(new java.awt.Color(135, 10, 210));
@@ -99,4 +103,9 @@ public class Calendar extends JPanel {
 	private ArrayList<JPanel> days;
 	private ArrayList<ArrayList<JPanel>> hours;
 	private ArrayList<GroupLayout> layouts;
+	
+	public void addListener(Client client) {
+		this.client = client;
+		
+	}
 }

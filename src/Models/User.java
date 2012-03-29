@@ -42,6 +42,7 @@ public class User {
 	
 	public Event createEvent(Timestamp start){			//The "Date start" is the date clicked in the calendar
 		Event newEvent = new Event(this, start);
+		events.add(newEvent);
 		return newEvent;
 	}
 	
@@ -56,13 +57,13 @@ public class User {
 	
 	//Returns this users imported calendars
 	public ArrayList<User> getImportedCalendars(){
-		return this.importedCalendars;
+		return importedCalendars;
 	}
 	
 	public void setImportedCalendars(ArrayList<User> calendars){
+		System.out.println(calendars.size());
 		this.importedCalendars = calendars;
 	}
-	
 	public void importCalendar(User user){
 		importedCalendars.add(user);
 	}

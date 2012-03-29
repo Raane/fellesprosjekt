@@ -63,10 +63,12 @@ public class Client implements ActionListener{
 		guicontroller = new GuiController();
 		guicontroller.addListener(this);
 		editing = false;
+//		guicontroller.setNewEvent(new Event(user));
 		
 		meetingrooms = new ArrayList<Meetingroom>();
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Minestery of Awesome"));
+		
 		
 		initializeTimeThings();  // Initializes the time things (variables)
 		addCalendars(); //loads the users imported calendars into the GUI
@@ -115,8 +117,11 @@ public class Client implements ActionListener{
 			for(int i=0;i<loopingUser.getName().length() && i<search.length();i++) {
 				if(!(search.charAt(i)==loopingUser.getName().charAt(i))) valid = false;
 			}
+			if(valid) validPersons.add(loopingUser);
 		}
+		guicontroller.setAvailablePersons(validPersons);
 	}
+
 	public void addEventButtonAction(String title, String startDate, String startTime, String endDate, String endTime, 
 									 String description, Meetingroom room, ArrayList<User> participants) {
 		if(!editing){			
@@ -131,10 +136,13 @@ public class Client implements ActionListener{
 			
 			int meetingroomid = 1;
 			
-			
+//			xmlHandle.createAddMeetingRequest(meeting.getParticipants(), dbhandleevent, meetingRoomID, meetingName, user.getUSERNAME());
+//			guicontroller.setNewEvent(new Meeting(user.createEvent()));
 		}
 		
 //		guicontroller.setNewEvent(new Meeting(event));
+//		public void addEventButtonAction() {
+
 	}
 	public void changeNameButtonAction() {
 		System.out.println(user.getName());
@@ -200,7 +208,6 @@ public class Client implements ActionListener{
 		updateSettings();
 		updateMessages();
 	}
-	
 
 	private void updateCalendar(int shownWeek, int shownYear) {
 		guicontroller.setCalendarEntries(getCalendarEntries(shownWeek));
@@ -268,8 +275,10 @@ public class Client implements ActionListener{
 	}
 
 	private void addCalendars() {
+		System.out.println(user.getImportedCalendars().size());
 		for(User calendar:user.getImportedCalendars()) {
-			guicontroller.addCalendar(user);
+			System.out.println("adding: " + calendar.getName());
+			guicontroller.addCalendar(calendar);
 		}
 	}
 	

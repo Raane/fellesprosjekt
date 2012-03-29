@@ -25,8 +25,10 @@ public class GuiController {
 	
 	//Adds the calendar (user) "newCalendar" to the list of calendars to be drawn.
 	public void addCalendar(User newCalendar){
-		if(!gui.getDashboardPanel().getCalendarList().contains(newCalendar)){		
+		if(!gui.getDashboardPanel().getCalendarList().contains(newCalendar)){	
+			System.out.println("guicontroller: " + newCalendar.getName());
 			gui.getDashboardPanel().getCalendarList().add(newCalendar);
+			System.out.println(gui.getDashboardPanel().getCalendarList().size());
 			gui.getDashboardPanel().updateShowHideCalendars(gui.getDashboardPanel().getCalendarList());
 		}
 		
@@ -103,7 +105,7 @@ public class GuiController {
 		return gui.getNewEventPanel().getPersonsTextField().getText();
 	}
 	
-	public void setAvailablePersons(ArrayList<dbhandle.User> user) {
+	public void setAvailablePersons(ArrayList<User> validPersons) {
 		//TODO make it
 	}
 

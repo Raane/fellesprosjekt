@@ -355,11 +355,22 @@ public class NewEvent extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			// Collect information from the fields
 			String subject = subjectTextField.getText();
+			String startDate = startDateTextField.getText();
+			String startTime = startTimeTextField.getText();
+			String endDate = endDateTextField.getText();
+			String endTime = endTimeTextField.getText();
+			String description = descriptionTextArea.getText();
 			
 			// Send data to controller
-			//client.addEventButtonAction();
+			client.addEventButtonAction(subject, startDate, startTime, endDate, endTime, description, null, null);
 			
 			// Tøm alle feltene for data
+			subjectTextField.setText("");
+			startDateTextField.setText("");
+			startTimeTextField.setText("");
+			endDateTextField.setText("");
+			endTimeTextField.setText("");
+			descriptionTextArea.setText("");
 		}
 		
 	}

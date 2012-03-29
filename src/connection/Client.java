@@ -38,7 +38,8 @@ public class Client implements ActionListener{
 	private Timestamp endOfWeek = new Timestamp(new Date().getTime()+(8-getDayOfWeek())*(24*60*60*1000));
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
 	private String testUsername = "Henning";
-	private String testPassword = "Hummer";
+	private String testPassword = "henning";
+	private boolean editing;
 	
 	public static void main(String[] args) {
 //		System.out.println(getDayOfWeek());
@@ -61,6 +62,7 @@ public class Client implements ActionListener{
 		
 		guicontroller = new GuiController();
 		guicontroller.addListener(this);
+		editing = false;
 		
 		meetingrooms = new ArrayList<Meetingroom>();
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
@@ -115,8 +117,24 @@ public class Client implements ActionListener{
 			}
 		}
 	}
-	public void addEventButtonAction() {
-		guicontroller.setNewEvent(new Meeting(user.createEvent()));
+	public void addEventButtonAction(String title, String startDate, String startTime, String endDate, String endTime, 
+									 String description, Meetingroom room, ArrayList<User> participants) {
+		if(!editing){			
+			Timestamp start = Timestamp.valueOf(startDate + " " + startTime);
+			Timestamp end = Timestamp.valueOf(endDate + " " + endTime);
+			
+			Event event = new Event(user);
+			event.setTitle(title);
+			event.setStartTime(start);
+			event.setEndTime(end);
+			event.setAgenda(description);
+			
+			int meetingroomid = 1;
+			
+			
+		}
+		
+//		guicontroller.setNewEvent(new Meeting(event));
 	}
 	public void changeNameButtonAction() {
 		System.out.println(user.getName());

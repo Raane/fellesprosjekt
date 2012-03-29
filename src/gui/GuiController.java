@@ -67,7 +67,11 @@ public class GuiController {
 	}
 	
 	public ArrayList<User> getActiveCalendars() {
-		//TODO make it
+		ArrayList<User> activeCalendars = new ArrayList<User>();
+		for(int i = 0; i < gui.getDashboardPanel().getCalendarList().size(); i++){
+			if(gui.getDashboardPanel().getCalendarList().get(i).getIcon().equals(tick))
+		}
+		return activeCalendars;
 	}
 	
 	public Meeting getNewEvent() {

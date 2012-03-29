@@ -7,17 +7,15 @@ public class User {
 	
 	private final int USER_ID;
 	private final String USERNAME;
-	private String password;
 	private String name;
 	
 	private ArrayList<Event> events;	//ArrayList that contains all the events this user is linked to
 	private ArrayList<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
 	
 	
-	public User(int id, String username, String password){
+	public User(int id, String username){
 		this.USER_ID = id;
 		this.USERNAME = username;
-		this.password = password;
 		this.events = new ArrayList<Event>();
 		this.importedCalendars = new ArrayList<User>();
 		this.name = "Rick Roll";
@@ -52,9 +50,17 @@ public class User {
 		return events;
 	}
 	
+	public void setEvents(ArrayList<Event> events){
+		this.events = events;
+	}
+	
 	//Returns this users imported calendars
 	public ArrayList<User> getImportedCalendars(){
 		return this.importedCalendars;
+	}
+	
+	public void setImportedCalendars(ArrayList<User> calendars){
+		this.importedCalendars = calendars;
 	}
 	
 	public void importCalendar(User user){

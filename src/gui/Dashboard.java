@@ -85,7 +85,7 @@ public class Dashboard extends JPanel {
         showHideCalendarsPanel.setLayout(showHideCalendarsPanelLayout);
         
         for (int i = 0; i < 5; i++){
-        	calendarList.add(new User(0, "test", "test"));
+        	calendarList.add(new User(0, "test"));
         }
         updateShowHideCalendars(calendarList, showHideCalendarsPanelLayout);
         

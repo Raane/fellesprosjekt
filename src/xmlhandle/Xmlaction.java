@@ -58,7 +58,7 @@ public class Xmlaction {
 			//Login failed response message
 			
 			root.addElement("login_response")
-			.addAttribute("reponse", "Failed");
+			.addAttribute("response", "Failed");
 			
 			return document;
 
@@ -66,7 +66,7 @@ public class Xmlaction {
 		
 		//Login success! Send the information the user needs
 		root.addElement("login_response")
-		.addAttribute("reponse", "Success");
+		.addAttribute("response", "Success");
 		
 		//List of owners personal events
 		List<Event> eventList = handle.fetchUserEvents(ownerUsername);

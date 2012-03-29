@@ -14,7 +14,7 @@ public class Event{
 	private String agenda;
 	private String location;
 	private User owner;
-	private Status status;
+	private dbhandle.Status status;
 	
 	public Event(User owner){					//Constructor activated when "Ny avtale"-tab is clicked
 		this.owner = owner;
@@ -93,11 +93,11 @@ public class Event{
 		this.location = location;
 	}
 	
-	public Status getStatus(){
+	public dbhandle.Status getStatus(){
 		return this.status;
 	}
 	
-	public void setStatus(Status status){
+	public void setStatus(dbhandle.Status status){
 		this.status = status;
 	}
 		

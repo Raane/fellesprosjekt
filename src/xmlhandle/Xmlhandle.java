@@ -167,6 +167,7 @@ public class Xmlhandle {
     		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
     		String title = eventElement.attributeValue("name");
     		Models.Event event = new Models.Event(userID, loginUser, title, start, end, location, description);
+    		event.setStatus(status);
     		eventList.add(event);
         }
 		

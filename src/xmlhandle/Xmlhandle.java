@@ -141,10 +141,12 @@ public class Xmlhandle {
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
 		int ownerID;
+		String ownerName = null;
 		
 		Element ownerElement = root.element("owner");
 		ownerUsername = ownerElement.attributeValue("owner_username");
 		ownerID = Integer.valueOf(ownerElement.attributeValue("owner_ID"));
+		ownerName = ownerElement.attributeValue("owner_name");
 		
 		MessageAction action = MessageAction.valueOf(root.getName());
 		
@@ -157,6 +159,7 @@ public class Xmlhandle {
 			
 		//Create the logged in user's object
 		Models.User loginUser = new Models.User(ownerID, ownerUsername);
+		loginUser.setName(ownerName);
 		
 		//Iterates through all the personal events
 		List<Models.Event> eventList = new ArrayList<Models.Event>();
@@ -207,13 +210,14 @@ public class Xmlhandle {
         }
 		
 		//Adds all the users in the database
-		List<User> allUsers = new ArrayList<User>();
+		List<Models.User> allUsers = new ArrayList<Models.User>();
         for ( Iterator i = root.elementIterator( "database_user" ); i.hasNext(); ) {
             Element userElement = (Element) i.next();
             int userID = Integer.valueOf(userElement.attributeValue("user_ID"));
             String username = userElement.attributeValue("username");
             String name = userElement.attributeValue("name");
-            User user = new User(username, null, name);
+            Models.User user = new Models.User(userID, username);
+            user.setName(name);
             allUsers.add(user);
         }
         
@@ -221,10 +225,46 @@ public class Xmlhandle {
         
         client.setUser(loginUser);
         client.setMyUsers((ArrayList<Models.User>) followedUserList);
-        client.setAllUsers((ArrayList<User>) allUsers);
+        client.setAllUsers((ArrayList<Models.User>)allUsers);
 		
 			
 		} else if (action == MessageAction.CREATE_MEETING) {
+			
+			//Create the meeting leader
+			Models.User meetingLeader = new Models.User(ownerID, ownerUsername);
+			meetingLeader.setName(ownerName);
+			
+			Element meetingElement = root.element("meeting");
+			int meetingID = Integer.valueOf(meetingElement.attributeValue("meeting_ID"));
+			String meetingName = meetingElement.attributeValue("name");
+			
+			//Find the invited users of the meeting
+			List<Models.User> invitedUsers = new ArrayList<Models.User>();
+	        for ( Iterator i = root.elementIterator( "participant" ); i.hasNext(); ) {
+	            Element userElement = (Element) i.next();
+	            int userID = Integer.valueOf(userElement.attributeValue("user_ID"));
+	            for (Models.User user : client.getAllUsers()) {
+					if (userID == user.getUSER_ID()) {
+						invitedUsers.add(user);
+					}
+				}
+	        }
+	        
+	        //Find the meeting leaders event
+	        Element eventElement = root.element("leader_event");
+	        int eventID = Integer.valueOf(eventElement.attributeValue("event_ID"));
+			Timestamp start = StringToDate(eventElement.attributeValue("start"));
+			Timestamp end = StringToDate(eventElement.attributeValue("end"));
+			String location = eventElement.attributeValue("location");
+			String description = eventElement.attributeValue("description");
+			Status status = Status.valueOf(eventElement.attributeValue("status"));
+			Models.Event event = new Models.Event(eventID, meetingLeader, meetingName, start, end, location, description);
+			
+			Models.Meeting createdMeeting = new Models.Meeting(event);
+			createdMeeting.setMeetingID(meetingID);
+			createdMeeting.setParticipants((ArrayList<Models.User>) invitedUsers);
+			
+			
 			
 		} else if (action == MessageAction.CREATE_USER) {
 			

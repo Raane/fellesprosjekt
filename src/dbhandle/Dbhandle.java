@@ -152,12 +152,12 @@ public User fetchUser(int user_ID) {
 		
 		String username = null; String password = null; String name = null;
 		
-		String query = String.format("SELECT * FROM (other_user_event JOIN user ON user.user_ID = other_user_event.other_user_ID) WHERE user_ID='%d'",user_ID);
+		String query = String.format("SELECT * FROM (other_user_event JOIN user ON user.user_ID = other_user_event.other_user_ID) WHERE user.user_ID='%d'",user_ID);
 		ResultSet rs = this.dbQuery(query);
 		List<User> userList = new ArrayList<User>();
 		
 		while(rs.next()) {
-			user_ID = rs.getInt("user_ID");
+			user_ID = rs.getInt(3);
 			username = rs.getString("username");
 			name = rs.getString("name");
 			User user = new User(user_ID,username, password, name);
@@ -221,8 +221,8 @@ public User fetchUser(int user_ID) {
 		
 		List<Event> eventList = new ArrayList<Event>();
 		
-		String query = String.format("SELECT * ((FROM user_event JOIN user on user.user_ID = user_event.user_ID) " +
-				"JOIN event on event.event_ID = user_event.event_ID) WHERE username='%s'",username);
+		String query = String.format("SELECT * FROM ((user_event JOIN user on user.user_ID = user_event.user_ID)" +
+				" JOIN event ON event.event_ID = user_event.event_ID) WHERE username='%s'",username);
 				
 		ResultSet rs = this.dbQuery(query);
 		

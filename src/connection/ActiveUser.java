@@ -40,7 +40,6 @@ public class ActiveUser {
         	for(ActionListener actionListener:server.getActionListeners()){
         		actionListener.actionPerformed(new ActionEvent(this, 0, msg));
         	}
-        	System.out.println("Messange received: " + msg);
         }
 
         public void send(String msg) {

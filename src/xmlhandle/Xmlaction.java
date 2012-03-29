@@ -45,7 +45,8 @@ public class Xmlaction {
 		
 		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",ownerUsername);
+		.addAttribute("owner_username",ownerUsername)
+		.addAttribute("owner_ID", String.valueOf(ownerID));
 			
 		
 		//Verify with database and create a connection with user.
@@ -90,7 +91,7 @@ public class Xmlaction {
 		//Add all the personal events
 		for (Event event : eventList) {
 			Meeting meeting = handle.fetchMeetingOfEvent(event.getEvent_ID());
-			root.element("personal_event")
+			root.addElement("personal_event")
 			.addAttribute("meetingID", String.valueOf(meeting.getMeeting_ID()))
 			.addAttribute("meetingName", String.valueOf(meeting.getName()))
 			.addAttribute("event_ID", String.valueOf(event.getEvent_ID()))
@@ -103,7 +104,7 @@ public class Xmlaction {
 		
 			//Adds the followed users and their events
 			for (User user : followedUsers) {
-			root.element("followed_user")
+			root.addElement("followed_user")
 			.addAttribute("user_ID", String.valueOf(user.getUserID()))
 			.addAttribute("username", user.getUsername())
 			.addAttribute("name", user.getName());
@@ -111,7 +112,7 @@ public class Xmlaction {
 			
 			for (Event event : user.getPersonalEvents()) {
 				Meeting meeting = handle.fetchMeetingOfEvent(event.getEvent_ID());
-				root.element("followed_user_event")
+				root.addElement("followed_user_event")
 				.addAttribute("event_owner", user.getUsername())
 				.addAttribute("meetingID", String.valueOf(meeting.getMeeting_ID()))
 				.addAttribute("meetingName", String.valueOf(meeting.getName()))
@@ -127,7 +128,7 @@ public class Xmlaction {
 		}
 			
 		for (User user : allUsers) {
-			root.element("database_user")
+			root.addElement("database_user")
 			.addAttribute("user_ID", String.valueOf(user.getUserID()))
 			.addAttribute("username", user.getUsername())
 			.addAttribute("name", user.getName());

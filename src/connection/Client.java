@@ -45,7 +45,9 @@ public class Client implements ActionListener{
 		clientConnection = new ClientConnection();
 		clientConnection.addReceiveListener(this);
 		xmlHandle.addListener(this);
+		System.out.println("logging in");
 		xmlHandle.createLoginRequest("Morten", "morten");
+		System.out.println("logged in");
 		
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Minestery of Awesome"));
@@ -245,6 +247,7 @@ public class Client implements ActionListener{
 	}
 	
 	private void clientConnectionAction(String msg) {
+		System.out.println("Message received from server: "+ msg);
 		try {
 			xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
 		} catch (DocumentException e) {

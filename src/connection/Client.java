@@ -249,7 +249,12 @@ public class Client implements ActionListener{
 	private void clientConnectionAction(String msg) {
 		System.out.println("Message received from server: "+ msg);
 		try {
-			xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
+			try {
+				xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}

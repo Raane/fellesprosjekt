@@ -30,14 +30,14 @@ public class AppMain {
 		userList.add(2);
 		userList.add(3);
 		
-		Timestamp start = Timestamp.valueOf("2012-03-26 14:00:00");
-		Timestamp end = Timestamp.valueOf("2012-03-26 16:00:00");		
+		Timestamp start = Timestamp.valueOf("2012-03-28 11:00:00");
+		Timestamp end = Timestamp.valueOf("2012-03-28 13:00:00");		
 		
-		Event event = new Event(start,end,"Somewhere","Something",Status.NOT_RESPONDED);
+		Event event = new Event(start,end,"Somewhere else","Something else",Status.NOT_RESPONDED);
 		
 		
 		int meetingRoomID = 1;
-		String meetingName = "What to do with our money";
+		String meetingName = "Monetyzing";
 		
 		String username = "Henning";
 		

@@ -177,6 +177,7 @@ public class Dashboard extends JPanel {
 		GroupLayout layout = new GroupLayout(showHideCalendarsPanel);
 		showHideCalendarsPanel.setLayout(layout);
 		
+		labels = new ArrayList<JLabel>(); //emptying the list
     	for (int i = 0; i < events.size(); i++){
     		JLabel temp = new JLabel();
     		temp.addMouseListener(mouseTempListener(temp));

@@ -38,7 +38,7 @@ public class Client implements ActionListener{
 	private Timestamp endOfWeek = new Timestamp(new Date().getTime()+(8-getDayOfWeek())*(24*60*60*1000));
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
 	private String testUsername = "Henning";
-	private String testPassword = "Hummer";
+	private String testPassword = "henning";
 	
 	public static void main(String[] args) {
 //		System.out.println(getDayOfWeek());
@@ -53,7 +53,7 @@ public class Client implements ActionListener{
 		
 		xmlHandle.createLoginRequest(testUsername,testPassword);
 		try {
-			Thread.sleep(100);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -61,10 +61,12 @@ public class Client implements ActionListener{
 		
 		guicontroller = new GuiController();
 		guicontroller.addListener(this);
+//		guicontroller.setNewEvent(new Event(user));
 		
 		meetingrooms = new ArrayList<Meetingroom>();
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Minestery of Awesome"));
+		
 		
 		initializeTimeThings();  // Initializes the time things (variables)
 		addCalendars(); //loads the users imported calendars into the GUI
@@ -113,9 +115,17 @@ public class Client implements ActionListener{
 			for(int i=0;i<loopingUser.getName().length() && i<search.length();i++) {
 				if(!(search.charAt(i)==loopingUser.getName().charAt(i))) valid = false;
 			}
+			if(valid) validPersons.add(loopingUser);
 		}
+		guicontroller.setAvailablePersons(validPersons);
 	}
 	public void addEventButtonAction() {
+		Meeting meeting = guicontroller.getNewEvent();
+		ArrayList<Meeting> dbhandleEvent = new ArrayList<Meeting>();
+		
+		meeting.getParticipants().
+		
+		xmlHandle.createAddMeetingRequest(meeting.getParticipants(), dbhandleevent, meetingRoomID, meetingName, user.getUSERNAME());
 		guicontroller.setNewEvent(new Meeting(user.createEvent()));
 	}
 	public void changeNameButtonAction() {
@@ -182,7 +192,6 @@ public class Client implements ActionListener{
 		updateSettings();
 		updateMessages();
 	}
-	
 
 	private void updateCalendar(int shownWeek, int shownYear) {
 		guicontroller.setCalendarEntries(getCalendarEntries(shownWeek));
@@ -250,9 +259,10 @@ public class Client implements ActionListener{
 	}
 
 	private void addCalendars() {
+		System.out.println(user.getImportedCalendars().size());
 		for(User calendar:user.getImportedCalendars()) {
-			System.out.println("adding: " + user.getName());
-			guicontroller.addCalendar(user);
+			System.out.println("adding: " + calendar.getName());
+			guicontroller.addCalendar(calendar);
 		}
 	}
 	

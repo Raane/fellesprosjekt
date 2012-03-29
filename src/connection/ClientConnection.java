@@ -13,7 +13,7 @@ import java.util.Iterator;
 public class ClientConnection {
 	private int myPort = 5555;
 	private int remotePort = 4444;
-	private String addressToServer = "78.91.4.177";
+	private String addressToServer = "localhost";
 	private ArrayList<ActionListener> actionListeners = new ArrayList<ActionListener>();	
 	private Connection connection = new Connection(myPort);
 	
@@ -40,7 +40,7 @@ public class ClientConnection {
 						msg = connection.receive();
 						for (ActionListener listener : actionListeners) {
 //							System.out.println("listeren triggered");
-							listener.actionPerformed(new ActionEvent(this, 0, msg)); //This is not nice, but whatever ^^
+							listener.actionPerformed(new ActionEvent(ClientConnection.this, 0, msg)); //This is not nice, but whatever ^^
 						}
 					} catch (ConnectException e) {
 						e.printStackTrace();

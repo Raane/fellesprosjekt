@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import org.dom4j.DocumentException;
 
@@ -27,9 +26,9 @@ public class Client implements ActionListener{
 	Xmlhandle xmlHandle = new Xmlhandle();
 	private GuiController guicontroller;
 	private User user;
-	private List<dbhandle.User> allUsers;
-	private List<User> myUsers;
-	private List<Meetingroom> meetingrooms;
+	private ArrayList<dbhandle.User> allUsers;
+	private ArrayList<User> myUsers;
+	private ArrayList<Meetingroom> meetingrooms;
 	private int shownWeek;
 	private int shownYear;
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
@@ -50,8 +49,16 @@ public class Client implements ActionListener{
 		xmlHandle.addListener(this);
 		System.out.println("logging in");
 		xmlHandle.createLoginRequest("Morten", "morten");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Hell yea: " + getUser().getEvents().get(0).getStartTime());
 		System.out.println("logged in");
 		
+		meetingrooms = new ArrayList<Meetingroom>();
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Minestery of Awesome"));
 		
@@ -123,11 +130,11 @@ public class Client implements ActionListener{
 		//når det trykkes på en kalender i availiblecalendars
 	}
 	public void meetingAcceptAction(Event event) {
-		System.out.println(event.getTitle());
+		//done
 	}
 	public void meetingDeclineAction(Event event) {
 		//trykker avslå på et møte
-		//ActionListener finnes, den bare virker ikke
+		//done
 	}
 	public void calendarEventAction(Event event) {
 		//når det trykkes på en event i kalenderen
@@ -239,8 +246,10 @@ public class Client implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {	
+		
 		System.out.println(e.getSource().getClass());
-		if((e.getSource()).getClass()==ClientConnection.class) {
+		System.out.println(clientConnection.getClass());
+		if(e.getSource()==clientConnection) {
 			//System.out.println("Received at serverConnection: " + e.getActionCommand());
 			clientConnectionAction(e.getActionCommand());
 		}
@@ -252,7 +261,12 @@ public class Client implements ActionListener{
 	private void clientConnectionAction(String msg) {
 		System.out.println("Message received from server: "+ msg);
 		try {
-			xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
+			try {
+				xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
@@ -265,27 +279,27 @@ public class Client implements ActionListener{
 		return user;
 	}
 	
-	public List<dbhandle.User> getAllUsers() {
+	public ArrayList<dbhandle.User> getAllUsers() {
 		return allUsers;
 	}
 
-	public void setAllUsers(List<dbhandle.User> allUsers) {
+	public void setAllUsers(ArrayList<dbhandle.User> allUsers) {
 		this.allUsers = allUsers;
 	}
 
-	public List<User> getMyUsers() {
+	public ArrayList<User> getMyUsers() {
 		return myUsers;
 	}
 
-	public void setMyUsers(List<User> myUsers) {
+	public void setMyUsers(ArrayList<User> myUsers) {
 		this.myUsers = myUsers;
 	}
 
-	public List<Meetingroom> getMeetingrooms() {
+	public ArrayList<Meetingroom> getMeetingrooms() {
 		return meetingrooms;
 	}
 
-	public void setMeetingrooms(List<Meetingroom> meetingrooms) {
+	public void setMeetingrooms(ArrayList<Meetingroom> meetingrooms) {
 		this.meetingrooms = meetingrooms;
 	}
 

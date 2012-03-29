@@ -56,7 +56,6 @@ public class Xmlhandle {
 			
 			Document document = actionToPerform.login(ownerUsername, password);
 			
-			System.out.println(ownerUsername);
 			serverSend(document.asXML(), ownerUsername);
 			
 		}  else if (action == MessageAction.CREATE_MEETING) {
@@ -151,6 +150,11 @@ public class Xmlhandle {
 		
 		if (action == MessageAction.LOGIN) {
 			
+		if (root.element("login_response").attributeValue("response").equals("Failure")) {
+			System.out.println("Wrong password or username");
+			return;
+		}
+			
 		//Create the logged in user's object
 		Models.User loginUser = new Models.User(ownerID, ownerUsername);
 		
@@ -165,7 +169,7 @@ public class Xmlhandle {
     		String description = eventElement.attributeValue("description");
     		Status status = Status.valueOf(eventElement.attributeValue("status"));
     		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
-    		String title = eventElement.attributeValue("name");
+    		String title = eventElement.attributeValue("meetingName");
     		Models.Event event = new Models.Event(eventID, loginUser, title, start, end, location, description);
     		event.setStatus(status);
     		eventList.add(event);
@@ -193,11 +197,11 @@ public class Xmlhandle {
             		String description = eventElement.attributeValue("description");
             		Status status = Status.valueOf(eventElement.attributeValue("status"));
             		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
-            		String title = eventElement.attributeValue("name");
+            		String title = eventElement.attributeValue("meetingName");
             		Models.Event event = new Models.Event(eventID, followedUser, title, start, end, location, description);
             		event.setStatus(status);
             		followedUserEventList.add(event);
-            		followedUser.setEvents(followedUserEventList);
+            		followedUser.setEvents((ArrayList<Models.Event>) followedUserEventList);
                 }
             }
         }
@@ -213,9 +217,11 @@ public class Xmlhandle {
             allUsers.add(user);
         }
         
+        //TODO Group them up in meetings
+        
         client.setUser(loginUser);
-        client.setMyUsers(followedUserList);
-        client.setAllUsers(allUsers);
+        client.setMyUsers((ArrayList<Models.User>) followedUserList);
+        client.setAllUsers((ArrayList<User>) allUsers);
 		
 			
 		} else if (action == MessageAction.CREATE_MEETING) {
@@ -387,8 +393,7 @@ public class Xmlhandle {
 	//Helper methods
 	private Timestamp StringToDate(String string) throws ParseException {
 		
-		java.util.Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(string);
-		Timestamp timestamp = new Timestamp(date.getTime());
+		Timestamp timestamp = Timestamp.valueOf(string);
 		
 		return timestamp;
 		}  
@@ -472,6 +477,13 @@ public class Xmlhandle {
 			serverSend(msg, user.getUsername());
 		}
 		
+	}
+	
+	public static String extractMessageAction(String xml) throws DocumentException {
+		Document document = stringToXML(xml);
+		Element root = document.getRootElement();
+
+		return root.getName();
 	}
 	
 	public String getUsernameForSending() {

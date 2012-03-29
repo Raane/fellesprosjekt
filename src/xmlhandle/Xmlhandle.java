@@ -222,6 +222,9 @@ public class Xmlhandle {
         }
         
         //TODO Group them up in meetings
+
+        //Add the user to the imported calendars
+        followedUserList.add(loginUser);
         
         client.setUser(loginUser);
         client.getUser().setImportedCalendars(((ArrayList<Models.User>) followedUserList));

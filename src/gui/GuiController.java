@@ -18,13 +18,10 @@ public class GuiController {
 	};
 
 	
-	//Adds the calendar (user) of "owner" in the list of imported calendars (users) for the user "viewer".
-	public void addCalendar(User viewer, User owner){
-		if(viewer.getImportedCalendars().contains(owner));
-		else viewer.getImportedCalendars().add(owner);
-		
-		//TODO Denne skal legge til kalendere i listen på dashbordet (feile argumenter er brukt her)
-		
+	//Adds the calendar (user) "newCalendar" to the list of calendars to be drawn.
+	public void addCalendar(User newCalendar){
+		if(Dashboard.calendarList.contains(newCalendar));
+		else Dashboard.calendarList.add(newCalendar);		
 	}
 	
 	//Removes the calendar (user) of "owner" from the list of imported calendars (users) for the user "viewer".

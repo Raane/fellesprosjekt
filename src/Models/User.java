@@ -47,7 +47,7 @@ public class User {
 	}
 	
 	//Returns this users events
-	public List<Event> getEvents(){
+	public ArrayList<Event> getEvents(){
 		return events;
 	}
 	

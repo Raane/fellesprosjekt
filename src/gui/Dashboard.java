@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -25,12 +26,13 @@ import Models.User;
 @SuppressWarnings("serial")
 public class Dashboard extends JPanel {
     
-    //Method for seting the agenda
+    //Method for setting the agenda
     public void setAgenda(ArrayList<Event> list){
     	//Sorts the ArrayList of Events
     	Collections.sort(list, new TimeComparator());
     	
     }
+    
     
 //    public ArrayList<User> getActiveCalendars(){
 //    	for(int i = 0; i < showHideCalendarsPanel)
@@ -54,7 +56,10 @@ public class Dashboard extends JPanel {
 	private ArrayList<User> calendarList = new ArrayList<User>();
 	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
 	
-    public ArrayList<JLabel> getLabels() {
+	private ArrayList<Event> events = new ArrayList<Event>();
+	private ArrayList<JLabel> eventLabels = new ArrayList<JLabel>();
+
+	public ArrayList<JLabel> getLabels() {
 		return labels;
 	}
 
@@ -111,6 +116,9 @@ public class Dashboard extends JPanel {
         
         showHideCalendarsScrollPane.setViewportView(showHideCalendarsPanel);
 
+    	events.add(new Event(new User(0, "test"), new Timestamp(112, 03, 29, 20, 40, 00, 0)));
+    	updateAgenda(events, agendaPanelLayout);
+        
         GroupLayout dashboardPanelLayout = new GroupLayout(this);
         this.setLayout(dashboardPanelLayout);
         
@@ -140,7 +148,31 @@ public class Dashboard extends JPanel {
         );
     }
     
-    public void updateShowHideCalendars(ArrayList<User> events, GroupLayout layout){
+    private void updateAgenda(ArrayList<Event> eventsList, GroupLayout layout) {
+		for(int i = 0; i < eventsList.size(); i++){
+			JLabel temp = new JLabel();
+			temp.setText(eventsList.get(i).getTitle() + " " + eventsList.get(i).getStartTime().toGMTString());
+			temp.setOpaque(true);
+			temp.setBorder(BorderFactory.createEmptyBorder(3, 10, 3, 10));
+			eventLabels.add(temp);
+		}
+		
+		ParallelGroup agendaHorizontalGroup = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
+        for(int i = 0; i < eventLabels.size(); i++){
+        	agendaHorizontalGroup.addComponent(eventLabels.get(i), GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE);
+        }
+        
+        SequentialGroup agendaVerticalGroup = layout.createSequentialGroup();
+        for(int i = 0; i < eventLabels.size(); i++){
+        	agendaVerticalGroup.addComponent(eventLabels.get(i), GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE);
+        }
+        
+        layout.setHorizontalGroup(agendaHorizontalGroup);
+        layout.setVerticalGroup(agendaVerticalGroup);
+		
+	}
+
+	public void updateShowHideCalendars(ArrayList<User> events, GroupLayout layout){
         Color white = new Color(255, 255, 255);
         Color grey = new Color(255, 255, 255);
     	
@@ -200,6 +232,8 @@ public class Dashboard extends JPanel {
 	}
     
     private void drawCalendar(){
+    	System.out.println(client==null);
+    	System.out.println(client.getUser().getName());
     	User user = client.getUser();
     	user.getEvents();
     	

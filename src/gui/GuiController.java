@@ -76,6 +76,7 @@ public class GuiController {
 	}
 	
 	public Meeting getNewEvent() {
+		return null;
 		//TODO this should return the meeting you were given in the setNewEvent()
 	}
 	

@@ -7,10 +7,17 @@ public class User {
 	
 	private final int USER_ID;
 	private final String USERNAME;
+	public int getUSER_ID() {
+		return USER_ID;
+	}
+
+	public String getUSERNAME() {
+		return USERNAME;
+	}
 	private String name;
 	
-	private List<Event> events;	//ArrayList that contains all the events this user is linked to
-	private List<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
+	private ArrayList<Event> events;	//ArrayList that contains all the events this user is linked to
+	private ArrayList<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
 	
 	
 	public User(int id, String username){
@@ -44,16 +51,16 @@ public class User {
 		return events;
 	}
 	
-	public void setEvents(List<Event> events){
+	public void setEvents(ArrayList<Event> events){
 		this.events = events;
 	}
 	
 	//Returns this users imported calendars
-	public List<User> getImportedCalendars(){
+	public ArrayList<User> getImportedCalendars(){
 		return this.importedCalendars;
 	}
 	
-	public void setImportedCalendars(List<User> calendars){
+	public void setImportedCalendars(ArrayList<User> calendars){
 		this.importedCalendars = calendars;
 	}
 	

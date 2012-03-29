@@ -43,9 +43,8 @@ public class ActiveUser {
         }
 
         public void send(String msg) {
-            System.out.println("Sending...");
+            System.out.println("Sending to " + username);
         	try {
-            	System.out.println("hit the sending shit");
                 activeUsersConnection.send(msg);
             } catch (ConnectException e) {
             } catch (EOFException exp) {

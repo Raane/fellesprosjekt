@@ -17,6 +17,7 @@ public class Notifications extends JPanel {
 	
 	private Client client;
 	
+	//testfields
 	private User user = new User(14, "What's updog");
 	private long a = 2142145111;
 	private Timestamp timestamp1 = new Timestamp(a);

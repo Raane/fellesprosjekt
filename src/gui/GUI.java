@@ -110,7 +110,15 @@ public class GUI extends JFrame {
         pack();
     }
 
-    class previousWeekAction implements ActionListener{
+    public Dashboard getDashboardPanel() {
+		return dashboardPanel;
+	}
+
+	public void setDashboardPanel(JPanel dashboardPanel) {
+		this.dashboardPanel = dashboardPanel;
+	}
+
+	class previousWeekAction implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
 			client.lastWeekButtonAction();
@@ -134,7 +142,7 @@ public class GUI extends JFrame {
     private JScrollPane adminScrollPane;
     private JPanel calendarPanel;
     private JScrollPane calendarScrollPane;
-    private JPanel dashboardPanel;
+    private Dashboard dashboardPanel;
     private JScrollPane newEventScrollPane;
     private JButton nextWeekButton;
     private JPanel notificationsPanel;

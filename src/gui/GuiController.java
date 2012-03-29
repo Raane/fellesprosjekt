@@ -11,6 +11,8 @@ import Models.Meetingroom;
 import Models.User;
 
 public class GuiController {
+	
+	 private GUI gui = new GUI();
 	//Gets a list of the calendars (users) that the clicking user has already imported.
 	
 	public void addListener(Client client) {
@@ -20,17 +22,14 @@ public class GuiController {
 	
 	//Adds the calendar (user) "newCalendar" to the list of calendars to be drawn.
 	public void addCalendar(User newCalendar){
-		if(Dashboard.calendarList.contains(newCalendar));
-		else Dashboard.calendarList.add(newCalendar);		
+		if(gui.getDashboardPanel().getCalendarList().contains(newCalendar));
+		else gui.getDashboardPanel().getCalendarList().add(newCalendar);
 	}
 	
 	//Removes the calendar (user) of "owner" from the list of imported calendars (users) for the user "viewer".
-	public void removeCalendar(User viewer, User owner){
-		if(!viewer.getImportedCalendars().contains(owner));
-		else viewer.getImportedCalendars().remove(owner);
-		
-		//TODO Denne skal fjerne kalendere fra i listen på dashbordet (feile argumenter er brukt her)
-		
+	public void removeCalendar(User calendarToBeRemoved){
+		if(!gui.getDashboardPanel().getCalendarList().contains(calendarToBeRemoved));
+		else gui.getDashboardPanel().getCalendarList().remove(calendarToBeRemoved);
 	}
 	
 	//Method for getting the text typed in the text-field for changing names.

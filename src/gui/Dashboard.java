@@ -40,9 +40,17 @@ public class Dashboard extends JPanel {
 	ImageIcon tick = new ImageIcon(getClass().getResource("/gui/icons/tick_16.png"));
 	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
     
-	ArrayList<User> calendarList = new ArrayList<User>();
+	private ArrayList<User> calendarList = new ArrayList<User>();
 	
-    public Dashboard() {
+    public ArrayList<User> getCalendarList() {
+		return calendarList;
+	}
+
+	public void setCalendarList(ArrayList<User> calendarList) {
+		this.calendarList = calendarList;
+	}
+
+	public Dashboard() {
     	
     	agendaLabel = new JLabel();
         agendaScrollPane = new JScrollPane();

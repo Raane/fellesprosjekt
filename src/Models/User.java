@@ -40,7 +40,7 @@ public class User {
 	}
 	
 	//Returns this users events
-	public ArrayList<Event> getEvents(){
+	public List<Event> getEvents(){
 		return events;
 	}
 	
@@ -49,7 +49,7 @@ public class User {
 	}
 	
 	//Returns this users imported calendars
-	public ArrayList<User> getImportedCalendars(){
+	public List<User> getImportedCalendars(){
 		return this.importedCalendars;
 	}
 	

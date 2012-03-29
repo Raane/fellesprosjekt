@@ -1,6 +1,8 @@
 package connection;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -18,8 +20,18 @@ public class Server implements ActionListener{
 	}
 	
 	public Server() {
+		InetAddress addr;
+		try {
+			addr = InetAddress.getLocalHost();
+			addr.getHostAddress();
+			System.out.println(addr.getHostAddress());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		serverConnection = new ServerConnection();
 		serverConnection.addReceiveListener(this);
+		xmlHandle.addListener(this);
 		/*try {
 			Thread.sleep(10000);
 		} catch (InterruptedException e) {
@@ -34,7 +46,8 @@ public class Server implements ActionListener{
 	
 
 	@Override
-	public void actionPerformed(ActionEvent e) {	
+	public void actionPerformed(ActionEvent e) {
+//		System.out.println("action!");
 		if((e.getSource()).getClass()==ActiveUser.class) {
 			System.out.println("Received at serverConnection: " + e.getActionCommand());
 			serverConnectionAction((ActiveUser) e.getSource(), e.getActionCommand());
@@ -48,9 +61,13 @@ public class Server implements ActionListener{
 	
 	private void serverConnectionAction(ActiveUser activeUser, String msg) {
 		if(activeUser.getUsername()==null) {
-//			activeUser.setUsername(Xmlhandle.extractUsername(msg));
+			try {
+				activeUser.setUsername(Xmlhandle.extractUsername(msg));
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-//		if(serverConnection.)
 		try {
 			xmlHandle.performMessageInstructions(Xmlhandle.stringToXML(msg));
 		} catch (NumberFormatException e) {

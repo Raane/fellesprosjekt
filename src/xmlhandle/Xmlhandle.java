@@ -56,6 +56,7 @@ public class Xmlhandle {
 			
 			Document document = actionToPerform.login(ownerUsername, password);
 			
+			System.out.println(ownerUsername);
 			serverSend(document.asXML(), ownerUsername);
 			
 		}  else if (action == MessageAction.CREATE_MEETING) {

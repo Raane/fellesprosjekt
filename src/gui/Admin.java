@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,6 +20,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -26,6 +28,7 @@ import javax.swing.GroupLayout;
 
 import connection.Client;
 
+import Models.Event;
 import Models.User;
 
 @SuppressWarnings("serial")
@@ -47,6 +50,14 @@ public class Admin extends JPanel{
     private JLabel repeatPasswordLabel;
     private static JPasswordField repeatPasswordTextField;
     private JButton changePasswordButton;
+    
+    //testingshit
+    private User testuser = new User(14, "What's updog");
+    
+	private long a = 2142145111;
+	private Timestamp timestamp1 = new Timestamp(a);
+	private Event eve= new Event(1337, testuser, "supsup", timestamp1, timestamp1, "Shaky", "bacon");
+	
     
     public static JTextField getNewNameTextField() {
 		return newNameTextField;
@@ -75,7 +86,7 @@ public class Admin extends JPanel{
 		return userCalendarsSearchField;
 	}
 
-	private JLabel jLabel28;
+	
     private JLabel availableCalendarsLabel;
     private JPanel availableCalendarsPanel;
     private JScrollPane availableCalendarsScrollPane;
@@ -85,10 +96,10 @@ public class Admin extends JPanel{
 		return availableCalendarsSearchField;
 	}
 
-	private JLabel jLabel29;
+	
 	
 	public Admin() {
-				
+		
 		personalInfoLabel = new JLabel();
         personalInfoSeparator = new JSeparator();
         newNameLabel = new JLabel();
@@ -116,10 +127,9 @@ public class Admin extends JPanel{
         availableCalendarsLabel = new JLabel();
         userCalendarsScrollPane = new JScrollPane();
         userCalendarsPanel = new JPanel();
-        jLabel28 = new JLabel();
+        
         availableCalendarsScrollPane = new JScrollPane();
         availableCalendarsPanel = new JPanel();
-        jLabel29 = new JLabel();
         userCalendarsLabel = new JLabel();
         
         userCalendarsSearchField = new JTextField();
@@ -160,39 +170,15 @@ public class Admin extends JPanel{
 
         userCalendarsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel28.setText("jLabel28");
+        
 
-        GroupLayout userCalendarsPanelLayout = new GroupLayout(userCalendarsPanel);
-        userCalendarsPanel.setLayout(userCalendarsPanelLayout);
-        userCalendarsPanelLayout.setHorizontalGroup(
-            userCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel28, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-        );
-        userCalendarsPanelLayout.setVerticalGroup(
-            userCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(userCalendarsPanelLayout.createSequentialGroup()
-                .addComponent(jLabel28)
-                .addContainerGap(212, Short.MAX_VALUE))
-        );
+       
 
         userCalendarsScrollPane.setViewportView(userCalendarsPanel);
 
         availableCalendarsPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel29.setText("jLabel29");
-
-        GroupLayout availableCalendarsPanelLayout = new GroupLayout(availableCalendarsPanel);
-        availableCalendarsPanel.setLayout(availableCalendarsPanelLayout);
-        availableCalendarsPanelLayout.setHorizontalGroup(
-            availableCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel29, GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-        );
-        availableCalendarsPanelLayout.setVerticalGroup(
-            availableCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(availableCalendarsPanelLayout.createSequentialGroup()
-                .addComponent(jLabel29)
-                .addContainerGap(212, Short.MAX_VALUE))
-        );
+        
 
         availableCalendarsScrollPane.setViewportView(availableCalendarsPanel);
 
@@ -248,6 +234,7 @@ public class Admin extends JPanel{
                             .addComponent(availableCalendarsSearchField, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))))
                 .addContainerGap())
         );
+        
         AdminPanelLayout.setVerticalGroup(
             AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(AdminPanelLayout.createSequentialGroup()
@@ -297,8 +284,85 @@ public class Admin extends JPanel{
                     .addComponent(availableCalendarsScrollPane, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
+        
+        newUserCalendar(testuser);
+        newAvailibleCalendar(testuser);
 	}
 
+	
+	public void newUserCalendar(User user){
+		JLabel newLabel = new JLabel();
+		newLabel.setText(user.getName());
+		newLabel.addMouseListener(mouseNewUserCalendar(newLabel, user));
+		
+        GroupLayout userCalendarsPanelLayout = new GroupLayout(userCalendarsPanel);
+        userCalendarsPanel.setLayout(userCalendarsPanelLayout);
+        userCalendarsPanelLayout.setHorizontalGroup(
+            userCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(newLabel, GroupLayout.PREFERRED_SIZE, 158, Short.MAX_VALUE)
+        );
+        userCalendarsPanelLayout.setVerticalGroup(
+            userCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(userCalendarsPanelLayout.createSequentialGroup()
+                .addComponent(newLabel)
+                .addContainerGap(212, Short.MAX_VALUE))
+        );
+	}
+	
+	public void newAvailibleCalendar(User user){
+		JLabel newLabel = new JLabel();
+		newLabel.setText(user.getName());
+		newLabel.addMouseListener(mouseAvailibleCalendar(newLabel, user));
+		
+		GroupLayout availableCalendarsPanelLayout = new GroupLayout(availableCalendarsPanel);
+        availableCalendarsPanel.setLayout(availableCalendarsPanelLayout);
+        availableCalendarsPanelLayout.setHorizontalGroup(
+            availableCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(newLabel, GroupLayout.PREFERRED_SIZE, 159, Short.MAX_VALUE)
+        );
+        availableCalendarsPanelLayout.setVerticalGroup(
+            availableCalendarsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(availableCalendarsPanelLayout.createSequentialGroup()
+                .addComponent(newLabel)
+                .addContainerGap(212, Short.MAX_VALUE))
+        );
+	}
+	
+	private MouseListener mouseNewUserCalendar(final JLabel newLabel, final User user) {
+		return new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				userCalendarsPanel.remove(newLabel);
+				userCalendarsPanel.repaint();
+//				client.yourCalendarsAction(user);
+			}
+			
+			public void mouseEntered(MouseEvent e){
+				newLabel.setForeground(Color.lightGray);
+			}
+			
+			public void mouseExited(MouseEvent e){
+				newLabel.setForeground(Color.black);
+			}
+		};
+	}
+	
+	private MouseListener mouseAvailibleCalendar(final JLabel newLabel, final User user) {
+		return new MouseAdapter(){
+			public void mouseClicked(MouseEvent e){
+				newUserCalendar(user);
+				userCalendarsPanel.repaint();
+//				client.avaliableCalendarsAction(user);
+			}
+			
+			public void mouseEntered(MouseEvent e){
+				newLabel.setForeground(Color.lightGray);
+			}
+			
+			public void mouseExited(MouseEvent e){
+				newLabel.setForeground(Color.black);
+			}
+		};
+	}
 
 	private MouseAdapter mouseUserSearchClick() {
 		return new MouseAdapter(){

@@ -178,7 +178,7 @@ public class Dashboard extends JPanel {
     
     private MouseListener mouseTempListener(final JLabel temp) {
     	return new MouseAdapter(){
-			public void mouseClicked(MouseEvent e){
+    		public void mouseClicked(MouseEvent e){
 				if(temp.getIcon().equals(tick)){
 					temp.setIcon(delete);
 					drawCalendar();

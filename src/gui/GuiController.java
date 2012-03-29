@@ -69,7 +69,9 @@ public class GuiController {
 	public ArrayList<User> getActiveCalendars() {
 		ArrayList<User> activeCalendars = new ArrayList<User>();
 		for(int i = 0; i < gui.getDashboardPanel().getCalendarList().size(); i++){
-			if(gui.getDashboardPanel().getCalendarList().get(i).getIcon().equals(tick))
+			if(gui.getDashboardPanel().getLabels().get(i).getIcon().equals(gui.getDashboardPanel().getTick())){
+				activeCalendars.add(gui.getDashboardPanel().getCalendarList().get(i));
+			}
 		}
 		return activeCalendars;
 	}

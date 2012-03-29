@@ -197,7 +197,6 @@ public class Xmlhandle {
             		Models.Event event = new Models.Event(eventID, followedUser, title, start, end, location, description);
             		event.setStatus(status);
             		followedUserEventList.add(event);
-            		followedUser.setEvents(followedUserEventList);
             		
                 }
             }

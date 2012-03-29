@@ -44,7 +44,7 @@ public class User {
 		return events;
 	}
 	
-	public void setEvents(ArrayList<Event> events){
+	public void setEvents(List<Event> events){
 		this.events = events;
 	}
 	
@@ -53,7 +53,7 @@ public class User {
 		return this.importedCalendars;
 	}
 	
-	public void setImportedCalendars(ArrayList<User> calendars){
+	public void setImportedCalendars(List<User> calendars){
 		this.importedCalendars = calendars;
 	}
 	

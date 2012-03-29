@@ -142,6 +142,11 @@ public class GUI extends JFrame {
     
     public void addListener(Client client){
 		this.client = client;
+		dashboardPanel.addListener(client);
+		AdminPanel.addListener(client);
+		calendarPanel.addListener(client);
+		NewEventPanel.addListener(client);
+		notificationsPanel.addListener(client);
 	}
     
     // Variables declaration

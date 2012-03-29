@@ -212,4 +212,9 @@ public class Dashboard extends JPanel {
 	private JLabel showHideCalendarsLabel;
     private JPanel showHideCalendarsPanel;
     private JScrollPane showHideCalendarsScrollPane;
+
+	public void addListener(Client client) {
+		this.client = client;
+		
+	}
 }

@@ -152,7 +152,7 @@ public User fetchUser(int user_ID) {
 		
 		String username = null; String password = null; String name = null;
 		
-		String query = String.format("SELECT * FROM (other_user_event JOIN user ON user.user_ID = other_user_event.other_user_ID) WHERE user.user_ID='%d'",user_ID);
+		String query = String.format("SELECT * FROM (other_user_event JOIN user ON user.user_ID = other_user_event.other_user_ID) WHERE other_user_event.user_ID='%d'",user_ID);
 		ResultSet rs = this.dbQuery(query);
 		List<User> userList = new ArrayList<User>();
 		

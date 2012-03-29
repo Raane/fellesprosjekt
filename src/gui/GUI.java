@@ -110,7 +110,15 @@ public class GUI extends JFrame {
         pack();
     }
 
-    public Dashboard getDashboardPanel() {
+    public NewEvent getNewEventPanel() {
+		return NewEventPanel;
+	}
+
+	public void setNewEventPanel(NewEvent newEventPanel) {
+		NewEventPanel = newEventPanel;
+	}
+
+	public Dashboard getDashboardPanel() {
 		return dashboardPanel;
 	}
 
@@ -134,6 +142,11 @@ public class GUI extends JFrame {
     
     public void addListener(Client client){
 		this.client = client;
+		dashboardPanel.addListener(client);
+		AdminPanel.addListener(client);
+		calendarPanel.addListener(client);
+		NewEventPanel.addListener(client);
+		notificationsPanel.addListener(client);
 	}
     
     // Variables declaration

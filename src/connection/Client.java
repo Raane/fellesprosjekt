@@ -25,10 +25,10 @@ public class Client implements ActionListener{
 	ClientConnection clientConnection;
 	Xmlhandle xmlHandle = new Xmlhandle();
 	private GuiController guicontroller;
-	public User user;
-	public ArrayList<dbhandle.User> allUsers;
-	public ArrayList<User> myUsers;
-	public ArrayList<Meetingroom> meetingrooms;
+	private User user;
+	private ArrayList<dbhandle.User> allUsers;
+	private ArrayList<User> myUsers;
+	private ArrayList<Meetingroom> meetingrooms;
 	private int shownWeek;
 	private int shownYear;
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
@@ -36,6 +36,8 @@ public class Client implements ActionListener{
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
 	
 	
+	
+
 	public static void main(String[] args) {
 //		System.out.println(getDayOfWeek());
 		Client client = new Client();
@@ -47,8 +49,16 @@ public class Client implements ActionListener{
 		xmlHandle.addListener(this);
 		System.out.println("logging in");
 		xmlHandle.createLoginRequest("Morten", "morten");
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Hell yea: " + getUser().getEvents().get(0).getStartTime());
 		System.out.println("logged in");
 		
+		meetingrooms = new ArrayList<Meetingroom>();
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Minestery of Awesome"));
 		
@@ -120,11 +130,11 @@ public class Client implements ActionListener{
 		//når det trykkes på en kalender i availiblecalendars
 	}
 	public void meetingAcceptAction(Event event) {
-		//trykker godta på et møte
-		
+		System.out.println(event.getTitle());
 	}
 	public void meetingDeclineAction(Event event) {
 		//trykker avslå på et møte
+		//ActionListener finnes, den bare virker ikke
 	}
 	public void calendarEventAction(Event event) {
 		//når det trykkes på en event i kalenderen
@@ -236,8 +246,10 @@ public class Client implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {	
+		
 		System.out.println(e.getSource().getClass());
-		if((e.getSource()).getClass()==ClientConnection.class) {
+		System.out.println(clientConnection.getClass());
+		if(e.getSource()==clientConnection) {
 			//System.out.println("Received at serverConnection: " + e.getActionCommand());
 			clientConnectionAction(e.getActionCommand());
 		}
@@ -265,5 +277,33 @@ public class Client implements ActionListener{
 	}
 	public User getUser() {
 		return user;
+	}
+	
+	public ArrayList<dbhandle.User> getAllUsers() {
+		return allUsers;
+	}
+
+	public void setAllUsers(ArrayList<dbhandle.User> allUsers) {
+		this.allUsers = allUsers;
+	}
+
+	public ArrayList<User> getMyUsers() {
+		return myUsers;
+	}
+
+	public void setMyUsers(ArrayList<User> myUsers) {
+		this.myUsers = myUsers;
+	}
+
+	public ArrayList<Meetingroom> getMeetingrooms() {
+		return meetingrooms;
+	}
+
+	public void setMeetingrooms(ArrayList<Meetingroom> meetingrooms) {
+		this.meetingrooms = meetingrooms;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

@@ -13,10 +13,9 @@ import Models.User;
 public class GuiController {
 	
 	 private GUI gui = new GUI();
-	//Gets a list of the calendars (users) that the clicking user has already imported.
 	
 	public void addListener(Client client) {
-		//TODO not made yet, remember to redistribute it to subclasses
+		gui.addListener(client);
 	};
 	
 	//Adds the calendar (user) "newCalendar" to the list of calendars to be drawn.
@@ -76,6 +75,7 @@ public class GuiController {
 	}
 	
 	public Meeting getNewEvent() {
+		return null;
 		//TODO this should return the meeting you were given in the setNewEvent()
 	}
 	
@@ -84,7 +84,7 @@ public class GuiController {
 	}
 	
 	public String getMeetingroomSearch() {
-		//TODO make it
+		return gui.getNewEventPanel().getMeetingRoomTextField().getText();
 	}
 	
 	public void setAvailableMeetingrooms(ArrayList<Meetingroom> meetingrooms) {
@@ -92,7 +92,7 @@ public class GuiController {
 	}
 	
 	public String getPersonSearch() {
-		//TODO denne skal hente ut teksten fra søkefeltet for andre personer i ny avtale 
+		return gui.getNewEventPanel().getPersonsTextField().getText();
 	}
 	
 	public void setAvailablePersons(ArrayList<dbhandle.User> user) {
@@ -109,7 +109,7 @@ public class GuiController {
 		//TODO put these in the calendar
 	}
 	public void setYourCalendars(ArrayList<User> users) {
-		//TODO there should be shown in the list of "Dine kalendere"
+		//TODO these should be shown in the list of "Dine kalendere"
 	}
 	public void setAvailableCalendars(ArrayList<dbhandle.User> users) {
 		//TODO these should be shown in  the list of "Tilgjengelige kalendere"

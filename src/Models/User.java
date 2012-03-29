@@ -7,6 +7,13 @@ public class User {
 	
 	private final int USER_ID;
 	private final String USERNAME;
+	public int getUSER_ID() {
+		return USER_ID;
+	}
+
+	public String getUSERNAME() {
+		return USERNAME;
+	}
 	private String name;
 	
 	private ArrayList<Event> events;	//ArrayList that contains all the events this user is linked to
@@ -40,7 +47,7 @@ public class User {
 	}
 	
 	//Returns this users events
-	public ArrayList<Event> getEvents(){
+	public List<Event> getEvents(){
 		return events;
 	}
 	

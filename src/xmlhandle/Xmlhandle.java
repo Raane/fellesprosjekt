@@ -82,9 +82,7 @@ public class Xmlhandle {
 			
 			//Perform the action
 			Document document = actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
-			
-			System.out.println(document.asXML());
-			
+						
 			//Send the message to the appropriate users!
 			changeNotificationBroadcast(actionToPerform.getBroadcastTo(), document.asXML());
 			

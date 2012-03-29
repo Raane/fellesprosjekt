@@ -132,8 +132,6 @@ public class GuiController {
 	public void setAvailableCalendars(ArrayList<User> allUsers) {
 		//TODO these should be shown in  the list of "Tilgjengelige kalendere"
 	}
-
-
 	public void clearNewEvent() {
 		gui.getNewEventPanel().clear();
 	}

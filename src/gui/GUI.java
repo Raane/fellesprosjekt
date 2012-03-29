@@ -150,12 +150,15 @@ public class GUI extends JFrame {
 			client.lastWeekButtonAction();
 		}
     }
+	
+	public void setWeekLabel(String string){
+		weekLabel.setText(string);
+	}
     
     class nextWeekAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			client.nextWeekButtonAction();
 		}
-    	
     }
     
     public void addListener(Client client){

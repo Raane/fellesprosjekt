@@ -70,6 +70,8 @@ public class Client implements ActionListener{
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Minestery of Awesome"));
 		
+		meetings = new ArrayList<Meeting>();
+		
 		
 		initializeTimeThings();  // Initializes the time things (variables)
 		addCalendars(); //loads the users imported calendars into the GUI
@@ -139,10 +141,17 @@ public class Client implements ActionListener{
 			for(User user:participants) {
 				listParticipants.add(user.getUSER_ID());
 			}
-			
+			System.out.println(user.getEvents().size());
 			xmlHandle.createAddMeetingRequest(listParticipants, event, meetingroomid, title, user.getUSERNAME());
 			clearNewEvent();
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			updateCalendar(shownWeek, shownYear);
+			System.out.println(user.getEvents().size());
 		}
 		
 //		guicontroller.setNewEvent(new Meeting(event));

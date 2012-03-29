@@ -31,7 +31,6 @@ public class GuiController {
 			System.out.println(gui.getDashboardPanel().getCalendarList().size());
 			gui.getDashboardPanel().updateShowHideCalendars(gui.getDashboardPanel().getCalendarList());
 		}
-		
 	}
 	
 	//Removes the calendar (user) of "owner" from the list of imported calendars (users) for the user "viewer".
@@ -113,8 +112,9 @@ public class GuiController {
 		//TODO these events should end up in the notifications
 	}
 	public void setCalendarTitle(String title) {
-//		gui.getCalendarPanel();
+		gui.setWeekLabel(title);
 	}
+
 	public void setCalendarEntries(ArrayList<ArrayList<Event>> entries) {
 		for (int i = 0; i < entries.size(); i++){
 			for (int j = 0; j < entries.get(i).size(); j++){
@@ -128,8 +128,8 @@ public class GuiController {
 	public void setAvailableCalendars(ArrayList<User> allUsers) {
 		//TODO these should be shown in  the list of "Tilgjengelige kalendere"
 	}
-
 	public void clearNewEvent() {
 		gui.getNewEventPanel().clear();
 	}
 }
+

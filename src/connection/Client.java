@@ -26,7 +26,7 @@ public class Client implements ActionListener{
 	Xmlhandle xmlHandle = new Xmlhandle();
 	private GuiController guicontroller;
 	private User user;
-	private ArrayList<dbhandle.User> allUsers;
+	private ArrayList<User> allUsers;
 	private ArrayList<User> myUsers;
 	private ArrayList<Meetingroom> meetingrooms;
 	private int shownWeek;
@@ -279,11 +279,11 @@ public class Client implements ActionListener{
 		return user;
 	}
 	
-	public ArrayList<dbhandle.User> getAllUsers() {
+	public ArrayList<User> getAllUsers() {
 		return allUsers;
 	}
 
-	public void setAllUsers(ArrayList<dbhandle.User> allUsers) {
+	public void setAllUsers(ArrayList<User> allUsers) {
 		this.allUsers = allUsers;
 	}
 

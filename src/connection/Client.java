@@ -28,10 +28,18 @@ public class Client implements ActionListener{
 	Xmlhandle xmlHandle = new Xmlhandle();
 	private GuiController guicontroller;
 	private User user;
-	private ArrayList<dbhandle.User> allUsers;
+	private ArrayList<User> allUsers;
 	private ArrayList<User> myUsers;
 	private ArrayList<Meetingroom> meetingrooms;
 	private ArrayList<Meeting> meetings;
+	public ArrayList<Meeting> getMeetings() {
+		return meetings;
+	}
+
+	public void setMeetings(ArrayList<Meeting> meetings) {
+		this.meetings = meetings;
+	}
+
 	private int shownWeek;
 	private int shownYear;
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
@@ -120,8 +128,9 @@ public class Client implements ActionListener{
 		guicontroller.setNewEvent(new Meeting(user.createEvent()));
 	}
 	public void changeNameButtonAction() {
-		//når det trykkes på endre navn knapp
-		//done
+		String newName = guicontroller.getNewName();
+		user.setName(newName);
+		xmlHandle.createEditNameOfUserRequest(newName, user.getUSERNAME());
 	}
 	public void changePasswordButtonAction() {
 		//når det trykkes på endre passord knapp
@@ -296,11 +305,11 @@ public class Client implements ActionListener{
 		return user;
 	}
 	
-	public ArrayList<dbhandle.User> getAllUsers() {
+	public ArrayList<User> getAllUsers() {
 		return allUsers;
 	}
 
-	public void setAllUsers(ArrayList<dbhandle.User> allUsers) {
+	public void setAllUsers(ArrayList<User> allUsers) {
 		this.allUsers = allUsers;
 	}
 

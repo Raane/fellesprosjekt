@@ -23,6 +23,7 @@ public class Xmlaction {
 	
 	private String ownerUsername;
 	private int ownerID;
+	private String ownerName;
 	private List<User> broadcastTo;
 	
 	public Xmlaction(String ownerUsername) {
@@ -30,7 +31,9 @@ public class Xmlaction {
 		this.ownerUsername = ownerUsername;
 		
 		if (ownerUsername != null) {
-		this.ownerID = new Dbhandle().fetchUser(ownerUsername).getUserID();
+		User owner = new Dbhandle().fetchUser(ownerUsername);
+		this.ownerID = owner.getUserID();
+		this.ownerName = owner.getName();
 		} else {
 			ownerUsername = "";
 		}
@@ -46,7 +49,8 @@ public class Xmlaction {
 		//Adds the username of the owner
 		root.addElement("owner")
 		.addAttribute("owner_username",ownerUsername)
-		.addAttribute("owner_ID", String.valueOf(ownerID));
+		.addAttribute("owner_ID", String.valueOf(ownerID))
+		.addAttribute("owner_name", ownerName);
 			
 		
 		//Verify with database and create a connection with user.
@@ -183,7 +187,7 @@ public class Xmlaction {
 		//Note, will also probably need to notify the followers of a user
 		setBroadcastTo(userList);
 		
-		//Fetches the leader of the meeting
+		//Fetches the leader of the meeting -- Use owner instead?
 		User meetingLeader = handle.fetchMeetingLeader(meeting_ID);
 		
 		//Fetches the event of the meeting leader
@@ -195,7 +199,9 @@ public class Xmlaction {
 				
 		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",ownerUsername);
+		.addAttribute("owner_username",ownerUsername)
+		.addAttribute("owner_ID", String.valueOf(ownerID))
+		.addAttribute("owner_name", ownerName);
 		
 		root.addElement("meeting")
 		.addAttribute("meeting_ID", String.valueOf(meeting_ID))
@@ -207,12 +213,8 @@ public class Xmlaction {
 			.addAttribute("user_ID", String.valueOf(userID));
 		}
 		
-		//Adds the meetingLeader
-		root.addElement("meeting_leader")
-		.addAttribute("user_ID", String.valueOf(meetingLeader.getUserID()));
-		
 		//Adds the meating leaders event
-		root.element("leader_event")
+		root.addElement("leader_event")
 		.addAttribute("event_ID", String.valueOf(meetingLeaderEvent.getEvent_ID()))
 		.addAttribute("start", meetingLeaderEvent.getStart().toString())
 		.addAttribute("end", String.valueOf(meetingLeaderEvent.getEnd().toString()))
@@ -248,7 +250,9 @@ public class Xmlaction {
 			
 		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",ownerUsername);
+		.addAttribute("owner_username",ownerUsername)
+		.addAttribute("owner_ID", String.valueOf(ownerID))
+		.addAttribute("owner_name", ownerName);
 		
 		Dbhandle handle = new Dbhandle();
 		User user = handle.fetchMeetingLeader(meetingID);
@@ -277,7 +281,9 @@ public class Xmlaction {
 				
 		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",ownerUsername);
+		.addAttribute("owner_username",ownerUsername)
+		.addAttribute("owner_ID", String.valueOf(ownerID))
+		.addAttribute("owner_name", newName);
 		
 		root.addElement("name_change")
 		.addAttribute("new_name", newName);
@@ -299,7 +305,9 @@ public class Xmlaction {
 		
 		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",ownerUsername);
+		.addAttribute("owner_username",ownerUsername)
+		.addAttribute("owner_ID", String.valueOf(ownerID))
+		.addAttribute("owner_name", ownerName);
 	
 		if (!oldPassword.equals(user.getPassword())) {
 			System.out.println("Incorrect password");
@@ -328,7 +336,9 @@ public class Xmlaction {
 			
 		//Adds the username of the owner
 		root.addElement("owner")
-		.addAttribute("owner_username",ownerUsername);
+		.addAttribute("owner_username",ownerUsername)
+		.addAttribute("owner_ID", String.valueOf(ownerID))
+		.addAttribute("owner_name", ownerName);
 		
 		Dbhandle handle = new Dbhandle();
 		int userID = handle.fetchEventOwnerID(event.getEvent_ID());

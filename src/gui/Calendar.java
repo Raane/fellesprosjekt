@@ -33,10 +33,7 @@ public class Calendar extends JPanel {
     	Color lightGreen = new Color(208, 223, 181);
     	Color darkGreen = new Color(152, 172, 122);
 		
-    	System.out.println("start: " + startHour);
-    	System.out.println("end: " + endHour);
 		for (int i = startHour; i < endHour; i++){
-			System.out.println(i);
 			JPanel panel = hourPanels.get(day).get(i);
 		
 			// Define layout for the panel

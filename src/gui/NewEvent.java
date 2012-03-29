@@ -56,7 +56,7 @@ public class NewEvent extends JPanel{
         jLabel16 = new JLabel();
         descriptionScrollPane = new JScrollPane();
         descriptionTextArea = new JTextArea();
-        titleLabel = new JTextField();
+        subjectTextField = new JTextField();
         PersonsLabel = new JLabel();
         addEventButton = new JButton();
         addEventButton.addActionListener(new addEventAction());
@@ -87,16 +87,16 @@ public class NewEvent extends JPanel{
         meetingRoomLabel.setText("Møterom");
 
         endDateLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10));
-        endDateLabel.setText("Dato");
+        endDateLabel.setText("Dato (yyyy-mm-dd)");
 
         endTimeLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10));
-        endTimeLabel.setText("Klokkeslett");
+        endTimeLabel.setText("Klokkeslett (hh:mm)");
 
         startTimeLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10));
-        startTimeLabel.setText("Klokkeslett");
+        startTimeLabel.setText("Klokkeslett (hh:mm)");
 
         startDateLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 10));
-        startDateLabel.setText("Dato");
+        startDateLabel.setText("Dato (yyyy-mm-dd)");
 
 
         meetingRoomTextField.setText("Søk");
@@ -196,7 +196,7 @@ public class NewEvent extends JPanel{
                         .addComponent(endLabel, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(NewEventPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addComponent(titleLabel, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                            .addComponent(subjectTextField, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                             .addGroup(NewEventPanelLayout.createSequentialGroup()
                                 .addGroup(NewEventPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addComponent(startDateTextField, GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +221,7 @@ public class NewEvent extends JPanel{
                                         .addComponent(endDateLabel)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                                         .addComponent(endTimeLabel)
-                                        .addGap(60, 60, 60))
+                                        .addGap(17, 17, 17))
                                     .addComponent(descriptionScrollPane, GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)))
                             .addGroup(NewEventPanelLayout.createSequentialGroup()
                                 .addComponent(meetingRoomLabel, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
@@ -241,7 +241,7 @@ public class NewEvent extends JPanel{
                 .addGap(12, 12, 12)
                 .addGroup(NewEventPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(subjectLabel)
-                    .addComponent(titleLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(subjectTextField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(NewEventPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(startLabel)
@@ -353,7 +353,24 @@ public class NewEvent extends JPanel{
 	
 	class addEventAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			client.addEventButtonAction();
+			// Collect information from the fields
+			String subject = subjectTextField.getText();
+			String startDate = startDateTextField.getText();
+			String startTime = startTimeTextField.getText();
+			String endDate = endDateTextField.getText();
+			String endTime = endTimeTextField.getText();
+			String description = descriptionTextArea.getText();
+			
+			// Send data to controller
+			client.addEventButtonAction(subject, startDate, startTime, endDate, endTime, description, null, null);
+			
+			// Tøm alle feltene for data
+			subjectTextField.setText("");
+			startDateTextField.setText("");
+			startTimeTextField.setText("");
+			endDateTextField.setText("");
+			endTimeTextField.setText("");
+			descriptionTextArea.setText("");
 		}
 		
 	}
@@ -391,7 +408,7 @@ public class NewEvent extends JPanel{
     private JTextField personsTextField;
     private JLabel jLabel17;
     private JLabel jLabel18;
-    private JTextField titleLabel;
+    private JTextField subjectTextField;
     private JLabel PersonsLabel;
     private JButton addEventButton;
     

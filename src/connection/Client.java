@@ -53,7 +53,7 @@ public class Client implements ActionListener{
 		
 		xmlHandle.createLoginRequest(testUsername,testPassword);
 		try {
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -251,6 +251,7 @@ public class Client implements ActionListener{
 
 	private void addCalendars() {
 		for(User calendar:user.getImportedCalendars()) {
+			System.out.println("adding: " + user.getName());
 			guicontroller.addCalendar(user);
 		}
 	}

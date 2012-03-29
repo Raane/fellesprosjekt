@@ -17,7 +17,6 @@ public class GuiController {
 		//TODO not made yet, remember to redistribute it to subclasses
 	};
 
-	
 	//Adds the calendar (user) of "owner" in the list of imported calendars (users) for the user "viewer".
 	public void addCalendar(User viewer, User owner){
 		if(viewer.getImportedCalendars().contains(owner));

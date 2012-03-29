@@ -106,18 +106,10 @@ public class Dashboard extends JPanel {
 
         showHideCalendarsPanel.setBackground(Color.white);
         
-
-        
-        
-        for (int i = 0; i < 5; i++){
-        	calendarList.add(new User(0, "test"));
-        }
-        updateShowHideCalendars(calendarList);
-        
-        
-        
-        
-        
+//        for (int i = 0; i < 5; i++){
+//        	calendarList.add(new User(0, "test"));
+//        }
+//        updateShowHideCalendars(calendarList);
         
         showHideCalendarsScrollPane.setViewportView(showHideCalendarsPanel);
 
@@ -188,6 +180,7 @@ public class Dashboard extends JPanel {
     		
     		temp.setText(events.get(i).getName());
         	temp.setBackground(Color.white);
+      
         	temp.setOpaque(true);
         	temp.setIcon(tick);
         	temp.setIconTextGap(10);

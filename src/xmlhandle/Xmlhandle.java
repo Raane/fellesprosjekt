@@ -191,7 +191,7 @@ public class Xmlhandle {
             List<Models.Event> followedUserEventList = new ArrayList<Models.Event>();
           //And iterates through their events
     		for ( Iterator y = root.elementIterator( "followed_user_event" ); y.hasNext(); ) {
-                Element eventElement = (Element) i.next();
+                Element eventElement = (Element) y.next();
                 if (eventElement.attributeValue("event_owner").equalsIgnoreCase(username)) {
                 	int eventID = Integer.valueOf(eventElement.attributeValue("event_ID"));
             		Timestamp start = StringToDate(eventElement.attributeValue("start"));
@@ -264,6 +264,7 @@ public class Xmlhandle {
 			createdMeeting.setMeetingID(meetingID);
 			createdMeeting.setParticipants((ArrayList<Models.User>) invitedUsers);
 			
+			client.getMeetings().add(createdMeeting);
 			
 			
 		} else if (action == MessageAction.CREATE_USER) {

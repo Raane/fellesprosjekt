@@ -78,6 +78,8 @@ public class Xmlaction {
 		//Get List of users the person follows
 		List<User> followedUsers = handle.fetchUsersFollowed(ownerID);
 		
+		System.out.println(followedUsers.size());
+		
 		//Get their events
 		for (User user : followedUsers) {
 			user.setPersonalEvents(handle.fetchUserEvents(user.getUsername()));

@@ -84,7 +84,7 @@ public class GuiController {
 	}
 	
 	public String getMeetingroomSearch() {
-		//TODO make it
+		return gui.getNewEventPanel().getMeetingRoomTextField().getText();
 	}
 	
 	public void setAvailableMeetingrooms(ArrayList<Meetingroom> meetingrooms) {
@@ -92,7 +92,7 @@ public class GuiController {
 	}
 	
 	public String getPersonSearch() {
-		//TODO denne skal hente ut teksten fra søkefeltet for andre personer i ny avtale 
+		return gui.getNewEventPanel().getPersonsTextField().getText();
 	}
 	
 	public void setAvailablePersons(ArrayList<dbhandle.User> user) {

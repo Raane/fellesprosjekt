@@ -110,7 +110,15 @@ public class GUI extends JFrame {
         pack();
     }
 
-    public Dashboard getDashboardPanel() {
+    public NewEvent getNewEventPanel() {
+		return NewEventPanel;
+	}
+
+	public void setNewEventPanel(NewEvent newEventPanel) {
+		NewEventPanel = newEventPanel;
+	}
+
+	public Dashboard getDashboardPanel() {
 		return dashboardPanel;
 	}
 

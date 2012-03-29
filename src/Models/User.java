@@ -9,8 +9,8 @@ public class User {
 	private final String USERNAME;
 	private String name;
 	
-	private ArrayList<Event> events;	//ArrayList that contains all the events this user is linked to
-	private ArrayList<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
+	private List<Event> events;	//ArrayList that contains all the events this user is linked to
+	private List<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
 	
 	
 	public User(int id, String username){

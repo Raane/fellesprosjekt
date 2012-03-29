@@ -158,7 +158,7 @@ public class Xmlhandle {
 		List<Models.Event> eventList = new ArrayList<Models.Event>();
 		for ( Iterator i = root.elementIterator( "personal_event" ); i.hasNext(); ) {
             Element eventElement = (Element) i.next();
-    		int userID = Integer.valueOf(eventElement.attributeValue("event_ID"));
+    		int eventID = Integer.valueOf(eventElement.attributeValue("event_ID"));
     		Timestamp start = StringToDate(eventElement.attributeValue("start"));
     		Timestamp end = StringToDate(eventElement.attributeValue("end"));
     		String location = eventElement.attributeValue("location");
@@ -166,10 +166,45 @@ public class Xmlhandle {
     		Status status = Status.valueOf(eventElement.attributeValue("status"));
     		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
     		String title = eventElement.attributeValue("name");
-    		Models.Event event = new Models.Event(userID, loginUser, title, start, end, location, description);
+    		Models.Event event = new Models.Event(eventID, loginUser, title, start, end, location, description);
     		event.setStatus(status);
     		eventList.add(event);
         }
+		
+		//Iterates through all the followed users
+		List<Models.User> followedUserList = new ArrayList<Models.User>();
+		for ( Iterator i = root.elementIterator( "followed_user" ); i.hasNext(); ) {
+            Element userElement = (Element) i.next();
+            int userID = Integer.valueOf(userElement.attributeValue("user_ID"));
+            String username = userElement.attributeValue("username");
+            String name = userElement.attributeValue("name");
+            Models.User followedUser = new Models.User(userID, username);
+            followedUser.setName(name);
+            followedUserList.add(followedUser);
+            List<Models.Event> followedUserEventList = new ArrayList<Models.Event>();
+          //And iterates through their events
+    		for ( Iterator y = root.elementIterator( "followed_user_event" ); y.hasNext(); ) {
+                Element eventElement = (Element) i.next();
+                if (eventElement.attributeValue("event_owner").equalsIgnoreCase(username)) {
+                	int eventID = Integer.valueOf(eventElement.attributeValue("event_ID"));
+            		Timestamp start = StringToDate(eventElement.attributeValue("start"));
+            		Timestamp end = StringToDate(eventElement.attributeValue("end"));
+            		String location = eventElement.attributeValue("location");
+            		String description = eventElement.attributeValue("description");
+            		Status status = Status.valueOf(eventElement.attributeValue("status"));
+            		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
+            		String title = eventElement.attributeValue("name");
+            		Models.Event event = new Models.Event(eventID, followedUser, title, start, end, location, description);
+            		event.setStatus(status);
+            		followedUserEventList.add(event);
+            		followedUser.setEvents(followedUserEventList);
+            		
+                }
+            }
+        }
+		
+		
+		
 		
 		
 			

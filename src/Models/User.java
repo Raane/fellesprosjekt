@@ -50,9 +50,17 @@ public class User {
 		return events;
 	}
 	
+	public void setEvents(ArrayList<Event> events){
+		this.events = events;
+	}
+	
 	//Returns this users imported calendars
 	public ArrayList<User> getImportedCalendars(){
 		return this.importedCalendars;
+	}
+	
+	public void setImportedCalendars(ArrayList<User> calendars){
+		this.importedCalendars = calendars;
 	}
 	
 	public void importCalendar(User user){

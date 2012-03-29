@@ -20,6 +20,7 @@ public class User {
 		this.password = password;
 		this.events = new ArrayList<Event>();
 		this.importedCalendars = new ArrayList<User>();
+		this.name = "rickRoller";
 	}
 	
 	public String getName(){

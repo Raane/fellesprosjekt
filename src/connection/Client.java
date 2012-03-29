@@ -3,6 +3,7 @@ package connection;
 import gui.GUI;
 import gui.GuiController;
 
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
@@ -125,25 +126,34 @@ public class Client implements ActionListener{
 	public void addEventButtonAction(String title, String startDate, String startTime, String endDate, String endTime, 
 									 String description, Meetingroom room, ArrayList<User> participants) {
 		if(!editing){			
-			Timestamp start = Timestamp.valueOf(startDate + " " + startTime);
-			Timestamp end = Timestamp.valueOf(endDate + " " + endTime);
+			Timestamp start = Timestamp.valueOf(startDate + " " + startTime + ":00");
+			Timestamp end = Timestamp.valueOf(endDate + " " + endTime + ":00");
 			
-			Event event = new Event(user);
-			event.setTitle(title);
-			event.setStartTime(start);
-			event.setEndTime(end);
-			event.setAgenda(description);
-			
+			dbhandle.Event event = new dbhandle.Event(start, end, "somewhere", description, Status.ACCEPTED);
 			int meetingroomid = 1;
 			
-//			xmlHandle.createAddMeetingRequest(meeting.getParticipants(), dbhandleevent, meetingRoomID, meetingName, user.getUSERNAME());
-//			guicontroller.setNewEvent(new Meeting(user.createEvent()));
+			participants = new ArrayList<User>();
+			participants.add(user);
+			
+			List<Integer> listParticipants = new ArrayList<Integer>();
+			for(User user:participants) {
+				listParticipants.add(user.getUSER_ID());
+			}
+			
+			xmlHandle.createAddMeetingRequest(listParticipants, event, meetingroomid, title, user.getUSERNAME());
+			clearNewEvent();
+			updateCalendar(shownWeek, shownYear);
 		}
 		
 //		guicontroller.setNewEvent(new Meeting(event));
 //		public void addEventButtonAction() {
 
 	}
+	private void clearNewEvent() {
+		editing = false;
+		guicontroller.clearNewEvent();
+	}
+
 	public void changeNameButtonAction() {
 		System.out.println(user.getName());
 		System.out.println("changing the name of the game");

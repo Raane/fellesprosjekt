@@ -13,7 +13,7 @@ import java.util.Iterator;
 public class ClientConnection {
 	private int myPort = 5555;
 	private int remotePort = 4444;
-	private String addressToServer = "78.91.4.177"; //joakim: 78.91.4.177
+	private String addressToServer = "78.91.7.160"; //joakim: 78.91.4.177
 	private ArrayList<ActionListener> actionListeners = new ArrayList<ActionListener>();	
 	private Connection connection = new Connection(myPort);
 	

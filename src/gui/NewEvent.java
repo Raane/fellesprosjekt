@@ -364,17 +364,19 @@ public class NewEvent extends JPanel{
 			// Send data to controller
 			client.addEventButtonAction(subject, startDate, startTime, endDate, endTime, description, null, null);
 			
-			// Tøm alle feltene for data
-			subjectTextField.setText("");
-			startDateTextField.setText("");
-			startTimeTextField.setText("");
-			endDateTextField.setText("");
-			endTimeTextField.setText("");
-			descriptionTextArea.setText("");
 		}
 		
 	}
 
+	public void clear() {
+		subjectTextField.setText("");
+		startDateTextField.setText("");
+		startTimeTextField.setText("");
+		endDateTextField.setText("");
+		endTimeTextField.setText("");
+		descriptionTextArea.setText("");
+	}
+	
 	public void addListener(Client client){
 		this.client = client;
 	}
@@ -411,7 +413,4 @@ public class NewEvent extends JPanel{
     private JTextField subjectTextField;
     private JLabel PersonsLabel;
     private JButton addEventButton;
-    
-    
-    
 }

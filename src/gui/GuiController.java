@@ -113,7 +113,7 @@ public class GuiController {
 		//TODO these events should end up in the notifications
 	}
 	public void setCalendarTitle(String title) {
-		//TODO make it
+//		gui.getCalendarPanel();
 	}
 	public void setCalendarEntries(ArrayList<ArrayList<Event>> entries) {
 		for (int i = 0; i < entries.size(); i++){
@@ -127,5 +127,9 @@ public class GuiController {
 	}
 	public void setAvailableCalendars(ArrayList<User> allUsers) {
 		//TODO these should be shown in  the list of "Tilgjengelige kalendere"
+	}
+
+	public void clearNewEvent() {
+		gui.getNewEventPanel().clear();
 	}
 }

@@ -232,6 +232,8 @@ public class Dashboard extends JPanel {
 	}
     
     private void drawCalendar(){
+    	System.out.println(client==null);
+    	System.out.println(client.getUser().getName());
     	User user = client.getUser();
     	user.getEvents();
     	

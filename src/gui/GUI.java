@@ -2,17 +2,20 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.LayoutStyle;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+
+import Models.Event;
+import Models.User;
 
 import connection.Client;
 
@@ -23,6 +26,17 @@ public class GUI extends JFrame {
 	
     public GUI() {
         initComponents();
+        
+//      //TESTDATA
+//        User user = new User(1, "Morten");
+//        
+//    	Event event = new Event(user);
+//    	event.setTitle("Testevent");
+//    	event.setStartTime(Timestamp.valueOf("2012-03-28 06:00:00"));
+//    	event.setEndTime(Timestamp.valueOf("2012-03-28 07:00:00"));
+//        
+//    	setCalendarEvent(event);
+//        //SLUTT TESTDATA
     }
 
     private void initComponents() {
@@ -88,7 +102,7 @@ public class GUI extends JFrame {
                     .addComponent(weekLabel, GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(previousWeekButton)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 624, Short.MAX_VALUE)
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 600, Short.MAX_VALUE)
                         .addComponent(nextWeekButton)))
                 .addContainerGap())
         );
@@ -126,6 +140,10 @@ public class GUI extends JFrame {
 		this.dashboardPanel = dashboardPanel;
 	}
 
+	public void setCalendarEvent(Event event){
+		calendarPanel.setCalendarEvent(event);
+	}
+	
 	class previousWeekAction implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
@@ -164,4 +182,5 @@ public class GUI extends JFrame {
     private JTabbedPane tabbedPane;
     private JLabel weekLabel;
     // End of variables declaration
+
 }

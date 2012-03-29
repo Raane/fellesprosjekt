@@ -262,6 +262,10 @@ public class Xmlhandle {
 			String description = eventElement.attributeValue("description");
 			Status status = Status.valueOf(eventElement.attributeValue("status"));
 			Models.Event event = new Models.Event(eventID, meetingLeader, meetingName, start, end, location, description);
+			event.setStatus(status);
+			
+			//Adds the event to the logged in users event list
+			client.getUser().getEvents().add(event);
 			
 			Models.Meeting createdMeeting = new Models.Meeting(event);
 			createdMeeting.setMeetingID(meetingID);

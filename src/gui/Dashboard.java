@@ -104,21 +104,24 @@ public class Dashboard extends JPanel {
         showHideCalendarsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         showHideCalendarsLabel.setText("Vis/skjul kalendere");
 
-        showHideCalendarsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        showHideCalendarsPanel.setBackground(Color.white);
         
-        GroupLayout showHideCalendarsPanelLayout = new GroupLayout(showHideCalendarsPanel);
-        showHideCalendarsPanel.setLayout(showHideCalendarsPanelLayout);
+
+        
         
         for (int i = 0; i < 5; i++){
         	calendarList.add(new User(0, "test"));
         }
-        updateShowHideCalendars(calendarList, showHideCalendarsPanelLayout);
+        updateShowHideCalendars(calendarList);
         
         showHideCalendarsScrollPane.setViewportView(showHideCalendarsPanel);
 
     	events.add(new Event(new User(0, "test"), new Timestamp(112, 03, 29, 20, 40, 00, 0)));
     	updateAgenda(events, agendaPanelLayout);
         
+    	
+    	
+    	
         GroupLayout dashboardPanelLayout = new GroupLayout(this);
         this.setLayout(dashboardPanelLayout);
         
@@ -173,21 +176,16 @@ public class Dashboard extends JPanel {
 		
 	}
 
-	public void updateShowHideCalendars(ArrayList<User> events, GroupLayout layout){
-        Color white = new Color(255, 255, 255);
-        Color grey = new Color(255, 255, 255);
-    	
+	public void updateShowHideCalendars(ArrayList<User> events){
+		GroupLayout layout = new GroupLayout(showHideCalendarsPanel);
+		showHideCalendarsPanel.setLayout(layout);
+		
     	for (int i = 0; i < events.size(); i++){
     		JLabel temp = new JLabel();
     		temp.addMouseListener(mouseTempListener(temp));
     		
     		temp.setText(events.get(i).getName());
-        	if (i % 2 == 0) {
-        		temp.setBackground(white);
-      
-        	} else {
-        		temp.setBackground(grey);
-        	}
+        	temp.setBackground(Color.white);
         	temp.setOpaque(true);
         	temp.setIcon(tick);
         	temp.setIconTextGap(10);

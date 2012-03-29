@@ -25,8 +25,11 @@ public class GuiController {
 	
 	//Adds the calendar (user) "newCalendar" to the list of calendars to be drawn.
 	public void addCalendar(User newCalendar){
-		if(gui.getDashboardPanel().getCalendarList().contains(newCalendar));
-		else gui.getDashboardPanel().getCalendarList().add(newCalendar);
+		if(!gui.getDashboardPanel().getCalendarList().contains(newCalendar)){		
+			gui.getDashboardPanel().getCalendarList().add(newCalendar);
+			gui.getDashboardPanel().updateShowHideCalendars(gui.getDashboardPanel().getCalendarList());
+		}
+		
 	}
 	
 	//Removes the calendar (user) of "owner" from the list of imported calendars (users) for the user "viewer".

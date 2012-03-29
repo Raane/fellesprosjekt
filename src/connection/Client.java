@@ -32,14 +32,6 @@ public class Client implements ActionListener{
 	private ArrayList<User> myUsers;
 	private ArrayList<Meetingroom> meetingrooms;
 	private ArrayList<Meeting> meetings;
-	public ArrayList<Meeting> getMeetings() {
-		return meetings;
-	}
-
-	public void setMeetings(ArrayList<Meeting> meetings) {
-		this.meetings = meetings;
-	}
-
 	private int shownWeek;
 	private int shownYear;
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
@@ -100,6 +92,7 @@ public class Client implements ActionListener{
 	}
 
 	public void showHideCalendarsAction() {
+		System.out.println(guicontroller.getActiveCalendars().size());
 		updateCalendar(shownWeek, shownYear);
 	}
 	public void meetingroomSearchAction() {
@@ -128,6 +121,8 @@ public class Client implements ActionListener{
 		guicontroller.setNewEvent(new Meeting(user.createEvent()));
 	}
 	public void changeNameButtonAction() {
+		System.out.println(user.getName());
+		System.out.println("changing the name of the game");
 		String newName = guicontroller.getNewName();
 		user.setName(newName);
 		xmlHandle.createEditNameOfUserRequest(newName, user.getUSERNAME());
@@ -253,7 +248,7 @@ public class Client implements ActionListener{
 
 	private void addCalendars() {
 		for(User calendar:user.getImportedCalendars()) {
-//			guicontroller.addCalendar(user);
+			guicontroller.addCalendar(user);
 		}
 	}
 	
@@ -332,4 +327,12 @@ public class Client implements ActionListener{
 	public void setUser(User user) {
 		this.user = user;
 	}
+	public ArrayList<Meeting> getMeetings() {
+		return meetings;
+	}
+
+	public void setMeetings(ArrayList<Meeting> meetings) {
+		this.meetings = meetings;
+	}
+
 }

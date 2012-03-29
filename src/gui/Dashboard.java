@@ -114,16 +114,14 @@ public class Dashboard extends JPanel {
         }
         updateShowHideCalendars(calendarList);
         
-        
-        
-        
-        
-        
         showHideCalendarsScrollPane.setViewportView(showHideCalendarsPanel);
 
     	events.add(new Event(new User(0, "test"), new Timestamp(112, 03, 29, 20, 40, 00, 0)));
     	updateAgenda(events, agendaPanelLayout);
         
+    	
+    	
+    	
         GroupLayout dashboardPanelLayout = new GroupLayout(this);
         this.setLayout(dashboardPanelLayout);
         

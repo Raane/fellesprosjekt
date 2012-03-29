@@ -149,6 +149,7 @@ public class Dashboard extends JPanel {
     }
     
     private void updateAgenda(ArrayList<Event> eventsList, GroupLayout layout) {
+    	Collections.sort(eventsList, new TimeComparator()); //Sorts the list based on when the event is
 		for(int i = 0; i < eventsList.size(); i++){
 			JLabel temp = new JLabel();
 			temp.setText(eventsList.get(i).getTitle() + " " + eventsList.get(i).getStartTime().toGMTString());

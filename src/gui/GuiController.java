@@ -12,7 +12,12 @@ import Models.User;
 
 public class GuiController {
 	
-	 private GUI gui = new GUI();
+	private GUI gui;
+	
+	public GuiController() {
+		gui = new GUI();
+		gui.setVisible(true);
+	}
 	
 	public void addListener(Client client) {
 		gui.addListener(client);

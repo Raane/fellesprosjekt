@@ -15,6 +15,8 @@ import java.util.GregorianCalendar;
 
 import org.dom4j.DocumentException;
 
+import dbhandle.Status;
+
 import Models.Event;
 import Models.Meeting;
 import Models.Meetingroom;
@@ -29,12 +31,14 @@ public class Client implements ActionListener{
 	private ArrayList<dbhandle.User> allUsers;
 	private ArrayList<User> myUsers;
 	private ArrayList<Meetingroom> meetingrooms;
+	private ArrayList<Meeting> meetings;
 	private int shownWeek;
 	private int shownYear;
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
 	private Timestamp endOfWeek = new Timestamp(new Date().getTime()+(8-getDayOfWeek())*(24*60*60*1000));
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
-	
+	private String testUsername = "Henning";
+	private String testPassword = "henning";
 	
 	
 
@@ -48,15 +52,17 @@ public class Client implements ActionListener{
 		clientConnection.addReceiveListener(this);
 		xmlHandle.addListener(this);
 		System.out.println("logging in");
-		xmlHandle.createLoginRequest("Morten", "morten");
+		
+		xmlHandle.createLoginRequest(testUsername,testPassword);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Hell yea: " + getUser().getEvents().get(0).getStartTime());
 		System.out.println("logged in");
+		
+		guicontroller = new GuiController();
+		guicontroller.addListener(this);
 		
 		meetingrooms = new ArrayList<Meetingroom>();
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
@@ -101,11 +107,17 @@ public class Client implements ActionListener{
 		guicontroller.setAvailableMeetingrooms(validMeetingrooms);
 	}
 	public void personsSearchAction() {
-		//hver gang noe skrives i personertextfield
-		//done
+		String search = guicontroller.getPersonSearch();
+		ArrayList<User> validPersons = new ArrayList<User>();
+		for(dbhandle.User loopingUser:allUsers) {
+			boolean valid = true;
+			for(int i=0;i<loopingUser.getName().length() && i<search.length();i++) {
+				if(!(search.charAt(i)==loopingUser.getName().charAt(i))) valid = false;
+			}
+		}
 	}
 	public void addEventButtonAction() {
-//		user.
+		guicontroller.setNewEvent(new Meeting(user.createEvent()));
 	}
 	public void changeNameButtonAction() {
 		//når det trykkes på endre navn knapp
@@ -130,14 +142,23 @@ public class Client implements ActionListener{
 		//når det trykkes på en kalender i availiblecalendars
 	}
 	public void meetingAcceptAction(Event event) {
-		System.out.println(event.getTitle());
+		event.setStatus(dbhandle.Status.ACCEPTED);
+		updateMessages();
+//		System.out.println(event.getTitle());
 	}
 	public void meetingDeclineAction(Event event) {
 		//trykker avslå på et møte
 		//ActionListener finnes, den bare virker ikke
+		event.setStatus(dbhandle.Status.ACCEPTED);
+		updateMessages();
 	}
 	public void calendarEventAction(Event event) {
 		//når det trykkes på en event i kalenderen
+		Meeting clickedMeeting = null;
+		for(Meeting meeting:meetings) {
+			if(meeting.getParticipants().contains(event)) clickedMeeting = meeting;
+		}
+		guicontroller.setNewEvent(clickedMeeting);
 	}
 	public void nextWeekButtonAction() {
 		changeWeek(1);
@@ -203,13 +224,10 @@ public class Client implements ActionListener{
 	}
 
 	private void createNewEvent() {
-		// TODO Auto-generated method stub
-//		Event event = new Event
-//		guicontroller.setNewEvent(new Meeting(new Event))
+		guicontroller.setNewEvent(new Meeting(new Event(user)));
 	}
 
 	private void updateSettings() {
-		// TODO Auto-generated method stub
 		guicontroller.setYourCalendars(user.getImportedCalendars()); //setter hvilke kalendere som kan velges
 		guicontroller.setAvailableCalendars(allUsers); //setter hvilke kalendere som kan velges
 	}
@@ -217,7 +235,7 @@ public class Client implements ActionListener{
 	private void updateMessages() {
 		ArrayList<Event> messages = new ArrayList<Event>();
 		for(Event event:user.getEvents()){
-			if(event.getStartTime().after(getNow())) {
+			if(event.getStartTime().after(getNow()) && event.getStatus()==dbhandle.Status.NOT_RESPONDED) {
 				messages.add(event);
 			}
 		}
@@ -264,7 +282,6 @@ public class Client implements ActionListener{
 			try {
 				xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} catch (DocumentException e) {

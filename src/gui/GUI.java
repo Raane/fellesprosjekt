@@ -114,7 +114,7 @@ public class GUI extends JFrame {
 		return dashboardPanel;
 	}
 
-	public void setDashboardPanel(JPanel dashboardPanel) {
+	public void setDashboardPanel(Dashboard dashboardPanel) {
 		this.dashboardPanel = dashboardPanel;
 	}
 

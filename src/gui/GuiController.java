@@ -18,7 +18,6 @@ public class GuiController {
 	public void addListener(Client client) {
 		//TODO not made yet, remember to redistribute it to subclasses
 	};
-
 	
 	//Adds the calendar (user) "newCalendar" to the list of calendars to be drawn.
 	public void addCalendar(User newCalendar){

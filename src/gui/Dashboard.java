@@ -200,7 +200,7 @@ public class Dashboard extends JPanel {
 	}
     
     private void drawCalendar(){
-    	User user = Client.getUser();
+    	User user = client.getUser();
     	user.getEvents();
     	
     }

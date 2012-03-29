@@ -17,13 +17,6 @@ public class Notifications extends JPanel {
 	
 	private Client client;
 	
-	//testfields
-	private User user = new User(14, "What's updog");
-	private long a = 2142145111;
-	private Timestamp timestamp1 = new Timestamp(a);
-	private Event eve= new Event(1337, user, "supsup", timestamp1, timestamp1, "Shaky", "bacon");
-	
-	
 	public void newNotification(Event event){
 		
 		JPanel newNotificationPanel = new JPanel();
@@ -160,7 +153,7 @@ public class Notifications extends JPanel {
 	
 	
 	public Notifications() {
-		newNotification(eve);
+		
 	}
 	
 	class AcceptAction implements ActionListener{

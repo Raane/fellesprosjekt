@@ -25,8 +25,6 @@ public class Calendar extends JPanel {
 		event.setBackground(new java.awt.Color(255, 255, 255));
 		
 		
-
-		
 		GroupLayout layout = new GroupLayout(panel);
 		panel.setLayout(layout);
 		

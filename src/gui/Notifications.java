@@ -2,10 +2,13 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 import Models.Event;
+import Models.User;
 
 import connection.Client;
 
@@ -13,10 +16,15 @@ import connection.Client;
 public class Notifications extends JPanel {
 	
 	private Client client;
-	private Event ev;
+	
+	private User user = new User(14, "What's updog");
+	private long a = 2142145111;
+	private Timestamp timestamp1 = new Timestamp(a);
+	private Event eve= new Event(1337, user, "supsup", timestamp1, timestamp1, "Shaky", "bacon");
+	
 	
 	public void newNotification(Event event){
-		ev  = event;
+		
 		JPanel newNotificationPanel = new JPanel();
 		JLabel newHeader = new JLabel();
 		JSeparator newSeperator = new JSeparator();
@@ -31,10 +39,10 @@ public class Notifications extends JPanel {
 		JScrollPane newScrollPane = new JScrollPane();
 		
 		JButton newAcceptButton = new JButton();
-		newAcceptButton.addActionListener(new AcceptAction());
+		newAcceptButton.addActionListener(new AcceptAction(event));
 		
 		JButton newDenyButton = new JButton();
-		newDenyButton.addActionListener(new DenyAction());
+		newDenyButton.addActionListener(new DenyAction(event));
 		
 		newHeader.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
 		newHeader.setText(event.getTitle());
@@ -148,21 +156,29 @@ public class Notifications extends JPanel {
 	        );
 	}
 	
+	
+	
 	public Notifications() {
-		
+		newNotification(eve);
 	}
 	
 	class AcceptAction implements ActionListener{
-
+		Event event;
+		public AcceptAction(Event tempEvent) {
+			this.event = tempEvent;
+		}
 		public void actionPerformed(ActionEvent e) {
-			client.meetingAcceptAction(ev);
+			client.meetingAcceptAction(event);
 		}
 	}
 	
 	class DenyAction implements ActionListener{
-
+		Event event;
+		public DenyAction(Event tempEvent){
+			this.event = tempEvent;
+		}
 		public void actionPerformed(ActionEvent e) {
-			client.meetingDeclineAction(ev);
+			client.meetingDeclineAction(event);
 		}
 		
 	}

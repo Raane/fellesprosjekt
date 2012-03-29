@@ -7,3 +7,5 @@ public class Main {
         gui.setVisible(true);
     }
 }
+
+//http://www.youtube.com/watch?v=oHg5SJYRHA0

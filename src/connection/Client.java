@@ -130,11 +130,11 @@ public class Client implements ActionListener{
 		//når det trykkes på en kalender i availiblecalendars
 	}
 	public void meetingAcceptAction(Event event) {
-		System.out.println(event.getTitle());
+		//done
 	}
 	public void meetingDeclineAction(Event event) {
 		//trykker avslå på et møte
-		//ActionListener finnes, den bare virker ikke
+		//done
 	}
 	public void calendarEventAction(Event event) {
 		//når det trykkes på en event i kalenderen

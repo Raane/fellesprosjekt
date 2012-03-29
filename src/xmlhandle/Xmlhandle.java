@@ -83,6 +83,8 @@ public class Xmlhandle {
 			//Perform the action
 			Document document = actionToPerform.createMeeting(userIDList, newEvent, meetingRoomID, meetingName);
 			
+			System.out.println(document.asXML());
+			
 			//Send the message to the appropriate users!
 			changeNotificationBroadcast(actionToPerform.getBroadcastTo(), document.asXML());
 			
@@ -263,7 +265,7 @@ public class Xmlhandle {
 			Status status = Status.valueOf(eventElement.attributeValue("status"));
 			Models.Event event = new Models.Event(eventID, meetingLeader, meetingName, start, end, location, description);
 			event.setStatus(status);
-			
+						
 			//Adds the event to the logged in users event list
 			client.getUser().getEvents().add(event);
 			
@@ -448,7 +450,10 @@ public class Xmlhandle {
 	
 	private Event XMLtoEvent(Element root) throws NumberFormatException, ParseException {
 		Element eventElement = root.element("event");
-		int userID = Integer.valueOf(eventElement.attributeValue("event_ID"));
+		int userID = -1;
+		if (eventElement.attributeValue("event_ID") != null) {
+			userID = Integer.valueOf(eventElement.attributeValue("event_ID"));
+		}
 		Timestamp start = StringToDate(eventElement.attributeValue("start"));
 		Timestamp end = StringToDate(eventElement.attributeValue("end"));
 		String location = eventElement.attributeValue("location");

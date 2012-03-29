@@ -44,7 +44,9 @@ public class Client implements ActionListener{
 		clientConnection = new ClientConnection();
 		clientConnection.addReceiveListener(this);
 		xmlHandle.addListener(this);
+		System.out.println("logging in");
 		xmlHandle.createLoginRequest("Morten", "morten");
+		System.out.println("logged in");
 		
 		initializeTimeThings();  // Initializes the time things (variables)
 		addCalendars(); //loads the users imported calendars into the GUI
@@ -220,6 +222,7 @@ public class Client implements ActionListener{
 	}
 	
 	private void clientConnectionAction(String msg) {
+		System.out.println("Message received from server: "+ msg);
 		try {
 			xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
 		} catch (DocumentException e) {

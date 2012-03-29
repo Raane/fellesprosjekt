@@ -296,8 +296,11 @@ public class Client implements ActionListener{
 	}
 	
 	private void changeWeek(int weeks) {
+		System.out.println(startOfWeek.getDate());
 		startOfWeek.setTime(startOfWeek.getTime()+WEEKLENGTH*weeks);
 		endOfWeek.setTime(endOfWeek.getTime()+WEEKLENGTH*weeks);
+		System.out.println(startOfWeek.getDate());
+		System.out.println(startOfWeek.getNanos());
 		shownWeek += weeks;
 		if(shownWeek<1) {
 			shownWeek = 52;
@@ -321,6 +324,7 @@ public class Client implements ActionListener{
 		if(e.getSource()==xmlHandle) {
 			xmlHandleAction((Xmlhandle) e.getSource());
 		}
+		updateFields();
 	}
 	
 	private void clientConnectionAction(String msg) {

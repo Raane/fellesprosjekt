@@ -147,29 +147,18 @@ public class GUI extends JFrame {
 	class previousWeekAction implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
-			String newWeek = weekLabel.getText();
-			newWeek.replaceFirst("Uke ", "");
-			newWeek.replaceFirst(" - 2012", "");
-			int currentWeek = Integer.parseInt(newWeek);
-			currentWeek -= 1;
-			weekLabel.setText("Uke " + currentWeek + " - 2012");
-			
 			client.lastWeekButtonAction();
 		}
     }
+	
+	public void setWeekLabel(String string){
+		weekLabel.setText(string);
+	}
     
     class nextWeekAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			String newWeek = weekLabel.getText();
-			newWeek.replaceFirst("Uke ", "");
-			newWeek.replaceFirst(" - 2012", "");
-			int currentWeek = Integer.parseInt(newWeek);
-			currentWeek += 1;
-			weekLabel.setText("Uke " + currentWeek + " - 2012");
-			
 			client.nextWeekButtonAction();
 		}
-    	
     }
     
     public void addListener(Client client){

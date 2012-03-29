@@ -81,10 +81,11 @@ public class Client implements ActionListener{
 	}
 	public void meetingAcceptAction(Event event) {
 		//trykker godta på et møte
-		
+		//done
 	}
 	public void meetingDeclineAction(Event event) {
 		//trykker avslå på et møte
+		//done
 	}
 	public void calendarEventAction(Event event) {
 		//når det trykkes på en event i kalenderen

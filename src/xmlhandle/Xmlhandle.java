@@ -150,6 +150,11 @@ public class Xmlhandle {
 		
 		if (action == MessageAction.LOGIN) {
 			
+		if (root.element("login_response").attributeValue("response").equals("Failure")) {
+			System.out.println("Wrong password or username");
+			return;
+		}
+			
 		//Create the logged in user's object
 		Models.User loginUser = new Models.User(ownerID, ownerUsername);
 		
@@ -211,6 +216,8 @@ public class Xmlhandle {
             User user = new User(username, null, name);
             allUsers.add(user);
         }
+        
+        //TODO Group them up in meetings
         
         client.setUser(loginUser);
         client.setMyUsers((ArrayList<Models.User>) followedUserList);
@@ -470,6 +477,13 @@ public class Xmlhandle {
 			serverSend(msg, user.getUsername());
 		}
 		
+	}
+	
+	public static String extractMessageAction(String xml) throws DocumentException {
+		Document document = stringToXML(xml);
+		Element root = document.getRootElement();
+
+		return root.getName();
 	}
 	
 	public String getUsernameForSending() {

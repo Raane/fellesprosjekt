@@ -85,7 +85,7 @@ public class Xmlaction {
 		//Anything else?
 		
 		////// RESPONSE //////
-		
+				
 		//Create the document
 		
 		//Add all the personal events

@@ -197,8 +197,8 @@ public User fetchUser(int user_ID) {
 		try {
 			rs.next();
 			id = rs.getInt("event_ID");
-			start = new Timestamp(rs.getDate("start").getTime());
-			end = new Timestamp(rs.getDate("end").getTime());
+			start = Timestamp.valueOf(rs.getString("start"));
+			end = Timestamp.valueOf(rs.getString("end"));
 			location = rs.getString("location");
 			description = rs.getString("description");
 			status = Status.valueOf(rs.getString("status"));
@@ -228,8 +228,8 @@ public User fetchUser(int user_ID) {
 		
 		while(rs.next()) {
 			id = rs.getInt("event_ID");
-			start = new Timestamp(rs.getDate("start").getTime());
-			end = new Timestamp(rs.getDate("end").getTime());
+			start = Timestamp.valueOf(rs.getString("start"));
+			end = Timestamp.valueOf(rs.getString("end"));
 			location = rs.getString("location");
 			description = rs.getString("description");
 			status = Status.valueOf(rs.getString("status"));
@@ -269,8 +269,8 @@ public User fetchUser(int user_ID) {
 		
 		if (rs.next()) {
 			id = rs.getInt("event_ID");
-			start = new Timestamp(rs.getDate("start").getTime());
-			end = new Timestamp(rs.getDate("end").getTime());
+			start = Timestamp.valueOf(rs.getString("start"));
+			end = Timestamp.valueOf(rs.getString("end"));
 			location = rs.getString("location");
 			description = rs.getString("description");
 			status = Status.valueOf(rs.getString("status"));

@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
@@ -104,6 +106,7 @@ public class Admin extends JPanel{
         personalInfoSeparator = new JSeparator();
         newNameLabel = new JLabel();
         newNameTextField = new JTextField();
+        newNameTextField.addFocusListener(new focusNameTextField());
         
         //Change name button
         newNameButton = new JButton();
@@ -111,12 +114,19 @@ public class Admin extends JPanel{
         
         changePasswordLabel = new JLabel();
         changePasswordSeparator = new JSeparator();
-        oldPasswordLabel = new JLabel();
+        
         newPasswordLabel = new JLabel();
-        oldPasswordTextField = new JPasswordField();
         newPasswordTextField = new JPasswordField();
+        newPasswordTextField.addFocusListener(new focusNewPasswordTextField());
+        
         repeatPasswordLabel = new JLabel();
         repeatPasswordTextField = new JPasswordField();
+        repeatPasswordTextField.addFocusListener(new focusRepeatPasswordTextField());
+        
+        oldPasswordLabel = new JLabel();
+        oldPasswordTextField = new JPasswordField();
+        oldPasswordTextField.addFocusListener(new focusOldPasswordTextField());
+        
         
         //Password button
         changePasswordButton = new JButton();
@@ -135,10 +145,12 @@ public class Admin extends JPanel{
         userCalendarsSearchField = new JTextField();
         userCalendarsSearchField.addMouseListener(mouseUserSearchClick());
         userCalendarsSearchField.addKeyListener(new userSearchAction());
+        userCalendarsSearchField.addFocusListener(new focusUserSearchClick());
         
         availableCalendarsSearchField = new JTextField();
         availableCalendarsSearchField.addMouseListener(mouseAvailibleSearchClick());
 		availableCalendarsSearchField.addKeyListener(new availibleSearchAction());
+		availableCalendarsSearchField.addFocusListener(new focusAvailibleSearchClick());
         
         personalInfoLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
         personalInfoLabel.setText("Personlig informasjon");
@@ -204,7 +216,7 @@ public class Admin extends JPanel{
                         .addGap(18, 18, 18)
                         .addComponent(newNameTextField, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
                     .addComponent(changePasswordLabel)
-                    .addComponent(changePasswordSeparator, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
+                    .addComponent(changePasswordSeparator, GroupLayout.Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 339, Short.MAX_VALUE)
                     .addComponent(changePasswordButton)
                     .addComponent(addRemoveCalendarsLabel)
                     .addComponent(addRemoveCalendarsSeparator, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 339, Short.MAX_VALUE)
@@ -215,8 +227,8 @@ public class Admin extends JPanel{
                             .addComponent(oldPasswordLabel))
                         .addGap(9, 9, 9)
                         .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(oldPasswordTextField, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
-                            .addComponent(newPasswordTextField, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                            .addComponent(oldPasswordTextField, GroupLayout.PREFERRED_SIZE, 229, Short.MAX_VALUE)
+                            .addComponent(newPasswordTextField, GroupLayout.PREFERRED_SIZE, 229, Short.MAX_VALUE)
                             .addComponent(repeatPasswordTextField, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)))
                     .addComponent(newNameButton)
                     .addGroup(GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
@@ -227,11 +239,11 @@ public class Admin extends JPanel{
                     .addGroup(GroupLayout.Alignment.TRAILING, AdminPanelLayout.createSequentialGroup()
                         .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                             .addComponent(userCalendarsScrollPane, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(userCalendarsSearchField, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE))
+                            .addComponent(userCalendarsSearchField, GroupLayout.PREFERRED_SIZE, 162, Short.MAX_VALUE))
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(availableCalendarsScrollPane, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(availableCalendarsSearchField, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))))
+                            .addComponent(availableCalendarsSearchField, GroupLayout.PREFERRED_SIZE, 163, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         
@@ -276,8 +288,8 @@ public class Admin extends JPanel{
                     .addComponent(userCalendarsLabel))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(userCalendarsSearchField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(availableCalendarsSearchField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                    .addComponent(userCalendarsSearchField, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(availableCalendarsSearchField, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
                 .addGroup(AdminPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                     .addComponent(userCalendarsScrollPane, 0, 0, Short.MAX_VALUE)
@@ -402,7 +414,6 @@ public class Admin extends JPanel{
 			client.availableCalendarsSearchAction();
 			
 		}
-		
 	}
 	
 	private MouseListener mouseAvailibleSearchClick() {
@@ -413,8 +424,69 @@ public class Admin extends JPanel{
 				}
 			}
 		};
+		
 	}
 
+	class focusUserSearchClick implements FocusListener{
+		public void focusGained(FocusEvent arg0) {
+			userCalendarsSearchField.setBackground(Main.focusColor);
+		}
+
+		public void focusLost(FocusEvent arg0) {
+			userCalendarsSearchField.setBackground(Color.white);
+		}
+	}
+	
+	class focusAvailibleSearchClick implements FocusListener{
+		public void focusGained(FocusEvent arg0) {
+			availableCalendarsSearchField.setBackground(Main.focusColor);
+		}
+
+		public void focusLost(FocusEvent arg0) {
+			availableCalendarsSearchField.setBackground(Color.white);
+		}
+	}
+	
+	class focusNameTextField implements FocusListener{
+		public void focusGained(FocusEvent arg0) {
+			newNameTextField.setBackground(Main.focusColor);
+		}
+
+		public void focusLost(FocusEvent arg0) {
+			newNameTextField.setBackground(Color.white);
+		}
+	}
+	
+	class focusNewPasswordTextField implements FocusListener{
+		public void focusGained(FocusEvent arg0) {
+			newPasswordTextField.setBackground(Main.focusColor);
+		}
+
+		public void focusLost(FocusEvent arg0) {
+			newPasswordTextField.setBackground(Color.white);
+		}
+	}
+	
+	class focusOldPasswordTextField implements FocusListener{
+		public void focusGained(FocusEvent arg0) {
+			oldPasswordTextField.setBackground(Main.focusColor);
+		}
+
+		public void focusLost(FocusEvent arg0) {
+			oldPasswordTextField.setBackground(Color.white);
+		}
+	}
+	
+	class focusRepeatPasswordTextField implements FocusListener{
+		public void focusGained(FocusEvent arg0) {
+			repeatPasswordTextField.setBackground(Main.focusColor);
+		}
+
+		public void focusLost(FocusEvent arg0) {
+			repeatPasswordTextField.setBackground(Color.white);
+		}
+	}
+	
 	class newNameAction implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			client.changeNameButtonAction();
@@ -430,6 +502,4 @@ public class Admin extends JPanel{
 	public void addListener(Client client){
 		this.client = client;
 	}
-	
-   
 }

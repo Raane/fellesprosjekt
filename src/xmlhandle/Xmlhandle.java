@@ -136,20 +136,86 @@ public class Xmlhandle {
 	}	
 	
 	//This will be run from the client to interpret incoming messages
-	public void interpretMessageData(Document xml, Client client) {
+	public void interpretMessageData(Document xml, Client client) throws ParseException {
 		//This can be 
 		
 		Element root = xml.getRootElement();
 		String ownerUsername = null;
+		int ownerID;
 		
 		Element ownerElement = root.element("owner");
-		if (ownerElement != null) {
 		ownerUsername = ownerElement.attributeValue("owner_username");
-		} 
+		ownerID = Integer.valueOf(ownerElement.attributeValue("owner_ID"));
 		
 		MessageAction action = MessageAction.valueOf(root.getName());
 		
 		if (action == MessageAction.LOGIN) {
+			
+		//Create the logged in user's object
+		Models.User loginUser = new Models.User(ownerID, ownerUsername);
+		
+		//Iterates through all the personal events
+		List<Models.Event> eventList = new ArrayList<Models.Event>();
+		for ( Iterator i = root.elementIterator( "personal_event" ); i.hasNext(); ) {
+            Element eventElement = (Element) i.next();
+    		int eventID = Integer.valueOf(eventElement.attributeValue("event_ID"));
+    		Timestamp start = StringToDate(eventElement.attributeValue("start"));
+    		Timestamp end = StringToDate(eventElement.attributeValue("end"));
+    		String location = eventElement.attributeValue("location");
+    		String description = eventElement.attributeValue("description");
+    		Status status = Status.valueOf(eventElement.attributeValue("status"));
+    		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
+    		String title = eventElement.attributeValue("name");
+    		Models.Event event = new Models.Event(eventID, loginUser, title, start, end, location, description);
+    		event.setStatus(status);
+    		eventList.add(event);
+        }
+		
+		//Iterates through all the followed users
+		List<Models.User> followedUserList = new ArrayList<Models.User>();
+		for ( Iterator i = root.elementIterator( "followed_user" ); i.hasNext(); ) {
+            Element userElement = (Element) i.next();
+            int userID = Integer.valueOf(userElement.attributeValue("user_ID"));
+            String username = userElement.attributeValue("username");
+            String name = userElement.attributeValue("name");
+            Models.User followedUser = new Models.User(userID, username);
+            followedUser.setName(name);
+            followedUserList.add(followedUser);
+            List<Models.Event> followedUserEventList = new ArrayList<Models.Event>();
+          //And iterates through their events
+    		for ( Iterator y = root.elementIterator( "followed_user_event" ); y.hasNext(); ) {
+                Element eventElement = (Element) i.next();
+                if (eventElement.attributeValue("event_owner").equalsIgnoreCase(username)) {
+                	int eventID = Integer.valueOf(eventElement.attributeValue("event_ID"));
+            		Timestamp start = StringToDate(eventElement.attributeValue("start"));
+            		Timestamp end = StringToDate(eventElement.attributeValue("end"));
+            		String location = eventElement.attributeValue("location");
+            		String description = eventElement.attributeValue("description");
+            		Status status = Status.valueOf(eventElement.attributeValue("status"));
+            		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
+            		String title = eventElement.attributeValue("name");
+            		Models.Event event = new Models.Event(eventID, followedUser, title, start, end, location, description);
+            		event.setStatus(status);
+            		followedUserEventList.add(event);
+            		followedUser.setEvents(followedUserEventList);
+                }
+            }
+        }
+		
+		//Adds all the users in the database
+		List<User> allUsers = new ArrayList<User>();
+        for ( Iterator i = root.elementIterator( "database_user" ); i.hasNext(); ) {
+            Element userElement = (Element) i.next();
+            int userID = Integer.valueOf(userElement.attributeValue("user_ID"));
+            String username = userElement.attributeValue("username");
+            String name = userElement.attributeValue("name");
+            User user = new User(username, null, name);
+            allUsers.add(user);
+        }
+        
+        client.setUser(loginUser);
+        client.setMyUsers(followedUserList);
+        client.setAllUsers(allUsers);
 		
 			
 		} else if (action == MessageAction.CREATE_MEETING) {

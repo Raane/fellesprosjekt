@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import org.dom4j.DocumentException;
 
 import Models.Event;
 import Models.Meeting;
+import Models.Meetingroom;
 import Models.User;
 import xmlhandle.Xmlhandle;
 
@@ -24,10 +26,10 @@ public class Client implements ActionListener{
 	ClientConnection clientConnection;
 	Xmlhandle xmlHandle = new Xmlhandle();
 	private GuiController guicontroller;
-	public User user;
-	public ArrayList<dbhandle.User> allUsers;
-	public ArrayList<User> myUsers;
-//	public ArrayList<Meetingroom> meetingrooms;
+	private User user;
+	private List<dbhandle.User> allUsers;
+	private List<User> myUsers;
+	private List<Meetingroom> meetingrooms;
 	private int shownWeek;
 	private int shownYear;
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
@@ -35,6 +37,8 @@ public class Client implements ActionListener{
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
 	
 	
+	
+
 	public static void main(String[] args) {
 //		System.out.println(getDayOfWeek());
 		Client client = new Client();
@@ -47,6 +51,9 @@ public class Client implements ActionListener{
 		System.out.println("logging in");
 		xmlHandle.createLoginRequest("Morten", "morten");
 		System.out.println("logged in");
+		
+		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
+		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Minestery of Awesome"));
 		
 		initializeTimeThings();  // Initializes the time things (variables)
 		addCalendars(); //loads the users imported calendars into the GUI
@@ -69,23 +76,29 @@ public class Client implements ActionListener{
 		endOfWeek.setMinutes(0);
 		endOfWeek.setSeconds(0);
 		endOfWeek.setNanos(0);
-
 	}
 
 	public void showHideCalendarsAction() {
-		guicontroller.getActiveCalendars();
+		updateCalendar(shownWeek, shownYear);
 	}
 	public void meetingroomSearchAction() {
-		//hver gang noe skrives i møteromtextfield
-		//done
+		String search = guicontroller.getMeetingroomSearch();
+		ArrayList<Meetingroom> validMeetingrooms = new ArrayList<Meetingroom>();
+		for(Meetingroom meetingroom:meetingrooms) {
+			boolean valid = true;
+			for(int i=0;i<search.length()&&i<meetingroom.getRoomName().length();i++) {
+				if(!(search.charAt(i)==meetingroom.getRoomName().charAt(i))) valid = false;
+			}
+			if(valid) validMeetingrooms.add(meetingroom);
+		}
+		guicontroller.setAvailableMeetingrooms(validMeetingrooms);
 	}
 	public void personsSearchAction() {
 		//hver gang noe skrives i personertextfield
 		//done
 	}
 	public void addEventButtonAction() {
-		//når det trykkes på ny avtale knappen
-		//done
+//		user.
 	}
 	public void changeNameButtonAction() {
 		//når det trykkes på endre navn knapp
@@ -120,12 +133,12 @@ public class Client implements ActionListener{
 		//når det trykkes på en event i kalenderen
 	}
 	public void nextWeekButtonAction() {
-		//trykker på neste uke button
-		//done
+		changeWeek(1);
+		updateFields();
 	}
 	public void lastWeekButtonAction() {
-		//trykker på forrige uke button
-		//done
+		changeWeek(-1);
+		updateFields();
 	}
 	private void updateFields() {
 		updateCalendar(shownWeek, shownYear);
@@ -137,7 +150,8 @@ public class Client implements ActionListener{
 	
 
 	private void updateCalendar(int shownWeek, int shownYear) {
-		guicontroller.setCalendarEntries(getCalendarEntries(getWeekNumber()));
+		guicontroller.setCalendarEntries(getCalendarEntries(shownWeek));
+		guicontroller.setCalendarTitle("Uke " + shownWeek + " - " + shownYear);
 	}
 
 	//ONE LINERS HELL YEA !!!
@@ -209,6 +223,20 @@ public class Client implements ActionListener{
 		}
 	}
 	
+	private void changeWeek(int weeks) {
+		startOfWeek.setTime(startOfWeek.getTime()+WEEKLENGTH*weeks);
+		endOfWeek.setTime(endOfWeek.getTime()+WEEKLENGTH*weeks);
+		shownWeek += weeks;
+		if(shownWeek<1) {
+			shownWeek = 52;
+			shownYear -= 1;
+		}
+		if(shownWeek>52) {
+			shownWeek = 1;
+			shownYear += 1;
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {	
 		System.out.println(e.getSource().getClass());
@@ -235,5 +263,33 @@ public class Client implements ActionListener{
 	}
 	public User getUser() {
 		return user;
+	}
+	
+	public List<dbhandle.User> getAllUsers() {
+		return allUsers;
+	}
+
+	public void setAllUsers(List<dbhandle.User> allUsers) {
+		this.allUsers = allUsers;
+	}
+
+	public List<User> getMyUsers() {
+		return myUsers;
+	}
+
+	public void setMyUsers(List<User> myUsers) {
+		this.myUsers = myUsers;
+	}
+
+	public List<Meetingroom> getMeetingrooms() {
+		return meetingrooms;
+	}
+
+	public void setMeetingrooms(List<Meetingroom> meetingrooms) {
+		this.meetingrooms = meetingrooms;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 }

@@ -38,11 +38,31 @@ public class Dashboard extends JPanel {
 	private Client client;
 
 	ImageIcon tick = new ImageIcon(getClass().getResource("/gui/icons/tick_16.png"));
+	
+	public ImageIcon getTick() {
+		return tick;
+	}
+
+	public ImageIcon getDelete() {
+		return delete;
+	}
+
 	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
     
-	private ArrayList<User> calendarList = new ArrayList<User>();
 	
-    public ArrayList<User> getCalendarList() {
+	//Viktig at objektet på plass 0 i calendarList er samme objekt som på plass 0 i lables
+	private ArrayList<User> calendarList = new ArrayList<User>();
+	private ArrayList<JLabel> labels = new ArrayList<JLabel>();
+	
+    public ArrayList<JLabel> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(ArrayList<JLabel> labels) {
+		this.labels = labels;
+	}
+
+	public ArrayList<User> getCalendarList() {
 		return calendarList;
 	}
 
@@ -121,7 +141,6 @@ public class Dashboard extends JPanel {
     }
     
     public void updateShowHideCalendars(ArrayList<User> events, GroupLayout layout){
-    	ArrayList<JLabel> labels = new ArrayList<JLabel>();
         Color white = new Color(255, 255, 255);
         Color grey = new Color(255, 255, 255);
     	
@@ -181,7 +200,7 @@ public class Dashboard extends JPanel {
 	}
     
     private void drawCalendar(){
-    	User user = Client.getUser();
+    	User user = client.getUser();
     	user.getEvents();
     	
     }

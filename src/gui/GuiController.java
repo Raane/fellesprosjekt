@@ -18,7 +18,6 @@ public class GuiController {
 	public void addListener(Client client) {
 		//TODO not made yet, remember to redistribute it to subclasses
 	};
-
 	
 	//Adds the calendar (user) "newCalendar" to the list of calendars to be drawn.
 	public void addCalendar(User newCalendar){
@@ -69,7 +68,9 @@ public class GuiController {
 	public ArrayList<User> getActiveCalendars() {
 		ArrayList<User> activeCalendars = new ArrayList<User>();
 		for(int i = 0; i < gui.getDashboardPanel().getCalendarList().size(); i++){
-			if(gui.getDashboardPanel().getCalendarList().get(i).getIcon().equals(tick))
+			if(gui.getDashboardPanel().getLabels().get(i).getIcon().equals(gui.getDashboardPanel().getTick())){
+				activeCalendars.add(gui.getDashboardPanel().getCalendarList().get(i));
+			}
 		}
 		return activeCalendars;
 	}
@@ -83,7 +84,7 @@ public class GuiController {
 	}
 	
 	public String getMeetingroomSearch() {
-		//TODO make it
+		return gui.getNewEventPanel().getMeetingRoomTextField().getText();
 	}
 	
 	public void setAvailableMeetingrooms(ArrayList<Meetingroom> meetingrooms) {
@@ -91,7 +92,7 @@ public class GuiController {
 	}
 	
 	public String getPersonSearch() {
-		//TODO denne skal hente ut teksten fra søkefeltet for andre personer i ny avtale 
+		return gui.getNewEventPanel().getPersonsTextField().getText();
 	}
 	
 	public void setAvailablePersons(ArrayList<dbhandle.User> user) {

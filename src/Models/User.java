@@ -9,8 +9,8 @@ public class User {
 	private final String USERNAME;
 	private String name;
 	
-	private ArrayList<Event> events;	//ArrayList that contains all the events this user is linked to
-	private ArrayList<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
+	private List<Event> events;	//ArrayList that contains all the events this user is linked to
+	private List<User> importedCalendars;	//ArrayList that contains the users that this user has imported calendars from
 	
 	
 	public User(int id, String username){
@@ -29,12 +29,6 @@ public class User {
 		this.name = name;
 	}
 	
-	//Burde metoden skrive ut beskjed om at passord er endret, eller skal dette håndteres av server??
-	public void changePassword(String oldPassword, String newPassword, String newPassword2){
-		if(oldPassword.equals(this.password) && newPassword.equals(newPassword2)) this.password = newPassword;
-		//return "Passord endret";
-	}
-	
 	public Event createEvent(){
 		Event newEvent = new Event(this);
 		return newEvent;
@@ -46,20 +40,20 @@ public class User {
 	}
 	
 	//Returns this users events
-	public ArrayList<Event> getEvents(){
+	public List<Event> getEvents(){
 		return events;
 	}
 	
-	public void setEvents(ArrayList<Event> events){
+	public void setEvents(List<Event> events){
 		this.events = events;
 	}
 	
 	//Returns this users imported calendars
-	public ArrayList<User> getImportedCalendars(){
+	public List<User> getImportedCalendars(){
 		return this.importedCalendars;
 	}
 	
-	public void setImportedCalendars(ArrayList<User> calendars){
+	public void setImportedCalendars(List<User> calendars){
 		this.importedCalendars = calendars;
 	}
 	

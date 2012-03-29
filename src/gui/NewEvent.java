@@ -284,6 +284,22 @@ public class NewEvent extends JPanel{
         );
 	}
 	
+	public JTextField getPersonsTextField() {
+		return personsTextField;
+	}
+
+	public void setPersonsTextField(JTextField personsTextField) {
+		this.personsTextField = personsTextField;
+	}
+
+	public JTextField getMeetingRoomTextField() {
+		return meetingRoomTextField;
+	}
+
+	public void setMeetingRoomTextField(JTextField meetingRoomTextField) {
+		this.meetingRoomTextField = meetingRoomTextField;
+	}
+
 	private MouseListener mousePersonSearch() {
 		return new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){

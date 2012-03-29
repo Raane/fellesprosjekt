@@ -112,8 +112,9 @@ public class GuiController {
 		//TODO these events should end up in the notifications
 	}
 	public void setCalendarTitle(String title) {
-//		gui.getCalendarPanel();
+		gui.setWeekLabel(title);
 	}
+
 	public void setCalendarEntries(ArrayList<ArrayList<Event>> entries) {
 		for (int i = 0; i < entries.size(); i++){
 			for (int j = 0; j < entries.get(i).size(); j++){

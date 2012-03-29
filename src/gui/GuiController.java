@@ -111,7 +111,11 @@ public class GuiController {
 		//TODO make it
 	}
 	public void setCalendarEntries(ArrayList<ArrayList<Event>> entries) {
-		//TODO put these in the calendar
+		for (int i = 0; i < entries.size(); i++){
+			for (int j = 0; j < entries.get(i).size(); j++){
+				gui.setCalendarEvent(entries.get(i).get(j));
+			}
+		}
 	}
 	public void setYourCalendars(ArrayList<User> users) {
 		//TODO these should be shown in the list of "Dine kalendere"

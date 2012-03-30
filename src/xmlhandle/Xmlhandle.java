@@ -274,7 +274,9 @@ public class Xmlhandle {
 			client.getMeetings().add(createdMeeting);
 			
 			
-		} else if (action == MessageAction.CREATE_USER) {
+		} else if (action == MessageAction.EDIT_MEETING) {
+			
+		
 			
 		} else if (action == MessageAction.EDIT_NAME_OF_USER) {
 			

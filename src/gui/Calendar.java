@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -10,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import connection.Client;
@@ -21,17 +21,16 @@ public class Calendar extends JPanel {
 	
 	private Client client;
 	
-	public void setCalendarEvent(Event event) {
+	public void setCalendarEvent(Event event, Color color) {
 		// Find JPanel
 		int day = event.getStartTime().getDay();
+		if (day == 0){ day = 7; }
 		int startHour = event.getStartTime().getHours();
 		int endHour = event.getEndTime().getHours();
 		int totalHours = endHour - startHour;
 		
 		int width = 99;
     	int height = 60;
-    	Color lightGreen = new Color(208, 223, 181);
-    	Color darkGreen = new Color(152, 172, 122);
 		
 		for (int i = startHour; i < endHour; i++){
 			JPanel panel = hourPanels.get(day).get(i);
@@ -51,8 +50,8 @@ public class Calendar extends JPanel {
 	    	}
 	    	textArea.setEditable(false);
 			textArea.setLineWrap(true);
-			textArea.setBackground(lightGreen);
-			
+			textArea.setBackground(color);
+			textArea.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
 //			if (endHour == startHour){
 //				textArea.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, darkGreen), BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 //			} else if (i == startHour){
@@ -85,7 +84,7 @@ public class Calendar extends JPanel {
     	}
     	textArea.setEditable(false);
 		textArea.setLineWrap(true);
-		textArea.setBackground(lightGreen);
+		textArea.setBackground(color);
 		
 		height = event.getEndTime().getMinutes();
 		vertical.addComponent(textArea, height, height, height);
@@ -150,7 +149,7 @@ public class Calendar extends JPanel {
         calendarPanelLayout.setVerticalGroup(calendarVertical);
         
 	}
-	
+	JScrollPane scrollex = new JScrollPane(new JPanel());
 	private ArrayList<JPanel> dayPanels;
 	private ArrayList<ArrayList<JPanel>> hourPanels;
 	private ArrayList<GroupLayout> layouts;

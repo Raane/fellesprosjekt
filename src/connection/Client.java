@@ -1,12 +1,10 @@
 package connection;
 
-import gui.GUI;
 import gui.GuiController;
 
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -75,9 +73,9 @@ public class Client implements ActionListener{
 		meetingrooms = new ArrayList<Meetingroom>();
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Minestery of Awesome"));
+		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Oculus of Gaming"));
 		
 		meetings = new ArrayList<Meeting>();
-		
 		
 		initializeTimeThings();  // Initializes the time things (variables)
 		addCalendars(); //loads the users imported calendars into the GUI
@@ -113,9 +111,12 @@ public class Client implements ActionListener{
 			boolean valid = true;
 			for(int i=0;i<search.length()&&i<meetingroom.getRoomName().length();i++) {
 				if(!(search.charAt(i)==meetingroom.getRoomName().charAt(i))) valid = false;
+				System.out.println(i);
 			}
 			if(valid) validMeetingrooms.add(meetingroom);
 		}
+		for(Meetingroom room:validMeetingrooms) System.out.println(room.getRoomName());
+		System.out.println("-----");
 		guicontroller.setAvailableMeetingrooms(validMeetingrooms);
 	}
 	public void personsSearchAction() {
@@ -231,13 +232,16 @@ public class Client implements ActionListener{
 	}
 
 	private void updateCalendar(int shownWeek, int shownYear) {
-		System.out.println("updating calendar");
+		ArrayList<User> activeCalendars = guicontroller.getActiveCalendars();
+		for(User temp:activeCalendars) System.out.println( temp.getName());
+		
+		
 		guicontroller.setCalendarEntries(getCalendarEntries(shownWeek));
 		guicontroller.setCalendarTitle("Uke " + shownWeek + " - " + shownYear);
 	}
 
 	//ONE LINERS HELL YEA !!!
-	private static int getDayOfWeek() {return ((new GregorianCalendar().get(Calendar.DAY_OF_WEEK))-1)%7+1;}
+	private static int getDayOfWeek() {return ((new GregorianCalendar().get(Calendar.DAY_OF_WEEK))-1)%7;}
 	private static int getWeekNumber() {return new GregorianCalendar().get(Calendar.WEEK_OF_YEAR);}
 	private static int getYearNumber() {return 	new GregorianCalendar().get(Calendar.YEAR);} 
 
@@ -300,7 +304,6 @@ public class Client implements ActionListener{
 	}
 
 	private void addCalendars() {
-		System.out.println(user.getImportedCalendars().size());
 		for(User calendar:user.getImportedCalendars()) {
 			System.out.println("adding: " + calendar.getName());
 			guicontroller.addCalendar(calendar);

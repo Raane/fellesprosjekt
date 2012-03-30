@@ -106,15 +106,19 @@ public class Client implements ActionListener{
 	}
 	public void meetingroomSearchAction() {
 		String search = guicontroller.getMeetingroomSearch();
-		ArrayList<Meetingroom> validMeetingrooms = new ArrayList<Meetingroom>();
-		for(Meetingroom meetingroom:meetingrooms) {
-			boolean valid = true;
-			for(int i=0;i<search.length()&&i<meetingroom.getRoomName().length();i++) {
-				if(!(search.charAt(i)==meetingroom.getRoomName().charAt(i))) valid = false;
+		if(search.equals("Søk")) {
+			guicontroller.setAvailableMeetingrooms(meetingrooms);
+		} else {
+			ArrayList<Meetingroom> validMeetingrooms = new ArrayList<Meetingroom>();
+			for(Meetingroom meetingroom:meetingrooms) {
+				boolean valid = true;
+				for(int i=0;i<search.length()&&i<meetingroom.getRoomName().length();i++) {
+					if(!(search.charAt(i)==meetingroom.getRoomName().charAt(i))) valid = false;
+				}
+				if(valid) validMeetingrooms.add(meetingroom);
 			}
-			if(valid) validMeetingrooms.add(meetingroom);
+			guicontroller.setAvailableMeetingrooms(validMeetingrooms);			
 		}
-		guicontroller.setAvailableMeetingrooms(validMeetingrooms);
 	}
 	public void availableMeetingroomsAction(String string) {
 		
@@ -287,6 +291,7 @@ public class Client implements ActionListener{
 	}
 
 	private void createNewEvent() {
+		meetingroomSearchAction();
 		guicontroller.setNewEvent(new Meeting(new Event(user)));
 	}
 

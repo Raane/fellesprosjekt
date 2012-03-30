@@ -1,6 +1,9 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -51,6 +54,7 @@ public class Calendar extends JPanel {
 			textArea.setLineWrap(true);
 			textArea.setBackground(color);
 			textArea.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
+			textArea.addMouseListener(eventClickedListener(event));
 //			if (endHour == startHour){
 //				textArea.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, darkGreen), BorderFactory.createEmptyBorder(1, 1, 1, 1)));
 //			} else if (i == startHour){
@@ -146,11 +150,21 @@ public class Calendar extends JPanel {
         
         calendarPanelLayout.setHorizontalGroup(calendarHorizontal);
         calendarPanelLayout.setVerticalGroup(calendarVertical);
-        
+    
 	}
-	private ArrayList<JPanel> dayPanels;
-	private ArrayList<ArrayList<JPanel>> hourPanels;
-	private ArrayList<GroupLayout> layouts;
+	
+	private MouseListener eventClickedListener(final Event event) {
+    	return new MouseAdapter(){
+    		public void mouseClicked(MouseEvent e){
+				client.calendarEventClicked(event);
+				System.out.println(event.getTitle());
+			}
+			
+    		// not used
+			public void mouseEntered(MouseEvent e){}
+			public void mouseExited(MouseEvent e){}
+		};
+	}
 	
 	public void addListener(Client client) {
 		this.client = client;
@@ -163,4 +177,8 @@ public class Calendar extends JPanel {
 			}
 		}
 	}
+	
+	private ArrayList<JPanel> dayPanels;
+	private ArrayList<ArrayList<JPanel>> hourPanels;
+	private ArrayList<GroupLayout> layouts;
 }

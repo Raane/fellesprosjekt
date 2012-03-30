@@ -398,4 +398,10 @@ public class Client implements ActionListener{
 		this.meetings = meetings;
 	}
 
+	public void calendarEventClicked(Event event) {
+		// Gjør backend-greier (i hovedsak sørg for at skit oppdateres istedenfor å lages til en ny event)
+		// Switch til NewEvent-tab og fyll ut skit
+		guicontroller.setEditForm(event);
+	}
+
 }

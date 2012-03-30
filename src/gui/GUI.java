@@ -125,6 +125,10 @@ public class GUI extends JFrame {
         pack();
     }
 
+    public void setScrollbarPosition(){
+    	calendarScrollPane.getViewport().setViewPosition(new java.awt.Point(0, 450));
+    }
+    
     public NewEvent getNewEventPanel() {
 		return NewEventPanel;
 	}

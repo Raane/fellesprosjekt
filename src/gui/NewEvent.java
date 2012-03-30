@@ -7,10 +7,13 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Timestamp;
 
 import gui.Admin.userSearchAction;
 
 import javax.swing.*;
+
+import Models.Event;
 
 import connection.Client;
 
@@ -375,6 +378,21 @@ public class NewEvent extends JPanel{
 		endDateTextField.setText("");
 		endTimeTextField.setText("");
 		descriptionTextArea.setText("");
+	}
+	
+	public void setEditForm(Event event) {
+		String startDate = event.getStartTime().getYear() + "-" + event.getStartTime().getMonth() + "-" + event.getStartTime().getDate();
+		String startTime = event.getStartTime().getHours() + ":" + event.getStartTime().getMinutes();
+		String endDate = event.getEndTime().getYear() + "-" + event.getEndTime().getMonth() + "-" + event.getEndTime().getDate();
+		String endTime = event.getEndTime().getHours() + ":" + event.getEndTime().getMinutes();
+		
+		subjectTextField.setText(event.getTitle());
+		startDateTextField.setText(startDate);
+		startTimeTextField.setText(startTime);
+		endDateTextField.setText(endDate);
+		endTimeTextField.setText(endTime);
+		descriptionTextArea.setText(event.getAgenda());
+		addEventButton.setText("Endre");
 	}
 	
 	public void addListener(Client client){

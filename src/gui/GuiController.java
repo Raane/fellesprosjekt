@@ -73,7 +73,7 @@ public class GuiController {
 	}
 	
 	public void setAgenda(ArrayList<Event> agenda) {
-		//TODO make it
+//		gui.getDashboardPanel().updateAgenda(agenda);
 	}
 	
 	public ArrayList<User> getActiveCalendars() {
@@ -132,7 +132,7 @@ public class GuiController {
 		colors.add(new Color(161, 191, 221)); // light blue
 		colors.add(new Color(237, 227, 167)); // light yellow
 		for(int i=0;i<28;i++) {
-			colors.add(new Color(150 + (int)(Math.random()*155),150 + (int)(Math.random()*155),150 + (int)(Math.random()*155)));
+			colors.add(new Color(150 + (int)(Math.random()*105),150 + (int)(Math.random()*105),150 + (int)(Math.random()*105)));
 		}
 		
 		for (int i = 0; i < entries.size(); i++){
@@ -140,6 +140,7 @@ public class GuiController {
 				gui.setCalendarEvent(entries.get(i).get(j), colors.get(i % colors.size()));
 			}
 		}
+		gui.setScrollbarPosition();
 	}
 	public void setYourCalendars(ArrayList<User> users) {
 		//TODO these should be shown in the list of "Dine kalendere"
@@ -149,6 +150,10 @@ public class GuiController {
 	}
 	public void clearNewEvent() {
 		gui.getNewEventPanel().clear();
+	}
+
+	public void setEditForm(Event event) {
+		gui.getNewEventPanel().setEditForm(event);
 	}
 }
 

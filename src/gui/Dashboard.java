@@ -40,6 +40,7 @@ public class Dashboard extends JPanel {
 	private Client client;
 
 	ImageIcon tick = new ImageIcon(getClass().getResource("/gui/icons/tick_16.png"));
+	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
 	
 	public ImageIcon getTick() {
 		return tick;
@@ -49,7 +50,6 @@ public class Dashboard extends JPanel {
 		return delete;
 	}
 
-	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
     
 	
 	//Viktig at objektet på plass 0 i calendarList er samme objekt som på plass 0 i lables
@@ -89,16 +89,6 @@ public class Dashboard extends JPanel {
         agendaLabel.setText("Agenda");
 
         agendaPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        GroupLayout agendaPanelLayout = new GroupLayout(agendaPanel);
-        agendaPanel.setLayout(agendaPanelLayout);
-        agendaPanelLayout.setHorizontalGroup(
-            agendaPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-        );
-        agendaPanelLayout.setVerticalGroup(
-            agendaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        );
-
         agendaScrollPane.setViewportView(agendaPanel);
 
         showHideCalendarsLabel.setFont(new java.awt.Font("Trebuchet MS", 0, 18));
@@ -112,10 +102,6 @@ public class Dashboard extends JPanel {
 //        updateShowHideCalendars(calendarList);
 
         showHideCalendarsScrollPane.setViewportView(showHideCalendarsPanel);
-
-    	events.add(new Event(new User(0, "test"), new Timestamp(112, 03, 29, 20, 40, 00, 0)));
-    	updateAgenda(events, agendaPanelLayout);
-        
     	
     	
     	
@@ -148,13 +134,21 @@ public class Dashboard extends JPanel {
         );
     }
     
-    public void updateAgenda(ArrayList<Event> eventsList, GroupLayout layout) {
+    public void updateAgenda(ArrayList<Event> eventsList) {
+    	GroupLayout layout = new GroupLayout(agendaPanel);
+        agendaPanel.setLayout(layout);
+        
     	System.out.println("number of agendas: " + eventsList.size());
-    	Collections.sort(eventsList, new TimeComparator()); //Sorts the list based on when the event is
+    	//Collections.sort(eventsList, new TimeComparator()); //Sorts the list based on when the event is
 		for(int i = 0; i < eventsList.size(); i++){
 			JLabel temp = new JLabel();
-			temp.setText(eventsList.get(i).getTitle() + " " + eventsList.get(i).getStartTime().toGMTString());
+			temp.setText(eventsList.get(i).getTitle() + " - " + eventsList.get(i).getStartTime().toGMTString());
 			temp.setOpaque(true);
+			if (i % 2 == 0){
+				temp.setBackground(Color.white);
+			} else {
+				temp.setBackground(new Color(245, 245, 245));
+			}
 			temp.setBorder(BorderFactory.createEmptyBorder(3, 10, 3, 10));
 			eventLabels.add(temp);
 		}

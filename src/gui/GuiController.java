@@ -73,7 +73,7 @@ public class GuiController {
 	}
 	
 	public void setAgenda(ArrayList<Event> agenda) {
-//		gui.getDashboardPanel().updateAgenda(agenda);
+		gui.getDashboardPanel().updateAgenda(agenda);
 	}
 	
 	public ArrayList<User> getActiveCalendars() {
@@ -100,7 +100,8 @@ public class GuiController {
 	}
 	
 	public void setAvailableMeetingrooms(ArrayList<Meetingroom> meetingrooms) {
-		//TODO denne skal fylle opp listen over tilgjengelige møterom
+		gui.getNewEventPanel().setMeetingrooms(meetingrooms);
+		System.out.println("meetingrooms updated");
 	}
 	
 	public String getPersonSearch() {

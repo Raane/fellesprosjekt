@@ -111,13 +111,13 @@ public class Client implements ActionListener{
 			boolean valid = true;
 			for(int i=0;i<search.length()&&i<meetingroom.getRoomName().length();i++) {
 				if(!(search.charAt(i)==meetingroom.getRoomName().charAt(i))) valid = false;
-				System.out.println(i);
 			}
 			if(valid) validMeetingrooms.add(meetingroom);
 		}
-		for(Meetingroom room:validMeetingrooms) System.out.println(room.getRoomName());
-		System.out.println("-----");
 		guicontroller.setAvailableMeetingrooms(validMeetingrooms);
+	}
+	public void availableMeetingroomsAction(String string) {
+		
 	}
 	public void personsSearchAction() {
 		String search = guicontroller.getPersonSearch();
@@ -275,8 +275,10 @@ public class Client implements ActionListener{
 		for(Event event:user.getEvents()) {
 			if(event.getStartTime().after(getNow())){
 				agenda.add(event);
+				System.out.println("added an event to the agenda");
 			}
 		}
+		System.out.println(agenda.size());
 		guicontroller.setAgenda(agenda);
 	}
 

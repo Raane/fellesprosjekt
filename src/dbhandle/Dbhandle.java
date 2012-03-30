@@ -148,6 +148,30 @@ public User fetchUser(int user_ID) {
 		}	
 	}
 
+	public void resetStatusFields(int leaderEventID, int meetingID) {
+		
+		String update = String.format("SELECT * FROM (meeting_event JOIN event on meeting_event.event_ID = event.event_ID) " +
+				"WHERE meeting_ID='%d' AND NOT event.event_ID ='%d'", meetingID, leaderEventID);
+		this.dbUpdate(update);
+		
+	}
+
+	public List<Integer> fetchInvitedUsers(int meetingID) throws SQLException {
+		
+		String query = String.format("SELECT * FROM ((meeting_event JOIN event on meeting_event.event_ID = event.event_ID) " +
+				"JOIN user_event on event.event_ID = user_event.event_ID) where meeting_ID='%d'", meetingID);
+		ResultSet rs = dbQuery(query);
+		
+		List<Integer> userIDList = new ArrayList<Integer>();
+		while (rs.next()) {
+			int userID = rs.getInt("user_ID");
+			userIDList.add(userID);
+		}
+		
+		return userIDList;
+		
+	}
+	
 	public List<User> fetchUsersFollowed(int user_ID) throws SQLException {
 		
 		String username = null; String password = null; String name = null;

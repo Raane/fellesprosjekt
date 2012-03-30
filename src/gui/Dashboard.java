@@ -139,6 +139,7 @@ public class Dashboard extends JPanel {
         agendaPanel.setLayout(layout);
         
     	System.out.println("number of agendas: " + eventsList.size());
+    	eventLabels = new ArrayList<JLabel>();
     	//Collections.sort(eventsList, new TimeComparator()); //Sorts the list based on when the event is
 		for(int i = 0; i < eventsList.size(); i++){
 			JLabel temp = new JLabel();

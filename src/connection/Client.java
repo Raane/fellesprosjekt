@@ -111,13 +111,13 @@ public class Client implements ActionListener{
 			boolean valid = true;
 			for(int i=0;i<search.length()&&i<meetingroom.getRoomName().length();i++) {
 				if(!(search.charAt(i)==meetingroom.getRoomName().charAt(i))) valid = false;
-				System.out.println(i);
 			}
 			if(valid) validMeetingrooms.add(meetingroom);
 		}
-		for(Meetingroom room:validMeetingrooms) System.out.println(room.getRoomName());
-		System.out.println("-----");
 		guicontroller.setAvailableMeetingrooms(validMeetingrooms);
+	}
+	public void availableMeetingroomsAction(String string) {
+		
 	}
 	public void personsSearchAction() {
 		String search = guicontroller.getPersonSearch();

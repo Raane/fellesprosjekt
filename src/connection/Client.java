@@ -237,7 +237,7 @@ public class Client implements ActionListener{
 	}
 
 	//ONE LINERS HELL YEA !!!
-	private static int getDayOfWeek() {return ((new GregorianCalendar().get(Calendar.DAY_OF_WEEK))-1)%7;}
+	private static int getDayOfWeek() {return ((new GregorianCalendar().get(Calendar.DAY_OF_WEEK))-1)%7+1;}
 	private static int getWeekNumber() {return new GregorianCalendar().get(Calendar.WEEK_OF_YEAR);}
 	private static int getYearNumber() {return 	new GregorianCalendar().get(Calendar.YEAR);} 
 

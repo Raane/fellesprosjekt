@@ -14,6 +14,7 @@ import dbhandle.Event;
 import dbhandle.Meeting;
 import dbhandle.MeetingRoom;
 import dbhandle.MessageAction;
+import dbhandle.Status;
 import dbhandle.User;
 
 public class Xmlaction {
@@ -161,14 +162,25 @@ public class Xmlaction {
 				
 		//Adds all the included events into the database. It will also handle the user_event and meeting_event relations.
 		//This way, the event will be related to ONE user exclusively, but all the events will be related to the same meeting.
+		//This is for the invited users
 		for (int element : userIDList) {
 			int event_ID = handle.addEvent(newEvent);
+			newEvent.setStatus(Status.NOT_RESPONDED);
 			handle.addMeetingEvent(meeting_ID, event_ID);
 			handle.addUserEvent(element, event_ID);
 			//Reserve a meeting room if the meeting needs it
 			if (meetingRoomID != -1) {
 				handle.addEventMeetingRoom(event_ID, meetingRoomID);
 			}
+		}
+		
+		//Adds the meeting leader's event
+		newEvent.setStatus(Status.ACCEPTED);
+		int event_ID = handle.addEvent(newEvent);
+		handle.addMeetingEvent(meeting_ID, event_ID);
+		handle.addUserEvent(ownerID, event_ID);
+		if (meetingRoomID != -1) {
+			handle.addEventMeetingRoom(event_ID, meetingRoomID);
 		}
 				
 		//Figure out the meeting leader 
@@ -268,10 +280,26 @@ public class Xmlaction {
 		////// RESPONSE //////
 		
 		//Send the new event to the client. Save it in the meeting maybe? Also get the users to notify
+		root.addElement("meeting")
+		.addAttribute("meeting_ID", String.valueOf(meetingID));
 		
+		root.addElement("changed_event")
+		.addAttribute("event_ID", String.valueOf(eventChanges.getEvent_ID()))
+		.addAttribute("start", eventChanges.getStart().toString())
+		.addAttribute("end", String.valueOf(eventChanges.getEnd().toString()))
+		.addAttribute("location", eventChanges.getLocation())
+		.addAttribute("description", eventChanges.getDescription())
+		.addAttribute("status", eventChanges.getStatus().toString());
 		
+		List<Integer> userIDList = handle.fetchInvitedUsers(meetingID);
 		
-		return null;
+		List<User> userList = new ArrayList<User>();
+		for (Integer userID : userIDList) {
+			userList.add(handle.fetchUser(userID));
+		}
+		broadcastTo = userList;
+		
+		return document;
 		
 	}
 	

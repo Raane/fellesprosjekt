@@ -15,7 +15,16 @@ public class Event{
 	private String location;
 	private User owner;
 	private dbhandle.Status status;
+	private int meetingID;
 	
+	public int getMeetingID() {
+		return meetingID;
+	}
+
+	public void setMeetingID(int meetingID) {
+		this.meetingID = meetingID;
+	}
+
 	public Event(User owner){					//Constructor activated when "Ny avtale"-tab is clicked
 		this.owner = owner;
 	}

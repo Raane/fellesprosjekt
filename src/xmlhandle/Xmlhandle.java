@@ -96,7 +96,9 @@ public class Xmlhandle {
 			Element meetingElement = root.element("meeting");
 			meetingID = Integer.valueOf(meetingElement.attributeValue("meeting_ID"));
 			
-			actionToPerform.editMeeting(eventChanges, meetingID);
+			Document document = actionToPerform.editMeeting(eventChanges, meetingID);
+			
+			changeNotificationBroadcast(actionToPerform.getBroadcastTo(), document.asXML());
 			
 		} else if (action == MessageAction.CREATE_USER) {
 			//Probably not gonna be used in the "final" product
@@ -174,6 +176,7 @@ public class Xmlhandle {
     		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
     		String title = eventElement.attributeValue("meetingName");
     		Models.Event event = new Models.Event(eventID, loginUser, title, start, end, location, description);
+    		event.setMeetingID(meetingID);
     		event.setStatus(status);
     		eventList.add(event);
         }
@@ -202,6 +205,7 @@ public class Xmlhandle {
             		int meetingID = Integer.valueOf(eventElement.attributeValue("meetingID"));
             		String title = eventElement.attributeValue("meetingName");
             		Models.Event event = new Models.Event(eventID, followedUser, title, start, end, location, description);
+            		event.setMeetingID(meetingID);
             		event.setStatus(status);
             		followedUserEventList.add(event);
             		followedUser.setEvents((ArrayList<Models.Event>) followedUserEventList);
@@ -221,7 +225,7 @@ public class Xmlhandle {
             allUsers.add(user);
         }
         
-        //TODO Group them up in meetings
+        //TODO Fix meeting leader stuff?
 
         //Add the user to the imported calendars
         followedUserList.add(loginUser);
@@ -262,21 +266,53 @@ public class Xmlhandle {
 			String description = eventElement.attributeValue("description");
 			Status status = Status.valueOf(eventElement.attributeValue("status"));
 			Models.Event event = new Models.Event(eventID, meetingLeader, meetingName, start, end, location, description);
+			event.setMeetingID(meetingID);
 			event.setStatus(status);
+			
+			meetingLeader.getEvents().add(event);
+			
+			if (client.getUser().getUSER_ID() == ownerID) {
+				event.setStatus(Status.ACCEPTED);
+			} else {
+				event.setStatus(Status.NOT_RESPONDED);
+			}
 						
 			//Adds the event to the logged in users event list
 			client.getUser().getEvents().add(event);
 			
-			Models.Meeting createdMeeting = new Models.Meeting(event);
-			createdMeeting.setMeetingID(meetingID);
-			createdMeeting.setParticipants((ArrayList<Models.User>) invitedUsers);
+			//Models.Meeting createdMeeting = new Models.Meeting(event);
+			//createdMeeting.setMeetingID(meetingID);
+			//createdMeeting.setParticipants((ArrayList<Models.User>) invitedUsers);
 			
-			client.getMeetings().add(createdMeeting);
+			//client.getMeetings().add(createdMeeting);
 			
 			
 		} else if (action == MessageAction.EDIT_MEETING) {
 			
-		
+			//Create the meeting leader
+			Models.User meetingLeader = new Models.User(ownerID, ownerUsername);
+			meetingLeader.setName(ownerName);
+			
+			Element meetingElement = root.element("meeting");
+			int meetingID = Integer.valueOf(meetingElement.attributeValue("meeting_ID"));
+			String meetingName = meetingElement.attributeValue("name");
+			
+			Element eventElement = root.element("changed_event");
+	        int eventID = Integer.valueOf(eventElement.attributeValue("event_ID"));
+			Timestamp start = StringToDate(eventElement.attributeValue("start"));
+			Timestamp end = StringToDate(eventElement.attributeValue("end"));
+			String location = eventElement.attributeValue("location");
+			String description = eventElement.attributeValue("description");
+			Status status = Status.valueOf(eventElement.attributeValue("status"));
+			Models.Event event = new Models.Event(eventID, meetingLeader, meetingName, start, end, location, description);
+			event.setStatus(status);
+			event.setMeetingID(meetingID);
+			
+			for (Models.Event userEvent : client.getUser().getEvents()) {
+				if (userEvent.getMeetingID() == meetingID) {
+					userEvent = event;
+				}
+			}
 			
 		} else if (action == MessageAction.EDIT_NAME_OF_USER) {
 			

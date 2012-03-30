@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.GroupLayout.ParallelGroup;
 import javax.swing.GroupLayout.SequentialGroup;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import connection.Client;
@@ -149,13 +148,19 @@ public class Calendar extends JPanel {
         calendarPanelLayout.setVerticalGroup(calendarVertical);
         
 	}
-	JScrollPane scrollex = new JScrollPane(new JPanel());
 	private ArrayList<JPanel> dayPanels;
 	private ArrayList<ArrayList<JPanel>> hourPanels;
 	private ArrayList<GroupLayout> layouts;
 	
 	public void addListener(Client client) {
 		this.client = client;
-		
+	}
+
+	public void clearCalendar() {
+		for (int i = 1; i < hourPanels.size(); i++){
+			for (int j = 0; j < hourPanels.get(i).size(); j++){
+				hourPanels.get(i).get(j).removeAll();
+			}
+		}
 	}
 }

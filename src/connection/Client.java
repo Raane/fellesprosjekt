@@ -36,8 +36,8 @@ public class Client implements ActionListener{
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
 	private Timestamp endOfWeek = new Timestamp(new Date().getTime()+(8-getDayOfWeek())*(24*60*60*1000));
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
-	private String testUsername = "Henning";
-	private String testPassword = "henning";
+	private String testUsername = "henrik";
+	private String testPassword = "henrik";
 	private boolean editing;
 	private boolean waitingForServerRespons = false;
 	
@@ -157,8 +157,9 @@ public class Client implements ActionListener{
 			xmlHandle.createAddMeetingRequest(listParticipants, event, meetingroomid, title, user.getUSERNAME());
 			clearNewEvent();			
 			waitingForServerRespons = true;
+			while(waitingForServerRespons);
 			try {
-				wait(1000);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -279,17 +280,13 @@ public class Client implements ActionListener{
 			if(activeCalendars.contains(otheruser)){  //Checks if the calendar is active				
 				ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
 				for(Event event:otheruser.getEvents()) {
-//					System.out.println("checking event");
 					if(event.getStartTime().after(startOfWeek) && event.getStartTime().before(endOfWeek)) { //Checks if the event is in the right week
 						otherUsersCalendar.add(event);  //Adds the event
-//						System.out.println(event.getStartTime().getDate());
 					}
 				}
 				calendarEntries.add(otherUsersCalendar); //Adds the list with the users events that week
 			}
 		}
-//		user.getEvents();
-//		System.out.println(calendarEntries.get(0).size() + " " + calendarEntries.get(1).size() + " " + calendarEntries.get(2).size());
 		return calendarEntries;
 	}
 
@@ -373,7 +370,7 @@ public class Client implements ActionListener{
 	
 	private void clientConnectionAction(String msg) {
 		System.out.println("Message received from server: "+ msg);
-		
+		waitingForServerRespons = false;
 		try {
 			try {
 				xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);

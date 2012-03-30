@@ -36,8 +36,8 @@ public class Client implements ActionListener{
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
 	private Timestamp endOfWeek = new Timestamp(new Date().getTime()+(8-getDayOfWeek())*(24*60*60*1000));
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
-	private String testUsername = "joakim";
-	private String testPassword = "joakim";
+	private String testUsername = "morten";
+	private String testPassword = "morten";
 
 	private boolean editing;
 	private boolean waitingForServerRespons = false;
@@ -157,14 +157,14 @@ public class Client implements ActionListener{
 			}
 			xmlHandle.createAddMeetingRequest(listParticipants, event, meetingroomid, title, user.getUSERNAME());
 			clearNewEvent();			
-			waitingForServerRespons = true;
-			while(waitingForServerRespons);
-//			try {
-//				Thread.sleep(10);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+//			waitingForServerRespons = true;
+//			while(waitingForServerRespons);
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(user.getEvents().size());
 		} else {
 			Timestamp start = Timestamp.valueOf(startDate + " " + startTime + ":00");
@@ -175,15 +175,15 @@ public class Client implements ActionListener{
 			System.out.println(editingEvent.getEventID());
 			xmlHandle.createEditMeetingRequest(eventChanges, editingEvent.getMeetingID(),user.getUSERNAME());
 			clearNewEvent();
-//			try {
-//				wait(1000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+			try {
+				wait(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-			waitingForServerRespons = true;
-			while(waitingForServerRespons);
+//			waitingForServerRespons = true;
+//			while(waitingForServerRespons);
 			System.out.println(user.getEvents().size());
 		}
 		updateCalendar(shownWeek, shownYear);

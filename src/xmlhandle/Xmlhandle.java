@@ -313,7 +313,7 @@ public class Xmlhandle {
 					userEvent.setStartTime(event.getStartTime());
 					userEvent.setEndTime(event.getEndTime());
 					userEvent.setLocation(event.getLocation());
-					System.out.println("Changed event");
+					userEvent.setAgenda(event.getAgenda());
 				}
 			}
 			

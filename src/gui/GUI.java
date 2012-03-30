@@ -85,8 +85,8 @@ public class GUI extends JFrame {
         weekLabel.setHorizontalAlignment(SwingConstants.CENTER);
         weekLabel.setText("Uke 12 - 2012");
 
-        previousWeekButton.setText("Forrige uke");
-        nextWeekButton.setText("Neste uke");
+        previousWeekButton.setText("⇐  Forrige uke  ");
+        nextWeekButton.setText("  Neste uke  ⇒");
 
         calendarScrollPane.setViewportView(calendarPanel);
 

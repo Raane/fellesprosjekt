@@ -41,6 +41,7 @@ public class Client implements ActionListener{
 	private String testUsername = "Henning";
 	private String testPassword = "henning";
 	private boolean editing;
+	private boolean waitingForServerRespons = false;
 	
 	public static void main(String[] args) {
 //		System.out.println(getDayOfWeek());
@@ -54,11 +55,16 @@ public class Client implements ActionListener{
 		System.out.println("logging in");
 		
 		xmlHandle.createLoginRequest(testUsername,testPassword);
+//		waitingForServerRespons = true;
+//		while(waitingForServerRespons);
+		
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		System.out.println("logged in");
 		
 		guicontroller = new GuiController();
@@ -143,13 +149,9 @@ public class Client implements ActionListener{
 			}
 			System.out.println(user.getEvents().size());
 			xmlHandle.createAddMeetingRequest(listParticipants, event, meetingroomid, title, user.getUSERNAME());
-			clearNewEvent();
-			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			clearNewEvent();			
+			waitingForServerRespons = true;
+			while(waitingForServerRespons);
 			updateCalendar(shownWeek, shownYear);
 			System.out.println(user.getEvents().size());
 		}
@@ -229,6 +231,7 @@ public class Client implements ActionListener{
 	}
 
 	private void updateCalendar(int shownWeek, int shownYear) {
+		System.out.println("updating calendar");
 		guicontroller.setCalendarEntries(getCalendarEntries(shownWeek));
 		guicontroller.setCalendarTitle("Uke " + shownWeek + " - " + shownYear);
 	}
@@ -238,21 +241,24 @@ public class Client implements ActionListener{
 	private static int getWeekNumber() {return new GregorianCalendar().get(Calendar.WEEK_OF_YEAR);}
 	private static int getYearNumber() {return 	new GregorianCalendar().get(Calendar.YEAR);} 
 
-	private ArrayList<ArrayList<Event>> getCalendarEntries(int weekNumber) {		
+	private ArrayList<ArrayList<Event>> getCalendarEntries(int weekNumber) {
 		ArrayList<ArrayList<Event>> calendarEntries = new ArrayList<ArrayList<Event>>();
 		ArrayList<User> activeCalendars = guicontroller.getActiveCalendars();
 		for(User otheruser:user.getImportedCalendars()) {
 			if(activeCalendars.contains(otheruser)){  //Checks if the calendar is active				
 				ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
 				for(Event event:otheruser.getEvents()) {
+//					System.out.println("checking event");
 					if(event.getStartTime().after(startOfWeek) && event.getStartTime().before(endOfWeek)) { //Checks if the event is in the right week
 						otherUsersCalendar.add(event);  //Adds the event
+//						System.out.println(event.getStartTime().getDate());
 					}
 				}
 				calendarEntries.add(otherUsersCalendar); //Adds the list with the users events that week
 			}
 		}
-		user.getEvents();
+//		user.getEvents();
+//		System.out.println(calendarEntries.get(0).size() + " " + calendarEntries.get(1).size() + " " + calendarEntries.get(2).size());
 		return calendarEntries;
 	}
 
@@ -306,7 +312,6 @@ public class Client implements ActionListener{
 		startOfWeek.setTime(startOfWeek.getTime()+WEEKLENGTH*weeks);
 		endOfWeek.setTime(endOfWeek.getTime()+WEEKLENGTH*weeks);
 		System.out.println(startOfWeek.getDate());
-		System.out.println(startOfWeek.getNanos());
 		shownWeek += weeks;
 		if(shownWeek<1) {
 			shownWeek = 52;
@@ -330,11 +335,12 @@ public class Client implements ActionListener{
 		if(e.getSource()==xmlHandle) {
 			xmlHandleAction((Xmlhandle) e.getSource());
 		}
-		updateFields();
+		if(user!=null && guicontroller!=null) updateFields();
 	}
 	
 	private void clientConnectionAction(String msg) {
 		System.out.println("Message received from server: "+ msg);
+		
 		try {
 			try {
 				xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);
@@ -344,6 +350,7 @@ public class Client implements ActionListener{
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		waitingForServerRespons = false;
 	}
 	
 	private void xmlHandleAction(Xmlhandle xmlHandle) {

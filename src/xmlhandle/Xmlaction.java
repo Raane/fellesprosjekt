@@ -236,7 +236,7 @@ public class Xmlaction {
 	}
 	
 	//Tested and should be working
-	public boolean editMeeting(Event eventChanges, int meetingID) throws SQLException {
+	public Document editMeeting(Event eventChanges, int meetingID) throws SQLException {
 		//Here you should be able to change pretty much everything about the meeting/event.
 		//Can only be done by the meeting leader.
 		//Note: This must only be used to change the meeting leader's event, not anyone else's.
@@ -265,7 +265,13 @@ public class Xmlaction {
 		
 		handle.updateEvent(eventChanges);
 				
-		return true;
+		////// RESPONSE //////
+		
+		//Send the new event to the client. Save it in the meeting maybe? Also get the users to notify
+		
+		
+		
+		return null;
 		
 	}
 	

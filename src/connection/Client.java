@@ -158,13 +158,12 @@ public class Client implements ActionListener{
 			clearNewEvent();			
 			waitingForServerRespons = true;
 			while(waitingForServerRespons);
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			updateCalendar(shownWeek, shownYear);
+//			try {
+//				Thread.sleep(10);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			System.out.println(user.getEvents().size());
 		} else {
 			Timestamp start = Timestamp.valueOf(startDate + " " + startTime + ":00");
@@ -175,16 +174,19 @@ public class Client implements ActionListener{
 			System.out.println(editingEvent.getEventID());
 			xmlHandle.createEditMeetingRequest(eventChanges, editingEvent.getMeetingID(),user.getUSERNAME());
 			clearNewEvent();
-			try {
-				wait(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			updateCalendar(shownWeek, shownYear);
+//			try {
+//				wait(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+
+			waitingForServerRespons = true;
+			while(waitingForServerRespons);
 			System.out.println(user.getEvents().size());
 		}
-		
+		updateCalendar(shownWeek, shownYear);
+		updateAgenda();
 //		guicontroller.setNewEvent(new Meeting(event));
 //		public void addEventButtonAction() {
 

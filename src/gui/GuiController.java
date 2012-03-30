@@ -121,6 +121,10 @@ public class GuiController {
 	}
 
 	public void setCalendarEntries(ArrayList<ArrayList<Event>> entries) {
+		// Clear the calendar
+		gui.getCalendarPanel().clearCalendar();
+		gui.getCalendarPanel().repaint();
+		
 		// Disse farge bør ikke ligge her. Disse farge ligger her... og jeg bryr meg ikke
 		ArrayList<Color> colors = new ArrayList<Color>();
 		colors.add(new Color(208, 223, 181)); // light green

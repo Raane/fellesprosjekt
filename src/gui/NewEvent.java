@@ -396,10 +396,27 @@ public class NewEvent extends JPanel{
 	}
 	
 	public void setEditForm(Event event) {
-		String startDate = (1900 + event.getStartTime().getYear()) + "-" + event.getStartTime().getMonth() + "-" + event.getStartTime().getDate();
-		String startTime = event.getStartTime().getHours() + ":" + event.getStartTime().getMinutes();
-		String endDate = (1900 + event.getEndTime().getYear()) + "-" + event.getEndTime().getMonth() + "-" + event.getEndTime().getDate();
-		String endTime = event.getEndTime().getHours() + ":" + event.getEndTime().getMinutes();
+		String startMonth = Integer.toString(event.getStartTime().getMonth()+1);
+		if(startMonth.length()==1) startMonth = "0" + startMonth;
+		String endMonth = Integer.toString(event.getEndTime().getMonth()+1);
+		if(endMonth.length()==1) endMonth = "0" + endMonth;
+		String startDayOfMonth = Integer.toString(event.getStartTime().getDate());
+		if(startDayOfMonth.length()==1) startDayOfMonth = "0" + startDayOfMonth;
+		String endDayOfMonth = Integer.toString(event.getEndTime().getDate());
+		if(endDayOfMonth.length()==1) endDayOfMonth = "0" + endDayOfMonth;
+		String startHour = Integer.toString(event.getStartTime().getHours());
+		if(startHour.length()==1) startHour += "0";
+		String endHour = Integer.toString(event.getEndTime().getHours());
+		if(endHour.length()==1) endHour += "0";
+		String startMinutes = Integer.toString(event.getStartTime().getMinutes());
+		if(startMinutes.length()==1) startMinutes += "0";
+		String endMinutes = Integer.toString(event.getEndTime().getMinutes());
+		if(endMinutes.length()==1) endMinutes += "0";
+		
+		String startDate = (1900 + event.getStartTime().getYear()) + "-" + startMonth + "-" + startDayOfMonth;
+		String startTime = startHour + ":" + startMinutes;
+		String endDate = (1900 + event.getEndTime().getYear()) + "-" + endMonth + "-" + endDayOfMonth;
+		String endTime = endHour + ":" + endMinutes;
 		
 		subjectTextField.setText(event.getTitle());
 		startDateTextField.setText(startDate);

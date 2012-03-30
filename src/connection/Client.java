@@ -38,6 +38,7 @@ public class Client implements ActionListener{
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
 	private String testUsername = "joakim";
 	private String testPassword = "joakim";
+
 	private boolean editing;
 	private boolean waitingForServerRespons = false;
 	
@@ -157,13 +158,13 @@ public class Client implements ActionListener{
 			xmlHandle.createAddMeetingRequest(listParticipants, event, meetingroomid, title, user.getUSERNAME());
 			clearNewEvent();			
 			waitingForServerRespons = true;
-			try {
-				wait(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			updateCalendar(shownWeek, shownYear);
+			while(waitingForServerRespons);
+//			try {
+//				Thread.sleep(10);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			System.out.println(user.getEvents().size());
 		} else {
 			Timestamp start = Timestamp.valueOf(startDate + " " + startTime + ":00");
@@ -174,16 +175,19 @@ public class Client implements ActionListener{
 			System.out.println(editingEvent.getEventID());
 			xmlHandle.createEditMeetingRequest(eventChanges, editingEvent.getMeetingID(),user.getUSERNAME());
 			clearNewEvent();
-			try {
-				wait(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			updateCalendar(shownWeek, shownYear);
+//			try {
+//				wait(1000);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+
+			waitingForServerRespons = true;
+			while(waitingForServerRespons);
 			System.out.println(user.getEvents().size());
 		}
-		
+		updateCalendar(shownWeek, shownYear);
+		updateAgenda();
 //		guicontroller.setNewEvent(new Meeting(event));
 //		public void addEventButtonAction() {
 
@@ -279,17 +283,13 @@ public class Client implements ActionListener{
 			if(activeCalendars.contains(otheruser)){  //Checks if the calendar is active				
 				ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
 				for(Event event:otheruser.getEvents()) {
-//					System.out.println("checking event");
 					if(event.getStartTime().after(startOfWeek) && event.getStartTime().before(endOfWeek)) { //Checks if the event is in the right week
 						otherUsersCalendar.add(event);  //Adds the event
-//						System.out.println(event.getStartTime().getDate());
 					}
 				}
 				calendarEntries.add(otherUsersCalendar); //Adds the list with the users events that week
 			}
 		}
-//		user.getEvents();
-//		System.out.println(calendarEntries.get(0).size() + " " + calendarEntries.get(1).size() + " " + calendarEntries.get(2).size());
 		return calendarEntries;
 	}
 
@@ -373,7 +373,7 @@ public class Client implements ActionListener{
 	
 	private void clientConnectionAction(String msg) {
 		System.out.println("Message received from server: "+ msg);
-		
+		waitingForServerRespons = false;
 		try {
 			try {
 				xmlHandle.interpretMessageData(Xmlhandle.stringToXML(msg), this);

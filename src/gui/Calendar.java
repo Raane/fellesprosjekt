@@ -88,6 +88,7 @@ public class Calendar extends JPanel {
     	textArea.setEditable(false);
 		textArea.setLineWrap(true);
 		textArea.setBackground(color);
+		textArea.addMouseListener(eventClickedListener(event));
 		
 		height = event.getEndTime().getMinutes();
 		vertical.addComponent(textArea, height, height, height);

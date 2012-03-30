@@ -3,7 +3,6 @@ package gui;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Timestamp;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -16,7 +15,6 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import Models.Event;
-import Models.User;
 
 import connection.Client;
 

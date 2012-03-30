@@ -106,15 +106,19 @@ public class Client implements ActionListener{
 	}
 	public void meetingroomSearchAction() {
 		String search = guicontroller.getMeetingroomSearch();
-		ArrayList<Meetingroom> validMeetingrooms = new ArrayList<Meetingroom>();
-		for(Meetingroom meetingroom:meetingrooms) {
-			boolean valid = true;
-			for(int i=0;i<search.length()&&i<meetingroom.getRoomName().length();i++) {
-				if(!(search.charAt(i)==meetingroom.getRoomName().charAt(i))) valid = false;
+		if(search.equals("Søk")) {
+			guicontroller.setAvailableMeetingrooms(meetingrooms);
+		} else {
+			ArrayList<Meetingroom> validMeetingrooms = new ArrayList<Meetingroom>();
+			for(Meetingroom meetingroom:meetingrooms) {
+				boolean valid = true;
+				for(int i=0;i<search.length()&&i<meetingroom.getRoomName().length();i++) {
+					if(!(search.charAt(i)==meetingroom.getRoomName().charAt(i))) valid = false;
+				}
+				if(valid) validMeetingrooms.add(meetingroom);
 			}
-			if(valid) validMeetingrooms.add(meetingroom);
+			guicontroller.setAvailableMeetingrooms(validMeetingrooms);			
 		}
-		guicontroller.setAvailableMeetingrooms(validMeetingrooms);
 	}
 	public void availableMeetingroomsAction(String string) {
 		
@@ -249,9 +253,9 @@ public class Client implements ActionListener{
 		ArrayList<ArrayList<Event>> calendarEntries = new ArrayList<ArrayList<Event>>();
 		ArrayList<User> activeCalendars = guicontroller.getActiveCalendars();
 		for(User otheruser:user.getImportedCalendars()) {
-			ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
-			for(Event event:otheruser.getEvents()) {
-				if(activeCalendars.contains(otheruser)){  //Checks if the calendar is active				
+			if(activeCalendars.contains(otheruser)){  //Checks if the calendar is active				
+				ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
+				for(Event event:otheruser.getEvents()) {
 //					System.out.println("checking event");
 					if(event.getStartTime().after(startOfWeek) && event.getStartTime().before(endOfWeek)) { //Checks if the event is in the right week
 						otherUsersCalendar.add(event);  //Adds the event
@@ -287,6 +291,7 @@ public class Client implements ActionListener{
 	}
 
 	private void createNewEvent() {
+		meetingroomSearchAction();
 		guicontroller.setNewEvent(new Meeting(new Event(user)));
 	}
 

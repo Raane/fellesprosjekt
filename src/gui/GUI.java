@@ -195,7 +195,23 @@ public class GUI extends JFrame {
     private JScrollPane notificationsScrollPane;
     private JButton previousWeekButton;
     private JTabbedPane tabbedPane;
-    private JLabel weekLabel;
+    public JTabbedPane getTabbedPane() {
+		return tabbedPane;
+	}
+
+	public JScrollPane getNewEventScrollPane() {
+		return newEventScrollPane;
+	}
+
+	public void setNewEventScrollPane(JScrollPane newEventScrollPane) {
+		this.newEventScrollPane = newEventScrollPane;
+	}
+
+	public void setTabbedPane(JTabbedPane tabbedPane) {
+		this.tabbedPane = tabbedPane;
+	}
+
+	private JLabel weekLabel;
     // End of variables declaration
 
 }

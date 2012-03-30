@@ -47,6 +47,14 @@ public class GuiController {
 		return Admin.getNewNameTextField().getText();
 	}
 	
+	public GUI getGui() {
+		return gui;
+	}
+
+	public void setGui(GUI gui) {
+		this.gui = gui;
+	}
+
 	//Method for getting the text typed in the text-field for the old password.
 	public String getOldPassword(){
 		return Admin.getOldPasswordTextField().getText();
@@ -151,6 +159,8 @@ public class GuiController {
 	}
 	public void clearNewEvent() {
 		gui.getNewEventPanel().clear();
+		gui.getNewEventPanel().changePanelHeadline("Ny Avtale");
+		
 	}
 
 	public void setEditForm(Event event) {

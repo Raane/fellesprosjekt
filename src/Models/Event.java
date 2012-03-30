@@ -36,7 +36,7 @@ public class Event{
 	
 	//Constructor for when a user is summoned to a meeting
 	public Event(int eventID, User owner, String title, Timestamp start, Timestamp end, String location, String agenda){
-		this.eventID = eventID;
+		this.setEventID(eventID);
 		this.owner = owner;
 		this.title = title;
 		this.startTime = start;
@@ -116,6 +116,14 @@ public class Event{
 	
 	public User getOwner(){
 		return this.owner;
+	}
+
+	public int getEventID() {
+		return eventID;
+	}
+
+	public void setEventID(int eventID) {
+		this.eventID = eventID;
 	}
 
 }

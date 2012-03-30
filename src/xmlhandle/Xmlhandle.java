@@ -310,7 +310,10 @@ public class Xmlhandle {
 			
 			for (Models.Event userEvent : client.getUser().getEvents()) {
 				if (userEvent.getMeetingID() == meetingID) {
-					userEvent = event;
+					userEvent.setStartTime(event.getStartTime());
+					userEvent.setEndTime(event.getEndTime());
+					userEvent.setLocation(event.getLocation());
+					System.out.println("Changed event");
 				}
 			}
 			

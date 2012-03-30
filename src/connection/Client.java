@@ -41,6 +41,8 @@ public class Client implements ActionListener{
 	private boolean editing;
 	private boolean waitingForServerRespons = false;
 	
+	private Event editingEvent;
+	
 	public static void main(String[] args) {
 //		System.out.println(getDayOfWeek());
 		Client client = new Client();
@@ -152,11 +154,32 @@ public class Client implements ActionListener{
 			for(User user:participants) {
 				listParticipants.add(user.getUSER_ID());
 			}
-			System.out.println(user.getEvents().size());
 			xmlHandle.createAddMeetingRequest(listParticipants, event, meetingroomid, title, user.getUSERNAME());
 			clearNewEvent();			
 			waitingForServerRespons = true;
-			while(waitingForServerRespons);
+			try {
+				wait(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			updateCalendar(shownWeek, shownYear);
+			System.out.println(user.getEvents().size());
+		} else {
+			Timestamp start = Timestamp.valueOf(startDate + " " + startTime + ":00");
+			Timestamp end = Timestamp.valueOf(endDate + " " + endTime + ":00");
+			
+			dbhandle.Event eventChanges = new dbhandle.Event(start, end, "somewhere", description, Status.ACCEPTED);
+			eventChanges.setEvent_ID(editingEvent.getEventID());
+			System.out.println(editingEvent.getEventID());
+			xmlHandle.createEditMeetingRequest(eventChanges, editingEvent.getMeetingID(),user.getUSERNAME());
+			clearNewEvent();
+			try {
+				wait(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			updateCalendar(shownWeek, shownYear);
 			System.out.println(user.getEvents().size());
 		}
@@ -165,7 +188,7 @@ public class Client implements ActionListener{
 //		public void addEventButtonAction() {
 
 	}
-	private void clearNewEvent() {
+	public void clearNewEvent() {
 		editing = false;
 		guicontroller.clearNewEvent();
 	}
@@ -408,7 +431,16 @@ public class Client implements ActionListener{
 	public void calendarEventClicked(Event event) {
 		// Gjør backend-greier (i hovedsak sørg for at skit oppdateres istedenfor å lages til en ny event)
 		// Switch til NewEvent-tab og fyll ut skit
+		editing = true;
+		System.out.println(event.getEventID());
+		
+		editingEvent = event;
+		
+		guicontroller.getGui().getTabbedPane().setSelectedIndex(1);
+		guicontroller.getGui().getNewEventPanel().changePanelHeadline("Endre Avtale");
+		
 		guicontroller.setEditForm(event);
+
 	}
 
 }

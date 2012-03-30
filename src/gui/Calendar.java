@@ -156,8 +156,11 @@ public class Calendar extends JPanel {
 	private MouseListener eventClickedListener(final Event event) {
     	return new MouseAdapter(){
     		public void mouseClicked(MouseEvent e){
+    			if (e.getButton() == MouseEvent.BUTTON1) {
 				client.calendarEventClicked(event);
-				System.out.println(event.getTitle());
+    			} else if (e.getButton() == MouseEvent.BUTTON3) {
+    				client.clearNewEvent();
+    			}
 			}
 			
     		// not used

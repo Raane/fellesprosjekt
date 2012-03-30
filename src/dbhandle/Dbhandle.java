@@ -370,6 +370,7 @@ public User fetchUser(int user_ID) {
 	
 	//Updates the values of a meeting
 	public void updateEvent(Event event) {
+		System.out.println("Updating :" + event.getEvent_ID());
 		
 		String update = String.format("UPDATE event SET start='%s',end='%s',location='%s',description='%s',status='%s' WHERE event_ID='%d'",
 				event.getStart(), event.getEnd(), event.getLocation(),event.getDescription(),event.getStatus(),event.getEvent_ID());

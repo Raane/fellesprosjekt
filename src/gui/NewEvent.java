@@ -338,6 +338,12 @@ public class NewEvent extends JPanel{
 		
 	}
 	
+	public void changePanelHeadline(String string) {
+    	
+    	newEventLabel.setText(string);
+    	addEventButton.setText("Legg til");
+    }
+	
 	private MouseListener mouseMeetingRoomSearch() {
 		return new MouseAdapter(){
 			public void mouseClicked(MouseEvent e){
@@ -479,6 +485,12 @@ public class NewEvent extends JPanel{
 	        meetingRoomScrollPane.setViewportView(meetingRoomPanel);
 
 	}
+	
+	public String getSubjectString() {
+		
+		return subjectTextField.getText();
+	}
+	
 	private MouseListener mouseListenerFactory (final JLabel tempLabel) {
     	return new MouseAdapter(){
     		public void mouseClicked(MouseEvent e){

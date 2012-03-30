@@ -249,9 +249,9 @@ public class Client implements ActionListener{
 		ArrayList<ArrayList<Event>> calendarEntries = new ArrayList<ArrayList<Event>>();
 		ArrayList<User> activeCalendars = guicontroller.getActiveCalendars();
 		for(User otheruser:user.getImportedCalendars()) {
-			if(activeCalendars.contains(otheruser)){  //Checks if the calendar is active				
-				ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
-				for(Event event:otheruser.getEvents()) {
+			ArrayList<Event> otherUsersCalendar = new ArrayList<Event>();
+			for(Event event:otheruser.getEvents()) {
+				if(activeCalendars.contains(otheruser)){  //Checks if the calendar is active				
 //					System.out.println("checking event");
 					if(event.getStartTime().after(startOfWeek) && event.getStartTime().before(endOfWeek)) { //Checks if the event is in the right week
 						otherUsersCalendar.add(event);  //Adds the event
@@ -275,8 +275,10 @@ public class Client implements ActionListener{
 		for(Event event:user.getEvents()) {
 			if(event.getStartTime().after(getNow())){
 				agenda.add(event);
+				System.out.println("added an event to the agenda");
 			}
 		}
+		System.out.println(agenda.size());
 		guicontroller.setAgenda(agenda);
 	}
 

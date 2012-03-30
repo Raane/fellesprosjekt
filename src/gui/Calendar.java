@@ -24,6 +24,7 @@ public class Calendar extends JPanel {
 	public void setCalendarEvent(Event event, Color color) {
 		// Find JPanel
 		int day = event.getStartTime().getDay();
+		if (day == 0){ day = 7; }
 		int startHour = event.getStartTime().getHours();
 		int endHour = event.getEndTime().getHours();
 		int totalHours = endHour - startHour;

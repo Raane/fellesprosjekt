@@ -173,15 +173,6 @@ public class Xmlaction {
 				handle.addEventMeetingRoom(event_ID, meetingRoomID);
 			}
 		}
-		
-		//Adds the meeting leader's event
-		newEvent.setStatus(Status.ACCEPTED);
-		int event_ID = handle.addEvent(newEvent);
-		handle.addMeetingEvent(meeting_ID, event_ID);
-		handle.addUserEvent(ownerID, event_ID);
-		if (meetingRoomID != -1) {
-			handle.addEventMeetingRoom(event_ID, meetingRoomID);
-		}
 				
 		//Figure out the meeting leader 
 		handle.addMeetingLeader(meeting_ID, ownerID);

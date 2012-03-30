@@ -36,8 +36,8 @@ public class Client implements ActionListener{
 	private Timestamp startOfWeek = new Timestamp(new Date().getTime()- getDayOfWeek()*(24*60*60*1000));
 	private Timestamp endOfWeek = new Timestamp(new Date().getTime()+(8-getDayOfWeek())*(24*60*60*1000));
 	private final long WEEKLENGTH = 7*24*60*60*1000; //in ms
-	private String testUsername = "Henning";
-	private String testPassword = "henning";
+	private String testUsername = "joakim";
+	private String testPassword = "joakim";
 	private boolean editing;
 	private boolean waitingForServerRespons = false;
 	

@@ -405,9 +405,9 @@ public class NewEvent extends JPanel{
 		String endDayOfMonth = Integer.toString(event.getEndTime().getDate());
 		if(endDayOfMonth.length()==1) endDayOfMonth = "0" + endDayOfMonth;
 		String startHour = Integer.toString(event.getStartTime().getHours());
-		if(startHour.length()==1) startHour += "0";
+		if(startHour.length()==1) startHour = "0" + startHour;
 		String endHour = Integer.toString(event.getEndTime().getHours());
-		if(endHour.length()==1) endHour += "0";
+		if(endHour.length()==1) endHour = "0" + endHour;
 		String startMinutes = Integer.toString(event.getStartTime().getMinutes());
 		if(startMinutes.length()==1) startMinutes += "0";
 		String endMinutes = Integer.toString(event.getEndTime().getMinutes());

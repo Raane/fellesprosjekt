@@ -1,12 +1,10 @@
 package connection;
 
-import gui.GUI;
 import gui.GuiController;
 
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -75,9 +73,9 @@ public class Client implements ActionListener{
 		meetingrooms = new ArrayList<Meetingroom>();
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Obsidian Eathershrine"));
 		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Minestery of Awesome"));
+		meetingrooms.add(new Meetingroom((int)(Math.random()*10000), "Oculus of Gaming"));
 		
 		meetings = new ArrayList<Meeting>();
-		
 		
 		initializeTimeThings();  // Initializes the time things (variables)
 		addCalendars(); //loads the users imported calendars into the GUI
@@ -117,6 +115,9 @@ public class Client implements ActionListener{
 			if(valid) validMeetingrooms.add(meetingroom);
 		}
 		guicontroller.setAvailableMeetingrooms(validMeetingrooms);
+	}
+	public void availableMeetingroomsAction(String string) {
+		
 	}
 	public void personsSearchAction() {
 		String search = guicontroller.getPersonSearch();
@@ -231,7 +232,10 @@ public class Client implements ActionListener{
 	}
 
 	private void updateCalendar(int shownWeek, int shownYear) {
-		System.out.println("updating calendar");
+		ArrayList<User> activeCalendars = guicontroller.getActiveCalendars();
+		for(User temp:activeCalendars) System.out.println( temp.getName());
+		
+		
 		guicontroller.setCalendarEntries(getCalendarEntries(shownWeek));
 		guicontroller.setCalendarTitle("Uke " + shownWeek + " - " + shownYear);
 	}
@@ -300,7 +304,6 @@ public class Client implements ActionListener{
 	}
 
 	private void addCalendars() {
-		System.out.println(user.getImportedCalendars().size());
 		for(User calendar:user.getImportedCalendars()) {
 			System.out.println("adding: " + calendar.getName());
 			guicontroller.addCalendar(calendar);

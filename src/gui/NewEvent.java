@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -7,10 +8,15 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import gui.Admin.userSearchAction;
 
 import javax.swing.*;
+import javax.swing.GroupLayout.ParallelGroup;
+import javax.swing.GroupLayout.SequentialGroup;
+
+import Models.Meetingroom;
 
 import connection.Client;
 
@@ -18,6 +24,10 @@ import connection.Client;
 public class NewEvent extends JPanel{
 
 	private Client client;
+	private ArrayList<JLabel> labels;
+	ImageIcon tick = new ImageIcon(getClass().getResource("/gui/icons/tick_16.png"));
+	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
+
 	
 	public NewEvent() {
 		
@@ -147,7 +157,7 @@ public class NewEvent extends JPanel{
         jLabel16.setOpaque(true);
 
         GroupLayout meetingRoomPanelLayout = new GroupLayout(meetingRoomPanel);
-        meetingRoomPanel.setLayout(meetingRoomPanelLayout);
+ /*       meetingRoomPanel.setLayout(meetingRoomPanelLayout);
         meetingRoomPanelLayout.setHorizontalGroup(
             meetingRoomPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, meetingRoomPanelLayout.createSequentialGroup()
@@ -155,7 +165,7 @@ public class NewEvent extends JPanel{
                     .addComponent(jLabel15, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                     .addComponent(jLabel16, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
                 .addGap(20, 20, 20))
-        );
+        ));
         meetingRoomPanelLayout.setVerticalGroup(
             meetingRoomPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(meetingRoomPanelLayout.createSequentialGroup()
@@ -163,9 +173,9 @@ public class NewEvent extends JPanel{
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(78, Short.MAX_VALUE))
-        );
+        );*/
 
-        meetingRoomScrollPane.setViewportView(meetingRoomPanel);
+//        meetingRoomScrollPane.setViewportView(meetingRoomPanel);
 
         descriptionTextArea.setColumns(20);
         descriptionTextArea.setRows(5);
@@ -343,11 +353,11 @@ public class NewEvent extends JPanel{
 		}
 
 		public void keyReleased(KeyEvent e) {
+			client.meetingroomSearchAction();
 	
 		}
 
 		public void keyTyped(KeyEvent e) {
-			client.meetingroomSearchAction();
 		}
 	}
 	
@@ -413,4 +423,62 @@ public class NewEvent extends JPanel{
     private JTextField subjectTextField;
     private JLabel PersonsLabel;
     private JButton addEventButton;
+
+	public void setMeetingrooms(ArrayList<Meetingroom> meetingrooms) {
+		
+//			meetingRoomPanel.add(new JLabel("Knirkerommet"));
+			meetingRoomPanel = new JPanel();
+			GroupLayout layout = new GroupLayout(meetingRoomPanel);
+			meetingRoomPanel.setLayout(layout);
+			
+			labels = new ArrayList<JLabel>(); //emptying the list
+			System.out.println("number of rooms: " + meetingrooms.size());
+	    	for (Meetingroom meetingroom:meetingrooms) {
+	    		JLabel tempLabel = new JLabel();
+	    		tempLabel.addMouseListener(mouseListenerFactory(tempLabel));
+	    		
+	    		tempLabel.setText(meetingroom.getRoomName());
+	        	tempLabel.setBackground(Color.white);
+	      
+	        	tempLabel.setOpaque(true);
+	        	tempLabel.setIcon(delete);
+	        	tempLabel.setIconTextGap(10);
+	        	tempLabel.setBorder(BorderFactory.createEmptyBorder(3, 10, 3, 10));
+	        	labels.add(tempLabel);
+	        }
+	    	
+	    	ParallelGroup showHideCalendarsHorizontalGroup = layout.createParallelGroup(GroupLayout.Alignment.LEADING);
+	        for(JLabel label:labels){
+	        	showHideCalendarsHorizontalGroup.addComponent(label , GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE);
+	        }
+	        
+	        SequentialGroup showHideCalendarsVerticalGroup = layout.createSequentialGroup();
+	        for(JLabel label:labels){
+	        	showHideCalendarsVerticalGroup.addComponent(label, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE);
+	        }
+	        
+	        layout.setHorizontalGroup(showHideCalendarsHorizontalGroup);
+	        layout.setVerticalGroup(showHideCalendarsVerticalGroup);
+	        meetingRoomScrollPane.setViewportView(meetingRoomPanel);
+
+	}
+	private MouseListener mouseListenerFactory (final JLabel tempLabel) {
+    	return new MouseAdapter(){
+    		public void mouseClicked(MouseEvent e){
+				for(JLabel deleteLabel:NewEvent.this.labels) {
+					deleteLabel.setIcon(delete);
+				}
+				tempLabel.setIcon(tick);
+				client.availableMeetingroomsAction(tempLabel.getText());
+			}
+			
+			public void mouseEntered(MouseEvent e){
+				tempLabel.setBackground(new Color(230,230,230));
+			}
+			
+			public void mouseExited(MouseEvent e){
+				tempLabel.setBackground(Color.white);
+			}
+		};
+	}
 }

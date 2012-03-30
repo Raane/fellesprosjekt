@@ -133,6 +133,13 @@ public class GUI extends JFrame {
 		NewEventPanel = newEventPanel;
 	}
 
+	public Calendar getCalendarPanel() {
+		return calendarPanel;
+	}
+	public void setCalendarPanel(Calendar calendarPanel) {
+		this.calendarPanel = calendarPanel;
+	}
+	
 	public Dashboard getDashboardPanel() {
 		return dashboardPanel;
 	}

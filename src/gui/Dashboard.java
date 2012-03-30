@@ -40,6 +40,7 @@ public class Dashboard extends JPanel {
 	private Client client;
 
 	ImageIcon tick = new ImageIcon(getClass().getResource("/gui/icons/tick_16.png"));
+	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
 	
 	public ImageIcon getTick() {
 		return tick;
@@ -49,7 +50,6 @@ public class Dashboard extends JPanel {
 		return delete;
 	}
 
-	ImageIcon delete = new ImageIcon(getClass().getResource("/gui/icons/delete_16.png"));
     
 	
 	//Viktig at objektet på plass 0 i calendarList er samme objekt som på plass 0 i lables

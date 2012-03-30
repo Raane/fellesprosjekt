@@ -131,6 +131,9 @@ public class GuiController {
 		colors.add(new Color(223, 161, 161)); // light red
 		colors.add(new Color(161, 191, 221)); // light blue
 		colors.add(new Color(237, 227, 167)); // light yellow
+		for(int i=0;i<28;i++) {
+			colors.add(new Color(150 + (int)(Math.random()*155),150 + (int)(Math.random()*155),150 + (int)(Math.random()*155)));
+		}
 		
 		for (int i = 0; i < entries.size(); i++){
 			for (int j = 0; j < entries.get(i).size(); j++){

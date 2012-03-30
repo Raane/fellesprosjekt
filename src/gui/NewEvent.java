@@ -343,11 +343,11 @@ public class NewEvent extends JPanel{
 		}
 
 		public void keyReleased(KeyEvent e) {
+			client.meetingroomSearchAction();
 	
 		}
 
 		public void keyTyped(KeyEvent e) {
-			client.meetingroomSearchAction();
 		}
 	}
 	

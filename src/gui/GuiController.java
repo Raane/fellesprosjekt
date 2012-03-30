@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import connection.Client;
@@ -13,6 +14,8 @@ import Models.User;
 public class GuiController {
 	
 	private GUI gui;
+	private Notifications notifications;
+	private Dashboard dashboard;
 	
 	public GuiController() {
 		gui = new GUI();
@@ -105,20 +108,29 @@ public class GuiController {
 	}
 	
 	public void setAvailablePersons(ArrayList<User> validPersons) {
-		//TODO make it
+		dashboard.updateShowHideCalendars(validPersons);
 	}
 
 	public void setMessages(ArrayList<Event> messages) {
-		//TODO these events should end up in the notifications
+		for (int i = 0; i < messages.size(); i++) {
+			notifications.newNotification(messages.get(i));
+		}
 	}
 	public void setCalendarTitle(String title) {
 		gui.setWeekLabel(title);
 	}
 
 	public void setCalendarEntries(ArrayList<ArrayList<Event>> entries) {
+		// Disse farge bør ikke ligge her. Disse farge ligger her... og jeg bryr meg ikke
+		ArrayList<Color> colors = new ArrayList<Color>();
+		colors.add(new Color(208, 223, 181)); // light green
+		colors.add(new Color(223, 161, 161)); // light red
+		colors.add(new Color(161, 191, 221)); // light blue
+		colors.add(new Color(237, 227, 167)); // light yellow
+		
 		for (int i = 0; i < entries.size(); i++){
 			for (int j = 0; j < entries.get(i).size(); j++){
-				gui.setCalendarEvent(entries.get(i).get(j));
+				gui.setCalendarEvent(entries.get(i).get(j), colors.get(i % colors.size()));
 			}
 		}
 	}

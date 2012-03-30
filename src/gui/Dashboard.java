@@ -173,16 +173,16 @@ public class Dashboard extends JPanel {
 		
 	}
 
-	public void updateShowHideCalendars(ArrayList<User> events){
+	public void updateShowHideCalendars(ArrayList<User> users){
 		GroupLayout layout = new GroupLayout(showHideCalendarsPanel);
 		showHideCalendarsPanel.setLayout(layout);
 		
 		labels = new ArrayList<JLabel>(); //emptying the list
-    	for (int i = 0; i < events.size(); i++){
+    	for (int i = 0; i < users.size(); i++){
     		JLabel temp = new JLabel();
     		temp.addMouseListener(mouseTempListener(temp));
     		
-    		temp.setText(events.get(i).getName());
+    		temp.setText(users.get(i).getName());
         	temp.setBackground(Color.white);
       
         	temp.setOpaque(true);

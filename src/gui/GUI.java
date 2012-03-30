@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
@@ -85,8 +86,8 @@ public class GUI extends JFrame {
         weekLabel.setHorizontalAlignment(SwingConstants.CENTER);
         weekLabel.setText("Uke 12 - 2012");
 
-        previousWeekButton.setText("Forrige uke");
-        nextWeekButton.setText("Neste uke");
+        previousWeekButton.setText("⇐  Forrige uke  ");
+        nextWeekButton.setText("  Neste uke  ⇒");
 
         calendarScrollPane.setViewportView(calendarPanel);
 
@@ -140,8 +141,8 @@ public class GUI extends JFrame {
 		this.dashboardPanel = dashboardPanel;
 	}
 
-	public void setCalendarEvent(Event event){
-		calendarPanel.setCalendarEvent(event);
+	public void setCalendarEvent(Event event, Color color){
+		calendarPanel.setCalendarEvent(event, color);
 	}
 	
 	class previousWeekAction implements ActionListener{
